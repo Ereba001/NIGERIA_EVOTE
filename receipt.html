@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Receipt | Nigeria E-Vote</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+</head>
+<body class="bg-light">
+    <main class="receipt-main">
+        <section class="receipt-card" data-aos="zoom-in">
+            <i class="fi-rs-check receipt-success-icon"></i>
+            <h1>Vote Successfully Cast</h1>
+            <p class="receipt-subtitle">Your democratic choice has been securely recorded on the blockchain.</p>
+
+            <div class="receipt-section">
+                <span class="receipt-label">Voting Details</span>
+                <div class="receipt-row">
+                    <span>Selected Candidate</span>
+                    <strong id="receiptCandidate">Candidate B</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Political Party</span>
+                    <strong id="receiptParty">United Alliance (UA)</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Timestamp</span>
+                    <strong id="receiptTimestamp">--</strong>
+                </div>
+            </div>
+
+            <div class="receipt-security">
+                <span class="receipt-label">Security & Transparency</span>
+                <label for="transactionHash">Transaction Hash</label>
+                <div class="copy-field">
+                    <input id="transactionHash" type="text" readonly value="0x7f8e9a2b1c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8g9h0i1j2k3l4m5n6o7p8q9">
+                    <button type="button" class="copy-btn" data-copy-target="transactionHash" aria-label="Copy transaction hash">Copy</button>
+                </div>
+
+                <label for="verificationId">Blockchain Verification ID</label>
+                <div class="copy-field">
+                    <input id="verificationId" type="text" readonly value="NG-E-VOTE-2024-X99-8821-B4">
+                    <button type="button" class="copy-btn" data-copy-target="verificationId" aria-label="Copy verification ID">Copy</button>
+                </div>
+            </div>
+
+            <div class="receipt-notice">
+                This receipt serves as permanent proof of your vote. Your identity remains anonymous while your vote is publicly verifiable via the national ledger.
+            </div>
+
+            <a href="dashboard.html" class="btn btn-primary btn-full btn-large">Proceed Back to Dashboard</a>
+            <button type="button" class="btn btn-secondary btn-full btn-large" id="downloadReceiptBtn">Download Receipt (PDF)</button>
+
+            <div class="receipt-brand">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <span class="logo-text">E-VOTE SYSTEM</span>
+                </div>
+                <p>Federal Republic of Nigeria • Secure Voting Protocol v4.2.0</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

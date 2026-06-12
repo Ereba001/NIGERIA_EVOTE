@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Portal Login | Nigeria E-Vote</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+</head>
+<body class="bg-light">
+    <header class="navbar navbar-auth">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">NIGERIA <strong>E-VOTE</strong></span>
+        </a>
+        <div class="nav-actions">
+            <!--<label class="switch">
+                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
+                <span class="switch__icon">
+                    <span class="switch__icon-part switch__icon-part--1"></span>
+                    <span class="switch__icon-part switch__icon-part--2"></span>
+                    <span class="switch__icon-part switch__icon-part--3"></span>
+                    <span class="switch__icon-part switch__icon-part--4"></span>
+                    <span class="switch__icon-part switch__icon-part--5"></span>
+                    <span class="switch__icon-part switch__icon-part--6"></span>
+                    <span class="switch__icon-part switch__icon-part--7"></span>
+                    <span class="switch__icon-part switch__icon-part--8"></span>
+                    <span class="switch__icon-part switch__icon-part--9"></span>
+                    <span class="switch__icon-part switch__icon-part--10"></span>
+                    <span class="switch__icon-part switch__icon-part--11"></span>
+                </span>
+                <span class="switch__sr">Dark Mode</span>
+            </label>-->
+            <a href="index.html" class="nav-link">Back to Home</a>
+            <a href="#" class="nav-link">Help Center</a>
+        </div>
+    </header>
+
+    <main class="portal-login-main">
+        <section class="portal-card" data-aos="fade-up">
+            <div class="portal-header" style="text-align:center;">
+                <h1>Voter Authentication</h1>
+                <p>Secure access to your digital ballot</p>
+            </div>
+
+            <div class="form-group" style="text-align:center;">
+                <label for="portalNin">National Identification Number (NIN)</label>
+                <input class="plain-input" id="portalNin" type="text" inputmode="numeric" placeholder="Enter 11-digit NIN" style="text-align:center;">
+            </div>
+
+            <div class="form-group" style="text-align:center;">
+                <label>Security PIN</label>
+                <i class="fi-rs-lock" style="font-size:1.5rem;color:var(--text-muted);margin-bottom:0.75rem;display:inline-block;"></i>
+                <div class="pin-inputs" style="justify-content:center;">
+                    <input type="password" maxlength="1" class="pin-box" data-index="0">
+                    <input type="password" maxlength="1" class="pin-box" data-index="1">
+                    <input type="password" maxlength="1" class="pin-box" data-index="2">
+                    <input type="password" maxlength="1" class="pin-box" data-index="3">
+                </div>
+                <div id="loginPinError" class="form-error"></div>
+            </div>
+
+            <button id="loginVerifyBtn" class="btn btn-primary btn-full btn-large">Verify and Login</button>
+
+            <div class="portal-chart" data-aos="fade-up" data-aos-delay="100">
+                <p>Identity Verification Status</p>
+                <canvas id="identityStatusChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer class="auth-footer text-center">
+        <div class="footer-links-inline mb-4">
+            <a href="#">Support Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Voter Guide</a>
+            <a href="#">Accessibility</a>
+        </div>
+        <p class="text-sm text-gray">&copy; 2024 All Rights Reserved.</p>
+    </footer>
+
+<div id="welcomeModal" class="auth-modal" aria-hidden="true">
+    <div class="auth-modal__backdrop"></div>
+    <div class="auth-modal__panel" role="dialog" aria-modal="true">
+        <i class="fi-rs-badge-check auth-modal__icon"></i>
+        <h2 class="auth-modal__title">Welcome Back!</h2>
+        <p class="auth-modal__sub">You are being securely signed in to your dashboard.</p>
+    </div>
+</div>
+<script src="scripts.js"></script>
+<script>
+(function() {
+    var pinBoxes = document.querySelectorAll('.pin-box');
+    var btn = document.getElementById('loginVerifyBtn');
+    var pinError = document.getElementById('loginPinError');
+
+    pinBoxes.forEach(function(box) {
+        box.addEventListener('input', function() {
+            pinError.textContent = '';
+            pinBoxes.forEach(function(b) { b.classList.remove('shake'); });
+            var idx = parseInt(this.getAttribute('data-index'));
+            if (this.value.length === 1 && idx < 3) {
+                pinBoxes[idx + 1].focus();
+            }
+        });
+        box.addEventListener('keydown', function(e) {
+            var idx = parseInt(this.getAttribute('data-index'));
+            if (e.key === 'Backspace' && this.value.length === 0 && idx > 0) {
+                pinBoxes[idx - 1].focus();
+            }
+        });
+    });
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        pinError.textContent = '';
+        pinBoxes.forEach(function(b) { b.classList.remove('shake'); });
+        var pin = Array.from(pinBoxes).map(function(b) { return b.value; }).join('');
+        if (pin.length < 4) {
+            pinError.textContent = 'Please enter your 4-digit Security PIN';
+            pinBoxes.forEach(function(b) { b.classList.add('shake'); });
+            return;
+        }
+        btn.textContent = 'Verifying...';
+        btn.classList.add('btn-loading');
+        setTimeout(function() {
+            document.getElementById('welcomeModal').classList.add('active');
+            btn.style.display = 'none';
+            setTimeout(function() {
+                window.location.href = 'dashboard.html';
+            }, 2500);
+        }, 800);
+    });
+})();
+</script>
+</body>
+</html>

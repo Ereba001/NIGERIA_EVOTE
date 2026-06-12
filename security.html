@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security | Nigeria E-Vote</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+    <style>
+        .page-header { text-align: center; padding: 4rem 1.5rem 3rem; background: white; border-bottom: 1px solid var(--border-color); margin-bottom: 3rem; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
+        .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
+
+        .security-container { max-width: 1000px; margin: 0 auto 5rem; padding: 0 1.5rem; }
+        
+        .sec-feature { display: flex; gap: 2rem; align-items: flex-start; margin-bottom: 4rem; background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .sec-feature:nth-child(even) { flex-direction: row-reverse; }
+        
+        .sec-icon-lg { width: 80px; height: 80px; background: #def7ec; color: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; flex-shrink: 0; }
+        
+        .sec-content h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+        .sec-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+        
+        .cert-banner { background: var(--dark-bg); color: white; border-radius: 12px; padding: 3rem; text-align: center; }
+        .cert-banner h2 { margin-bottom: 1rem; }
+        .cert-banner p { color: #9ca3af; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">E-VOTE <strong>NIGERIA</strong></span>
+        </a>
+        <nav class="nav-links">
+            <a href="election-center.html">Election Center</a>
+            <a href="verify-pvc.html">Verify PVC</a>
+            <a href="candidates.html">Candidates</a>
+            <a href="results.html">Results</a>
+            <a href="security.html" class="active-link">Security</a>
+        </nav>
+        <div class="nav-actions">
+            <!--<label class="switch">
+                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
+                <span class="switch__icon">
+                    <span class="switch__icon-part switch__icon-part--1"></span>
+                    <span class="switch__icon-part switch__icon-part--2"></span>
+                    <span class="switch__icon-part switch__icon-part--3"></span>
+                    <span class="switch__icon-part switch__icon-part--4"></span>
+                    <span class="switch__icon-part switch__icon-part--5"></span>
+                    <span class="switch__icon-part switch__icon-part--6"></span>
+                    <span class="switch__icon-part switch__icon-part--7"></span>
+                    <span class="switch__icon-part switch__icon-part--8"></span>
+                    <span class="switch__icon-part switch__icon-part--9"></span>
+                    <span class="switch__icon-part switch__icon-part--10"></span>
+                    <span class="switch__icon-part switch__icon-part--11"></span>
+                </span>
+                <span class="switch__sr">Dark Mode</span>
+            </label>-->
+            <a href="auth.html" class="nav-login">Sign Up</a>
+            <a href="login.html" class="btn btn-primary">Login</a>
+        </div>
+    </header>
+
+    <div class="page-header" data-aos="fade-up">
+        <h1>Sovereign-Grade Security</h1>
+        <p>Learn how the Nigeria E-Vote platform uses advanced cryptographic protocols to ensure 100% transparent and tamper-proof elections.</p>
+    </div>
+
+    <main class="security-container">
+        
+        <div class="sec-feature" data-aos="fade-up">
+            <i class="fi-rs-link sec-icon-lg"></i>
+            <div class="sec-content">
+                <h3>Immutable Blockchain Ledger</h3>
+                <p>Every vote cast on our platform is cryptographically signed and submitted as a transaction to a private, distributed blockchain ledger. This ensures that once a vote is recorded, it cannot be altered, deleted, or tampered with by any entity, including election officials or system administrators.</p>
+                <ul style="color: var(--text-muted); line-height: 1.7; margin-left: 1.5rem; font-size: 0.875rem;">
+                    <li>Zero-Knowledge Proofs guarantee your vote remains anonymous.</li>
+                    <li>Distributed nodes across Nigeria validate integrity continuously.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sec-feature" data-aos="fade-up" data-aos-delay="100">
+            <i class="fi-rs-user sec-icon-lg"></i>
+            <div class="sec-content">
+                <h3>Multi-Factor Identity Gateway</h3>
+                <p>We eliminate double voting and identity fraud through a stringent verification process. By linking the platform directly to the National Identity Management Commission (NIMC) database, we cross-verify your PVC against your NIN.</p>
+                <p>Authentication requires SMS OTP, a personal Security PIN, and optional biometric face/fingerprint matching via the mobile app.</p>
+            </div>
+        </div>
+
+        <div class="sec-feature" data-aos="fade-up" data-aos-delay="200">
+            <i class="fi-rs-shield sec-icon-lg"></i>
+            <div class="sec-content">
+                <h3>Military-Grade Cloud Infrastructure</h3>
+                <p>The entire E-Vote infrastructure is hosted on highly available, DDoS-protected sovereign cloud servers. Data in transit is secured via 256-bit SSL encryption, and all databases are air-gapped and encrypted at rest.</p>
+            </div>
+        </div>
+
+        <div class="cert-banner" data-aos="fade-up">
+            <h2>Independently Audited & Certified</h2>
+            <p>Our systems undergo continuous penetration testing and security audits by top global cybersecurity firms to ensure readiness against any threat vectors.</p>
+            <button class="btn btn-primary btn-large">Download Technical Whitepaper</button>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom" style="border-top: none;">
+            <p>&copy; 2024.</p>
+        </div>
+    </footer>
+<script src="scripts.js"></script>
+</body>
+</html>

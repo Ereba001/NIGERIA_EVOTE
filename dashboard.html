@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Nigeria E-Vote</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+</head>
+<body class="bg-light">
+    <header class="navbar navbar-dash">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">NIGERIA <strong>E-VOTE</strong></span>
+        </a>
+        <nav class="nav-links nav-dash">
+            <a href="#" id="navDashboard" class="active">Dashboard</a>
+            <a href="#" id="navResults">View Results</a>
+            <a href="#" id="navProfile">Profile</a>
+        </nav>
+        <div class="nav-user">
+            <div class="user-info">
+                <span class="user-name">CHUKWUMA ADEBAYO</span>
+                <span class="user-id">Voter ID: 8928-AX</span>
+            </div>
+            <!--<label class="switch">
+                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
+                <span class="switch__icon">
+                    <span class="switch__icon-part switch__icon-part--1"></span>
+                    <span class="switch__icon-part switch__icon-part--2"></span>
+                    <span class="switch__icon-part switch__icon-part--3"></span>
+                    <span class="switch__icon-part switch__icon-part--4"></span>
+                    <span class="switch__icon-part switch__icon-part--5"></span>
+                    <span class="switch__icon-part switch__icon-part--6"></span>
+                    <span class="switch__icon-part switch__icon-part--7"></span>
+                    <span class="switch__icon-part switch__icon-part--8"></span>
+                    <span class="switch__icon-part switch__icon-part--9"></span>
+                    <span class="switch__icon-part switch__icon-part--10"></span>
+                    <span class="switch__icon-part switch__icon-part--11"></span>
+                </span>
+                <span class="switch__sr">Dark Mode</span>
+            </label>-->
+            <a href="#" id="logoutBtn" class="btn btn-secondary">Logout</a>
+        </div>
+    </header>
+
+    <main class="dash-main">
+        <div class="status-bar" data-aos="fade-up">
+            <div class="status-item">
+                <span class="status-label">Election Status</span>
+                <span class="status-value text-green">ACTIVE</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Countdown</span>
+                <span class="status-value">04:12:45</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Registered Voters</span>
+                <span class="status-value">93.4M</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Total Votes Cast</span>
+                <span class="status-value">12.8M</span>
+            </div>
+            <div class="status-item bg-gray">
+                <span class="status-label">Your Status</span>
+                <span class="status-value text-gray text-italic" id="voterStatus">NOT YET CAST</span>
+            </div>
+        </div>
+
+        <div id="dashboardView">
+            <div class="dash-grid">
+                <div class="dash-left">
+                    <div class="dash-card" data-aos="fade-right">
+                        <div class="card-header border-bottom">
+                            <h3 class="text-green mb-0">Cast Your Vote: Presidential Election 2024</h3>
+                            <span class="badge badge-gray text-xs">SECURE SESSION ENCRYPTED</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="candidates-grid">
+                                <label class="candidate-card">
+                                    <input type="radio" name="candidate" value="A">
+                                    <div class="candidate-content">
+                                        <div class="candidate-photo placeholder-box"></div>
+                                        <div class="candidate-name">Candidate A</div>
+                                        <div class="candidate-party">Progressive Party (PP)</div>
+                                        <div class="radio-custom"></div>
+                                    </div>
+                                </label>
+                                
+                                <label class="candidate-card selected">
+                                    <input type="radio" name="candidate" value="B" checked>
+                                    <div class="candidate-content">
+                                        <div class="candidate-photo placeholder-box"></div>
+                                        <div class="candidate-name">Candidate B</div>
+                                        <div class="candidate-party">United Alliance (UA)</div>
+                                        <div class="radio-custom"></div>
+                                    </div>
+                                </label>
+                                
+                                <label class="candidate-card">
+                                    <input type="radio" name="candidate" value="C">
+                                    <div class="candidate-content">
+                                        <div class="candidate-photo placeholder-box"></div>
+                                        <div class="candidate-name">Candidate C</div>
+                                        <div class="candidate-party">National Front (NF)</div>
+                                        <div class="radio-custom"></div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="vote-actions">
+                                <button class="btn btn-secondary" type="button" id="confirmSelectionBtn">Confirm Selection</button>
+                                <button class="btn btn-primary" type="button" id="submitVoteBtn">Submit Vote</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-card" id="voter-verification" data-aos="fade-right" data-aos-delay="100">
+                        <div class="card-header">
+                            <h3 class="text-green mb-0">Transparency & Blockchain Verification</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="verification-text">
+                                Every vote cast on the <strong>Nigeria E-Vote</strong> platform is cryptographically signed and recorded on a private distributed ledger. Your Vote ID will be generated upon submission, allowing you to verify that your vote was counted without revealing your choice. This system ensures 100% auditability and prevents double-voting or tampering.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-right">
+                    <div class="dash-card" data-aos="fade-left">
+                        <div class="card-header">
+                            <h3 class="text-green mb-0">Live Results (National)</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="live-pie-container">
+                                <canvas id="liveResultsChart"></canvas>
+                            </div>
+                            <div class="results-legend">
+                                <div class="result-row">
+                                    <span><span class="legend-dot" style="background:#008751"></span> Candidate A</span>
+                                    <strong>42%</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span><span class="legend-dot" style="background:#2563eb"></span> Candidate B</span>
+                                    <strong>38%</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span><span class="legend-dot" style="background:#9ca3af"></span> Others</span>
+                                    <strong>20%</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-card" data-aos="fade-left" data-aos-delay="100">
+                        <div class="card-header">
+                            <h3 class="text-green mb-0">Voter Verification</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="verification-list">
+                                <li>
+                                    <i class="fi-rs-id-card-clip-alt v-icon text-gray"></i>
+                                    <div class="v-details">
+                                        <strong>NIN Linked</strong>
+                                        <span>Verified: ****-1234</span>
+                                    </div>
+                                    <i class="fi-rs-check v-status text-green"></i>
+                                </li>
+                                <li>
+                                    <i class="fi-rs-mobile v-icon text-gray"></i>
+                                    <div class="v-details">
+                                        <strong>OTP Authentication</strong>
+                                        <span>Required at submission</span>
+                                    </div>
+                                    <i class="fi-rs-lock v-status text-gray"></i>
+                                </li>
+                                <li>
+                                    <i class="fi-rs-user v-icon text-gray"></i>
+                                    <div class="v-details">
+                                        <strong>Biometric Match</strong>
+                                        <span>Verified via Mobile App</span>
+                                    </div>
+                                    <i class="fi-rs-check v-status text-green"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results View -->
+        <div id="resultsView" class="results-container" style="display:none;">
+            <div class="chart-box" data-aos="fade-right">
+                <h3 style="margin-bottom: 0.5rem;">Presidential Election 2024</h3>
+                <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Votes Counted: 12,842,910 (15% of registered voters)</p>
+                <div style="height:400px;width:100%;">
+                    <canvas id="detailedResultsChart"></canvas>
+                </div>
+            </div>
+            <div class="state-results" data-aos="fade-left">
+                <div class="state-header">Top Regions / States Breakdown</div>
+                <table class="state-table">
+                    <thead>
+                        <tr><th>State</th><th>Leading</th><th>Margin</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Lagos</td><td><span class="text-green font-medium">Candidate A</span></td><td>+14%</td></tr>
+                        <tr><td>Kano</td><td><span class="text-main font-medium">Candidate B</span></td><td>+5%</td></tr>
+                        <tr><td>Rivers</td><td><span class="text-main font-medium">Candidate C</span></td><td>+22%</td></tr>
+                        <tr><td>FCT Abuja</td><td><span class="text-green font-medium">Candidate A</span></td><td>+2%</td></tr>
+                        <tr><td>Kaduna</td><td><span class="text-main font-medium">Candidate B</span></td><td>+8%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Profile View -->
+        <div id="profileView" class="profile-container" style="display:none;">
+            <div class="profile-card" data-aos="zoom-in">
+                <div class="profile-head" data-aos="fade-right" data-aos-delay="100">
+                    <div class="profile-avatar"></div>
+                    <div>
+                        <h2 class="profile-name">Chukwuma Adebayo</h2>
+                        <span class="profile-badge badge badge-green">VERIFIED VOTER</span>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="150">
+                        <span class="profile-label">Voter's ID</span>
+                        <span class="profile-value">8928-***-AX</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="200">
+                        <span class="profile-label">National Identification Number (NIN)</span>
+                        <span class="profile-value">1234********789</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="250">
+                        <span class="profile-label">Date of Birth</span>
+                        <span class="profile-value">15 March 1989</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="300">
+                        <span class="profile-label">Gender</span>
+                        <span class="profile-value">Male</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="350">
+                        <span class="profile-label">Phone Number</span>
+                        <span class="profile-value">+234 803****890</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="400">
+                        <span class="profile-label">Email</span>
+                        <span class="profile-value">c********@e-vote.gov.ng</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="450">
+                        <span class="profile-label">State of Origin</span>
+                        <span class="profile-value">Lagos</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="500">
+                        <span class="profile-label">LGA</span>
+                        <span class="profile-value">Ikeja</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="550">
+                        <span class="profile-label">Polling Unit</span>
+                        <span class="profile-value">PU 023, Ikeja Grammar School</span>
+                    </div>
+                    <div class="profile-row" data-aos="fade-up" data-aos-delay="600">
+                        <span class="profile-label">Registration Status</span>
+                        <span class="profile-value text-green font-medium">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="vote-modal" id="voteModal" aria-hidden="true">
+        <div class="vote-modal__panel" role="dialog" aria-modal="true" aria-labelledby="voteModalTitle">
+            <div class="vote-modal__header">
+                <h2 id="voteModalTitle">Confirm Your Vote</h2>
+                <p>Please review your selection carefully</p>
+            </div>
+            <div class="vote-modal__body">
+                <div class="vote-modal__candidate">
+                    <div class="candidate-photo placeholder-box"></div>
+                    <i class="fi-rs-check vote-check" aria-hidden="true"></i>
+                </div>
+                <h3 id="modalCandidateName">Candidate B</h3>
+                <p id="modalCandidateParty">United Alliance (UA)</p>
+                <span class="vote-modal__election">Presidential Election</span>
+
+                <div class="vote-warning">
+                    <strong>Irreversible Action</strong>
+                    <p>Once submitted, your vote is digitally signed and cannot be changed, deleted, or cast again. Ensure this is your final choice.</p>
+                </div>
+
+                <button class="btn btn-primary btn-full btn-large" type="button" id="finalSubmitBtn">Confirm and Submit <i class="fi-rs-arrow-right"></i></button>
+                <button class="btn btn-secondary btn-full btn-large" type="button" id="backToSelectionBtn">Back to Selection</button>
+            </div>
+            <div class="vote-modal__footer">Secure Encrypted Session • 256-bit AES</div>
+        </div>
+    </div>
+
+    <footer class="dash-footer text-center mt-8">
+        <p class="text-sm text-gray mb-2">&copy; 2024 Digital Election Division</p>
+        <div class="footer-links-inline text-xs">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Help Desk</a>
+            <a href="#">Security Audit Report</a>
+        </div>
+    </footer>
+
+<div id="logoutModal" class="confirm-modal" aria-hidden="true">
+    <div class="confirm-modal__backdrop"></div>
+    <div class="confirm-modal__panel" role="dialog" aria-modal="true">
+        <i class="fi-rs-sign-out-alt confirm-modal__icon"></i>
+        <h2 class="confirm-modal__title">Leave Voting Session?</h2>
+        <p class="confirm-modal__sub">Your session is active. Are you sure you want to log out?</p>
+        <div class="confirm-modal__actions">
+            <button id="logoutCancel" class="btn btn-secondary">Cancel</button>
+            <button id="logoutProceed" class="btn btn-primary">Proceed</button>
+        </div>
+    </div>
+</div>
+<script src="scripts.js"></script>
+<script>
+(function() {
+    history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+    var navDash = document.getElementById('navDashboard');
+    var navResults = document.getElementById('navResults');
+    var navProfile = document.getElementById('navProfile');
+    var dashView = document.getElementById('dashboardView');
+    var resultsView = document.getElementById('resultsView');
+    var profileView = document.getElementById('profileView');
+    var resultsChart = null;
+
+    function animateChart() {
+        var canvas = document.getElementById('detailedResultsChart');
+        if (!canvas) return;
+        if (!resultsChart) {
+            resultsChart = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: ['Candidate A (PP)', 'Candidate B (UA)', 'Candidate C (NF)', 'Others'],
+                    datasets: [{
+                        label: 'Votes Cast',
+                        data: [5393000, 4880000, 2054000, 515910],
+                        backgroundColor: ['#008751', '#1f2937', '#9ca3af', '#e5e7eb'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f3f4f6' }, border: { display: false } },
+                        x: { grid: { display: false }, border: { display: false } }
+                    }
+                }
+            });
+        }
+        requestAnimationFrame(function() {
+            resultsChart.reset();
+            resultsChart.options.animation = { duration: 1600, easing: 'easeOutQuart' };
+            resultsChart.update();
+        });
+    }
+
+    function showView(view) {
+        dashView.style.display = view === 'dashboard' ? '' : 'none';
+        resultsView.style.display = view === 'results' ? '' : 'none';
+        profileView.style.display = view === 'profile' ? '' : 'none';
+        navDash.classList.toggle('active', view === 'dashboard');
+        navResults.classList.toggle('active', view === 'results');
+        navProfile.classList.toggle('active', view === 'profile');
+        if (view === 'profile') {
+            setTimeout(function() { if (typeof AOS !== 'undefined') AOS.refresh(); }, 100);
+        }
+        if (view === 'results') {
+            if (typeof AOS !== 'undefined') setTimeout(function() { AOS.refresh(); }, 80);
+            setTimeout(animateChart, 50);
+        }
+    }
+
+    navDash.addEventListener('click', function(e) { e.preventDefault(); showView('dashboard'); });
+    navResults.addEventListener('click', function(e) { e.preventDefault(); showView('results'); });
+    navProfile.addEventListener('click', function(e) { e.preventDefault(); showView('profile'); });
+
+    var modal = document.getElementById('logoutModal');
+    var btn = document.getElementById('logoutBtn');
+    var cancel = document.getElementById('logoutCancel');
+    var proceed = document.getElementById('logoutProceed');
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.classList.add('active');
+    });
+
+    cancel.addEventListener('click', function() {
+        modal.classList.remove('active');
+    });
+
+    proceed.addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal || e.target.classList.contains('confirm-modal__backdrop')) {
+            modal.classList.remove('active');
+        }
+    });
+})();
+</script>
+</body>
+</html>

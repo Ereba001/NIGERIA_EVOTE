@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Voter Authentication | Nigeria E-Vote</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+</head>
+<body class="bg-light">
+    <header class="navbar navbar-auth">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">NIGERIA <strong>E-VOTE</strong></span>
+        </a>
+        <div class="nav-actions">
+            <!--<label class="switch">
+                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
+                <span class="switch__icon">
+                    <span class="switch__icon-part switch__icon-part--1"></span>
+                    <span class="switch__icon-part switch__icon-part--2"></span>
+                    <span class="switch__icon-part switch__icon-part--3"></span>
+                    <span class="switch__icon-part switch__icon-part--4"></span>
+                    <span class="switch__icon-part switch__icon-part--5"></span>
+                    <span class="switch__icon-part switch__icon-part--6"></span>
+                    <span class="switch__icon-part switch__icon-part--7"></span>
+                    <span class="switch__icon-part switch__icon-part--8"></span>
+                    <span class="switch__icon-part switch__icon-part--9"></span>
+                    <span class="switch__icon-part switch__icon-part--10"></span>
+                    <span class="switch__icon-part switch__icon-part--11"></span>
+                </span>
+                <span class="switch__sr">Dark Mode</span>
+            </label>-->
+            <a href="index.html" class="nav-link">Back to Home</a>
+            <a href="#" class="nav-link">Help Center</a>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-header" data-aos="fade-up">
+            <i class="fi-rs-badge-check auth-success-icon"></i>
+            <h2>Secure Voter Authentication</h2>
+            <p>Please verify your identity using your official credentials to access the 2024 General Election ballot.</p>
+        </div>
+
+        <div class="auth-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="auth-stepper">
+                <div class="step active"><span class="step-num">1</span> IDENTITY</div>
+                <div class="step-line"></div>
+                <div class="step"><span class="step-num">2</span> VERIFICATION</div>
+                <div class="step-line"></div>
+                <div class="step"><span class="step-num">3</span> ACCESS</div>
+            </div>
+
+            <div class="auth-form-grid">
+                <div id="step1" class="auth-step">
+                    <div class="auth-col" style="max-width:400px;margin:0 auto;">
+                        <div class="form-group">
+                            <label>Voter ID (VIN) or NIN</label>
+                            <div class="input-with-icon">
+                                <i class="fi-rs-id-card-clip-alt input-icon"></i>
+                                <input id="vinInput" type="text" placeholder="Enter 11 or 19 digit ID">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Registered Phone Number</label>
+                            <div class="input-with-icon">
+                                <i class="fi-rs-phone-call input-icon"></i>
+                                <input id="phoneInput" type="text" placeholder="+234 XXX XXX XXXX">
+                            </div>
+                        </div>
+                        <button id="sendOtpBtn" class="btn btn-outline btn-full btn-send-otp"><span id="sendOtpText">Send OTP Verification</span> <i id="sendOtpIcon" class="fi-rs-paper-plane"></i></button>
+                    </div>
+                </div>
+
+                <div id="step2" class="auth-step" style="display:none">
+                    <div class="auth-col" style="max-width:400px;margin:0 auto;">
+                        <div class="form-group">
+                            <label>6-Digit OTP Code</label>
+                            <div class="otp-inputs">
+                                <input type="text" maxlength="1" class="otp-box" data-index="0">
+                                <input type="text" maxlength="1" class="otp-box" data-index="1">
+                                <input type="text" maxlength="1" class="otp-box" data-index="2">
+                                <input type="text" maxlength="1" class="otp-box" data-index="3">
+                                <input type="text" maxlength="1" class="otp-box" data-index="4">
+                                <input type="text" maxlength="1" class="otp-box" data-index="5">
+                            </div>
+                            <div id="otpFeedback" class="otp-feedback"></div>
+                            <div class="otp-resend text-sm text-right mt-2">
+                                <span class="text-gray">Didn't receive code?</span> <a id="resendLink" href="#" class="text-green font-medium">Resend</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step3" class="auth-step" style="display:none">
+                    <div class="auth-col" style="max-width:400px;margin:0 auto;">
+                        <div class="form-group">
+                            <label>Security PIN</label>
+                            <div class="input-with-icon" style="text-align:center;">
+                                <i class="fi-rs-lock" style="font-size:1.5rem;color:var(--text-muted);margin-bottom:0.75rem;display:inline-block;"></i>
+                                <div class="pin-inputs">
+                                    <input type="password" maxlength="1" class="pin-box" data-index="0">
+                                    <input type="password" maxlength="1" class="pin-box" data-index="1">
+                                    <input type="password" maxlength="1" class="pin-box" data-index="2">
+                                    <input type="password" maxlength="1" class="pin-box" data-index="3">
+                                </div>
+                            </div>
+                            <div id="pinError" class="form-error"></div>
+                        </div>
+                        <button id="loginBtn" class="btn btn-primary btn-full mt-2">Login to Dashboard</button>
+                        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem;">
+                            <span style="color: var(--text-muted);">Already have an account?</span> <a href="login.html" style="color: var(--primary-green); font-weight: 600;">Click to login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-ssl-banner">
+                <i class="fi-rs-shield ssl-icon"></i> Your session is encrypted with 256-bit SSL security.
+            </div>
+        </div>
+
+        <div class="auth-trust-badges">
+            <div class="trust-badge" data-aos="fade-up" data-aos-delay="100">
+                <i class="fi-rs-envelope trust-icon text-green"></i>
+                <div>
+                    <h4>Biometric Sync</h4>
+                    <p>Linked to your PVC biometric data for maximum security.</p>
+                </div>
+            </div>
+            <div class="trust-badge" data-aos="fade-up" data-aos-delay="200">
+                <i class="fi-rs-user trust-icon text-green"></i>
+                <div>
+                    <h4>Privacy First</h4>
+                    <p>Your vote is anonymous and cannot be traced back to you.</p>
+                </div>
+            </div>
+            <div class="trust-badge" data-aos="fade-up" data-aos-delay="300">
+                <i class="fi-rs-stopwatch trust-icon text-green"></i>
+                <div>
+                    <h4>Audit Trail</h4>
+                    <p>Every action is logged on the secure national ledger.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="auth-footer text-center mt-8">
+        <div class="footer-links-inline mb-4">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Voter Guidelines</a>
+            <a href="#">Election Portal</a>
+        </div>
+        <p class="text-sm text-gray">&copy; 2024 All rights reserved. Authorized access only.</p>
+    </footer>
+<div id="successModal" class="auth-modal" aria-hidden="true">
+    <div class="auth-modal__backdrop"></div>
+    <div class="auth-modal__panel" role="dialog" aria-modal="true">
+        <i class="fi-rs-badge-check auth-modal__icon"></i>
+        <h2 class="auth-modal__title">User Verified</h2>
+        <p class="auth-modal__sub">Welcome back! You are being securely signed in.</p>
+    </div>
+</div>
+<script src="scripts.js"></script>
+<script>
+(function() {
+    var step1 = document.getElementById('step1');
+    var step2 = document.getElementById('step2');
+    var step3 = document.getElementById('step3');
+    var stepperSteps = document.querySelectorAll('.step');
+
+    var currentStep = 0;
+
+    function goToStep(index) {
+        if (index < 0 || index > 2) return;
+        currentStep = index;
+        step1.style.display = index === 0 ? '' : 'none';
+        step2.style.display = index === 1 ? '' : 'none';
+        step3.style.display = index === 2 ? '' : 'none';
+        stepperSteps.forEach(function(el, i) {
+            el.classList.remove('active', 'completed');
+            if (i < index) el.classList.add('completed');
+            if (i === index) el.classList.add('active');
+        });
+        if (index === 1) {
+            var feedback = document.getElementById('otpFeedback');
+            if (feedback) { feedback.className = 'otp-feedback'; feedback.textContent = ''; }
+            var boxes = document.querySelectorAll('.otp-box');
+            boxes.forEach(function(o) { o.value = ''; });
+        }
+        if (index === 2) {
+            var pinErr = document.getElementById('pinError');
+            if (pinErr) pinErr.textContent = '';
+            var pBoxes = document.querySelectorAll('.pin-box');
+            pBoxes.forEach(function(b) { b.value = ''; b.classList.remove('shake'); });
+            setTimeout(function() { if (pBoxes[0]) pBoxes[0].focus(); }, 150);
+        }
+    }
+
+    stepperSteps.forEach(function(el, i) {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function() {
+            if (i <= currentStep) goToStep(i);
+        });
+    });
+
+    var sendOtpBtn = document.getElementById('sendOtpBtn');
+    var sendOtpText = document.getElementById('sendOtpText');
+    var sendOtpIcon = document.getElementById('sendOtpIcon');
+
+    sendOtpBtn.addEventListener('click', function() {
+        sendOtpBtn.classList.add('btn-loading');
+        sendOtpText.textContent = 'Sending...';
+        sendOtpIcon.className = 'fi-rs-spinner spinning';
+        setTimeout(function() {
+            goToStep(1);
+            sendOtpBtn.classList.remove('btn-loading');
+            sendOtpText.textContent = 'Send OTP Verification';
+            sendOtpIcon.className = 'fi-rs-paper-plane';
+            setTimeout(function() {
+                var firstOtp = document.querySelector('.otp-box');
+                if (firstOtp) firstOtp.focus();
+            }, 100);
+        }, 1500);
+    });
+
+    var otpBoxes = document.querySelectorAll('.otp-box');
+    var otpFeedback = document.getElementById('otpFeedback');
+    var otpResend = document.querySelector('.otp-resend');
+
+    otpBoxes.forEach(function(box) {
+        box.addEventListener('input', function() {
+            var idx = parseInt(this.getAttribute('data-index'));
+            otpFeedback.className = 'otp-feedback';
+            otpFeedback.textContent = '';
+            if (this.value.length === 1 && idx < 5) {
+                otpBoxes[idx + 1].focus();
+            }
+            var allFilled = Array.from(otpBoxes).every(function(o) { return o.value.length === 1; });
+            if (allFilled) {
+                otpFeedback.className = 'otp-feedback verifying';
+                otpFeedback.innerHTML = '<i class="fi-rs-spinner spinning"></i> Verifying OTP...';
+                setTimeout(function() {
+                    otpFeedback.className = 'otp-feedback verified';
+                    otpFeedback.innerHTML = '<i class="fi-rs-check-circle"></i> Verified!';
+                    setTimeout(function() {
+                        goToStep(2);
+                        otpFeedback.className = 'otp-feedback';
+                        otpFeedback.textContent = '';
+                        otpBoxes.forEach(function(o) { o.value = ''; });
+                        setTimeout(function() {
+                            var pin = document.getElementById('pinInput');
+                            if (pin) pin.focus();
+                        }, 100);
+                    }, 800);
+                }, 1200);
+            }
+        });
+        box.addEventListener('keydown', function(e) {
+            var idx = parseInt(this.getAttribute('data-index'));
+            if (e.key === 'Backspace' && this.value.length === 0 && idx > 0) {
+                otpBoxes[idx - 1].focus();
+            }
+        });
+    });
+
+    document.getElementById('resendLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        otpFeedback.className = 'otp-feedback verifying';
+        otpFeedback.innerHTML = '<i class="fi-rs-spinner spinning"></i> Resending...';
+        setTimeout(function() {
+            otpFeedback.className = 'otp-feedback verified';
+            otpFeedback.innerHTML = '<i class="fi-rs-check-circle"></i> Code resent!';
+            setTimeout(function() {
+                otpFeedback.className = 'otp-feedback';
+                otpFeedback.textContent = '';
+            }, 2000);
+        }, 1500);
+    });
+
+    var loginBtn = document.getElementById('loginBtn');
+    var pinError = document.getElementById('pinError');
+    var pinBoxes = document.querySelectorAll('.pin-box');
+
+    pinBoxes.forEach(function(box) {
+        box.addEventListener('input', function() {
+            pinError.textContent = '';
+            pinBoxes.forEach(function(b) { b.classList.remove('shake'); });
+            var idx = parseInt(this.getAttribute('data-index'));
+            if (this.value.length === 1 && idx < 3) {
+                pinBoxes[idx + 1].focus();
+            }
+        });
+        box.addEventListener('keydown', function(e) {
+            var idx = parseInt(this.getAttribute('data-index'));
+            if (e.key === 'Backspace' && this.value.length === 0 && idx > 0) {
+                pinBoxes[idx - 1].focus();
+            }
+        });
+    });
+
+    var successModal = document.getElementById('successModal');
+
+    loginBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        pinError.textContent = '';
+        var pin = Array.from(pinBoxes).map(function(b) { return b.value; }).join('');
+        if (pin.length < 4) {
+            pinError.textContent = 'Please enter your 4-digit Security PIN';
+            pinBoxes.forEach(function(b) { b.classList.add('shake'); });
+            return;
+        }
+        loginBtn.classList.add('btn-loading');
+        loginBtn.textContent = 'Signing in...';
+        setTimeout(function() {
+            successModal.classList.add('active');
+            loginBtn.classList.remove('btn-loading');
+            loginBtn.textContent = 'Login to Dashboard';
+            setTimeout(function() {
+                window.location.href = 'dashboard.html';
+            }, 2500);
+        }, 800);
+    });
+})();
+</script>
+</body>
+</html>
