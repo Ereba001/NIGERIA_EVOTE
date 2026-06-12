@@ -12,17 +12,27 @@ window.scrollTo(0, 0);
 function createChartOnScroll(id, getConfig) {
     var el = document.getElementById(id);
     if (!el) return;
-    var created = false;
+    var chart = null;
+    var seen = false;
+    var exited = false;
     function check() {
-        if (created) return;
         var rect = el.getBoundingClientRect();
         if (rect.width === 0 && rect.height === 0) return;
         var inView = rect.top < window.innerHeight && rect.bottom > 0;
+        var fullyOut = rect.bottom < 0 || rect.top > window.innerHeight;
         if (inView) {
-            created = true;
-            new Chart(el, getConfig());
-            window.removeEventListener('scroll', check);
-            window.removeEventListener('resize', check);
+            if (!chart) {
+                chart = new Chart(el, getConfig());
+                seen = true;
+            } else if (seen && exited) {
+                chart.reset();
+                chart.options.animation = { duration: 1600, easing: 'easeOutQuart' };
+                chart.update();
+                exited = false;
+            }
+        }
+        if (fullyOut && seen) {
+            exited = true;
         }
     }
     setTimeout(check, 100);
@@ -129,141 +139,21 @@ document.addEventListener('DOMContentLoaded', () => {
         counters.forEach(function(c) { counterObs.observe(c); });
     }
 
+    var nav = document.querySelector('.navbar');
+    if (nav) {
+        var shrinkCheck = function() {
+            nav.classList.toggle('navbar-shrink', window.scrollY > 40);
+        };
+        shrinkCheck();
+        window.addEventListener('scroll', shrinkCheck, { passive: true });
+    }
+
     document.querySelectorAll('.method-option').forEach(option => {
         option.addEventListener('click', () => {
             document.querySelectorAll('.method-option').forEach(item => item.classList.remove('active'));
             option.classList.add('active');
         });
     });
-
-    const candidateRadios = document.querySelectorAll('input[name="candidate"]');
-    const voteModal = document.getElementById('voteModal');
-    const confirmSelectionBtn = document.getElementById('confirmSelectionBtn');
-    const submitVoteBtn = document.getElementById('submitVoteBtn');
-    const finalSubmitBtn = document.getElementById('finalSubmitBtn');
-    const backToSelectionBtn = document.getElementById('backToSelectionBtn');
-    const modalCandidateName = document.getElementById('modalCandidateName');
-    const modalCandidateParty = document.getElementById('modalCandidateParty');
-
-    const getSelectedCandidate = () => {
-        const selected = document.querySelector('input[name="candidate"]:checked');
-        if (!selected) return null;
-
-        const card = selected.closest('.candidate-card');
-        return {
-            id: selected.value,
-            name: card.querySelector('.candidate-name')?.textContent.trim() || 'Selected Candidate',
-            party: card.querySelector('.candidate-party')?.textContent.trim() || 'Political Party'
-        };
-    };
-
-    const openVoteModal = () => {
-        const selectedCandidate = getSelectedCandidate();
-        if (!selectedCandidate || !voteModal) return;
-
-        modalCandidateName.textContent = selectedCandidate.name;
-        modalCandidateParty.textContent = selectedCandidate.party;
-        voteModal.classList.add('is-open');
-        voteModal.setAttribute('aria-hidden', 'false');
-        finalSubmitBtn?.focus();
-    };
-
-    const closeVoteModal = () => {
-        if (!voteModal) return;
-
-        voteModal.classList.remove('is-open');
-        voteModal.setAttribute('aria-hidden', 'true');
-        confirmSelectionBtn?.focus();
-    };
-
-    candidateRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-            document.querySelectorAll('.candidate-card').forEach(card => card.classList.remove('selected'));
-            if (this.checked) {
-                this.closest('.candidate-card').classList.add('selected');
-            }
-        });
-    });
-
-    confirmSelectionBtn?.addEventListener('click', openVoteModal);
-    submitVoteBtn?.addEventListener('click', openVoteModal);
-    backToSelectionBtn?.addEventListener('click', closeVoteModal);
-
-    voteModal?.addEventListener('click', event => {
-        if (event.target === voteModal) closeVoteModal();
-    });
-
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && voteModal?.classList.contains('is-open')) {
-            closeVoteModal();
-        }
-    });
-
-    finalSubmitBtn?.addEventListener('click', () => {
-        const selectedCandidate = getSelectedCandidate();
-        if (!selectedCandidate) return;
-
-        const bytes = new Uint8Array(32);
-        if (window.crypto?.getRandomValues) {
-            window.crypto.getRandomValues(bytes);
-        } else {
-            bytes.forEach((_, index) => {
-                bytes[index] = Math.floor(Math.random() * 256);
-            });
-        }
-
-        const receipt = {
-            ...selectedCandidate,
-            timestamp: new Date().toLocaleString('en-NG', {
-                dateStyle: 'medium',
-                timeStyle: 'medium'
-            }),
-            transactionHash: '0x' + Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join(''),
-            verificationId: `NG-E-VOTE-2024-${selectedCandidate.id}-${Math.floor(1000 + Math.random() * 9000)}`
-        };
-
-        localStorage.setItem('nigeriaEVoteReceipt', JSON.stringify(receipt));
-        localStorage.setItem('nigeriaEVoteStatus', 'cast');
-        window.location.href = 'receipt.html';
-    });
-
-    const voterStatus = document.getElementById('voterStatus');
-    if (localStorage.getItem('nigeriaEVoteStatus') === 'cast' && voterStatus) {
-        voterStatus.textContent = 'VOTE CAST';
-        voterStatus.classList.remove('text-gray', 'text-italic');
-        voterStatus.classList.add('text-green');
-        candidateRadios.forEach(radio => {
-            radio.disabled = true;
-        });
-        if (confirmSelectionBtn) {
-            confirmSelectionBtn.disabled = true;
-            confirmSelectionBtn.textContent = 'Selection Locked';
-        }
-        if (submitVoteBtn) {
-            submitVoteBtn.disabled = true;
-            submitVoteBtn.textContent = 'Vote Recorded';
-        }
-    }
-
-    const receiptRaw = localStorage.getItem('nigeriaEVoteReceipt');
-    if (receiptRaw) {
-        try {
-            const receipt = JSON.parse(receiptRaw);
-            const receiptCandidate = document.getElementById('receiptCandidate');
-            const receiptParty = document.getElementById('receiptParty');
-            const receiptTimestamp = document.getElementById('receiptTimestamp');
-            const transactionHash = document.getElementById('transactionHash');
-            const verificationId = document.getElementById('verificationId');
-
-            if (receiptCandidate) receiptCandidate.textContent = receipt.name;
-            if (receiptParty) receiptParty.textContent = receipt.party;
-            if (receiptTimestamp) receiptTimestamp.textContent = receipt.timestamp;
-            if (transactionHash) transactionHash.value = receipt.transactionHash;
-            if (verificationId) verificationId.value = receipt.verificationId;
-        } catch (error) {
-            console.warn('Unable to restore vote receipt.', error);
-        }
-    }
 
     document.querySelectorAll('[data-copy-target]').forEach(button => {
         button.addEventListener('click', async () => {

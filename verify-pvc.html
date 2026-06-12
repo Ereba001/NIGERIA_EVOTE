@@ -13,7 +13,7 @@
         .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
         
         .verify-container { max-width: 600px; margin: 0 auto 5rem; background: white; padding: 3rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .result-box { margin-top: 2rem; padding: 1.5rem; background: #f9fafb; border: 1px dashed var(--border-color); border-radius: 8px; text-align: center; color: var(--text-muted); }
+        .verify-container .identity-result { margin-top: 1.5rem; }
         
         .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
     </style>
@@ -65,23 +65,13 @@
                 <label>Voter Identification Number (VIN) or NIN</label>
                 <div class="input-with-icon">
                     <i class="fi-rs-id-card-clip-alt input-icon"></i>
-                    <input type="text" placeholder="Enter your 11 or 19 digit ID">
-                </div>
-            </div>
-            
-            <div class="form-group" style="margin-bottom: 2rem;">
-                <label>Date of Birth</label>
-                <div class="input-with-icon">
-                    <i class="fi-rs-calendar input-icon"></i>
-                    <input type="date" style="color: var(--text-muted);">
+                    <input id="pvcVinInput" type="text" placeholder="Enter your 11 or 19 digit ID">
                 </div>
             </div>
 
-            <button class="btn btn-primary btn-full btn-large">Check Status</button>
+            <div id="pvcIdentityResult" class="identity-result" style="display:none;"></div>
 
-            <div class="result-box">
-                Enter your details above to retrieve your PVC status and polling unit information.
-            </div>
+            <button id="pvcCheckBtn" class="btn btn-primary btn-full btn-large"><span id="pvcBtnText">Check Status</span></button>
         </div>
     </main>
 
@@ -122,5 +112,47 @@
         </div>
     </footer>
 <script src="scripts.js"></script>
+<script>
+(function() {
+    var pvcVinInput = document.getElementById('pvcVinInput');
+    var pvcCheckBtn = document.getElementById('pvcCheckBtn');
+    var pvcBtnText = document.getElementById('pvcBtnText');
+    var pvcIdentityResult = document.getElementById('pvcIdentityResult');
+    var verified = false;
+
+    pvcCheckBtn.addEventListener('click', function() {
+        if (verified) { window.location.href = 'auth.html'; return; }
+        var idValue = pvcVinInput.value.trim();
+        if (!idValue) {
+            pvcVinInput.style.borderColor = 'red';
+            setTimeout(function() { pvcVinInput.style.borderColor = ''; }, 2000);
+            return;
+        }
+        pvcCheckBtn.disabled = true;
+        pvcCheckBtn.classList.add('btn-loading');
+        pvcBtnText.textContent = 'Fetching identity...';
+        pvcIdentityResult.style.display = 'none';
+        pvcIdentityResult.className = 'identity-result';
+        setTimeout(function() {
+            if (idValue === '1234567') {
+                pvcIdentityResult.className = 'identity-result identity-success';
+                pvcIdentityResult.style.display = 'block';
+                pvcIdentityResult.innerHTML = '<div class="identity-avatar"><div class="avatar-placeholder"><i class="fi-rs-user"></i></div></div><div class="identity-fields"><div class="id-field"><span class="id-label">Full Name</span><span class="id-value">Banger Boys</span></div><div class="id-row"><div class="id-field"><span class="id-label">Sex</span><span class="id-value">M</span></div><div class="id-field"><span class="id-label">DOB</span><span class="id-value">12 January 2022</span></div></div></div><div class="id-note text-sm">PVC verified successfully.</div>';
+                pvcCheckBtn.classList.remove('btn-loading');
+                pvcBtnText.textContent = 'Proceed to Sign Up';
+                pvcCheckBtn.disabled = false;
+                verified = true;
+            } else {
+                pvcIdentityResult.className = 'identity-result identity-error';
+                pvcIdentityResult.style.display = 'block';
+                pvcIdentityResult.innerHTML = '<i class="fi-rs-times-circle"></i> VIN / NIN not found. Check your ID and try again.';
+                pvcCheckBtn.classList.remove('btn-loading');
+                pvcBtnText.textContent = 'Check Status';
+                pvcCheckBtn.disabled = false;
+            }
+        }, 1500);
+    });
+})();
+</script>
 </body>
 </html>

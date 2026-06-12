@@ -20,7 +20,7 @@
         
         .election-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto 4rem;
@@ -166,7 +166,7 @@
                     </div>
                     <div class="ec-detail">
                         <i class="fi-rs-stopwatch ec-icon"></i>
-                        <span><strong>Time left:</strong> 04:12:45</span>
+                        <span><strong>Time left:</strong> <span id="countdownTimer">--:--:--</span></span>
                     </div>
                     <div class="ec-detail">
                         <i class="fi-rs-users ec-icon"></i>
@@ -176,7 +176,51 @@
                 </div>
                 <div class="ec-footer">
                     <a href="candidates.html" class="btn btn-outline">View Candidates</a>
-                    <a href="auth.html" class="btn btn-primary">Vote Now <i class="fi-rs-arrow-right"></i></a>
+                    <a href="login.html" class="btn btn-primary">Vote Now</a>
+                </div>
+            </div>
+
+            <div id="voteModal" class="confirm-modal" aria-hidden="true">
+                <div class="confirm-modal__backdrop"></div>
+                <div class="confirm-modal__panel" role="dialog" aria-modal="true">
+                    <i class="fi-rs-vote confirm-modal__icon"></i>
+                    <h2 class="confirm-modal__title">Cast Your Vote</h2>
+                    <p class="confirm-modal__sub">Select your preferred candidate for the Presidential Election 2024.</p>
+                    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
+                        <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
+                            <input type="radio" name="voteCandidate" value="A" style="accent-color:var(--primary-green);">
+                            <span><strong>Candidate A (PP)</strong><br><span class="text-sm text-gray">People's Party</span></span>
+                        </label>
+                        <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
+                            <input type="radio" name="voteCandidate" value="B" style="accent-color:var(--primary-green);">
+                            <span><strong>Candidate B (UA)</strong><br><span class="text-sm text-gray">Unity Alliance</span></span>
+                        </label>
+                        <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
+                            <input type="radio" name="voteCandidate" value="C" style="accent-color:var(--primary-green);">
+                            <span><strong>Candidate C (NF)</strong><br><span class="text-sm text-gray">Nigeria First</span></span>
+                        </label>
+                    </div>
+                    <div class="confirm-modal__actions">
+                        <button id="voteCancel" class="btn btn-secondary">Cancel</button>
+                        <button id="voteSubmit" class="btn btn-primary">Submit Vote</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="voteSuccessModal" class="auth-modal" aria-hidden="true">
+                <div class="auth-modal__backdrop"></div>
+                <div class="auth-modal__panel" role="dialog" aria-modal="true">
+                    <div class="auth-modal__animated">
+                        <div class="auth-modal__spinner" id="voteSpinner"></div>
+                        <div class="auth-modal__check" id="voteCheck">
+                            <svg viewBox="0 0 52 52">
+                                <circle class="check-fill" cx="26" cy="26" r="26"/>
+                                <path class="check-mark" d="M14 27l7 7 16-16"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="auth-modal__title">Vote Cast Successfully!</h2>
+                    <p class="auth-modal__sub">Your vote has been securely recorded on the blockchain ledger. Thank you for participating.</p>
                 </div>
             </div>
 
@@ -315,5 +359,60 @@
         </div>
     </footer>
 <script src="scripts.js"></script>
+<script>
+(function() {
+    var endDate = new Date('2024-10-12T08:00:00').getTime();
+    var timerEl = document.getElementById('countdownTimer');
+    function updateTimer() {
+        var now = new Date().getTime();
+        var diff = endDate - now;
+        if (diff <= 0) { timerEl.textContent = '00:00:00'; return; }
+        var h = Math.floor(diff / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        timerEl.textContent = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    var voteBtn = document.getElementById('voteNowBtn');
+    var voteModal = document.getElementById('voteModal');
+    var voteCancel = document.getElementById('voteCancel');
+    var voteSubmit = document.getElementById('voteSubmit');
+    var voteSuccess = document.getElementById('voteSuccessModal');
+    var candidateOptions = document.querySelectorAll('.candidate-option');
+
+    candidateOptions.forEach(function(opt) {
+        opt.addEventListener('click', function() {
+            candidateOptions.forEach(function(o) { o.style.borderColor = 'var(--border-color)'; o.style.background = ''; });
+            this.style.borderColor = 'var(--primary-green)';
+            this.style.background = 'rgba(0,135,81,0.05)';
+            this.querySelector('input[type=radio]').checked = true;
+        });
+    });
+
+    voteBtn.addEventListener('click', function(e) { e.preventDefault(); voteModal.classList.add('active'); });
+    voteCancel.addEventListener('click', function() { voteModal.classList.remove('active'); });
+    voteModal.addEventListener('click', function(e) {
+        if (e.target === voteModal || e.target.classList.contains('confirm-modal__backdrop')) voteModal.classList.remove('active');
+    });
+
+    voteSubmit.addEventListener('click', function() {
+        var selected = document.querySelector('input[name="voteCandidate"]:checked');
+        if (!selected) { voteSubmit.textContent = 'Select a candidate'; setTimeout(function() { voteSubmit.textContent = 'Submit Vote'; }, 1500); return; }
+        voteModal.classList.remove('active');
+        voteSuccess.classList.add('active');
+        var spinner = document.getElementById('voteSpinner');
+        var check = document.getElementById('voteCheck');
+        spinner.classList.add('spinning');
+        setTimeout(function() {
+            spinner.classList.remove('spinning');
+            spinner.classList.add('done');
+            check.classList.add('show');
+            setTimeout(function() { voteSuccess.classList.remove('active'); }, 3000);
+        }, 1500);
+    });
+})();
+</script>
 </body>
 </html>

@@ -66,5 +66,25 @@
     </main>
 
     <script src="scripts.js"></script>
+    <script>
+    (function() {
+        var raw = localStorage.getItem('nigeriaEVoteReceipt');
+        if (raw) {
+            try {
+                var receipt = JSON.parse(raw);
+                var getName = function(id) { var el = document.getElementById(id); return el ? el.textContent = receipt.name : null; };
+                var getParty = function(id) { var el = document.getElementById(id); return el ? el.textContent = receipt.party : null; };
+                var getTS = function(id) { var el = document.getElementById(id); return el ? el.textContent = receipt.timestamp : null; };
+                var getHash = function(id) { var el = document.getElementById(id); return el ? el.value = receipt.transactionHash : null; };
+                var getVID = function(id) { var el = document.getElementById(id); return el ? el.value = receipt.verificationId : null; };
+                getName('receiptCandidate');
+                getParty('receiptParty');
+                getTS('receiptTimestamp');
+                getHash('transactionHash');
+                getVID('verificationId');
+            } catch(e) { console.warn('Receipt load error', e); }
+        }
+    })();
+    </script>
 </body>
 </html>

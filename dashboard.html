@@ -10,10 +10,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+<style>
+body { background: none !important; }
+.dashboard-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: #f0f4f0 url('resources/homepage.png') center/cover no-repeat;
+}
+.dashboard-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(249,250,251,0.75);
+}
+.dashboard-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+</style>
 </head>
 <body class="bg-light">
+<div class="dashboard-bg"></div>
+<div class="dashboard-wrapper">
     <header class="navbar navbar-dash">
-        <a href="index.html" class="logo">
+        <a href="dashboard.html" class="logo">
             <div class="logo-icon"></div>
             <span class="logo-text">NIGERIA <strong>E-VOTE</strong></span>
         </a>
@@ -56,7 +78,7 @@
             </div>
             <div class="status-item">
                 <span class="status-label">Countdown</span>
-                <span class="status-value">04:12:45</span>
+                <span class="status-value"><span id="dashCountdown">--:--:--</span></span>
             </div>
             <div class="status-item">
                 <span class="status-label">Registered Voters</span>
@@ -199,7 +221,7 @@
             <div class="chart-box" data-aos="fade-right">
                 <h3 style="margin-bottom: 0.5rem;">Presidential Election 2024</h3>
                 <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Votes Counted: 12,842,910 (15% of registered voters)</p>
-                <div style="height:400px;width:100%;">
+                <div class="chart-container-lg" style="height:400px;width:100%;">
                     <canvas id="detailedResultsChart"></canvas>
                 </div>
             </div>
@@ -316,10 +338,18 @@
 <div id="logoutModal" class="confirm-modal" aria-hidden="true">
     <div class="confirm-modal__backdrop"></div>
     <div class="confirm-modal__panel" role="dialog" aria-modal="true">
-        <i class="fi-rs-sign-out-alt confirm-modal__icon"></i>
-        <h2 class="confirm-modal__title">Leave Voting Session?</h2>
-        <p class="confirm-modal__sub">Your session is active. Are you sure you want to log out?</p>
-        <div class="confirm-modal__actions">
+        <div class="auth-modal__animated">
+            <div class="auth-modal__spinner" id="logoutSpinner"></div>
+            <div class="auth-modal__check" id="logoutCheck">
+                <svg viewBox="0 0 52 52">
+                    <circle class="check-fill" cx="26" cy="26" r="26"/>
+                    <path class="check-mark" d="M14 27l7 7 16-16"/>
+                </svg>
+            </div>
+        </div>
+        <h2 class="confirm-modal__title" id="logoutTitle">Leave Voting Session?</h2>
+        <p class="confirm-modal__sub" id="logoutSub">Your session is active. Are you sure you want to log out?</p>
+        <div class="confirm-modal__actions" id="logoutActions">
             <button id="logoutCancel" class="btn btn-secondary">Cancel</button>
             <button id="logoutProceed" class="btn btn-primary">Proceed</button>
         </div>
@@ -397,6 +427,12 @@
     var cancel = document.getElementById('logoutCancel');
     var proceed = document.getElementById('logoutProceed');
 
+    var logoutSpinner = document.getElementById('logoutSpinner');
+    var logoutCheck = document.getElementById('logoutCheck');
+    var logoutTitle = document.getElementById('logoutTitle');
+    var logoutSub = document.getElementById('logoutSub');
+    var logoutActions = document.getElementById('logoutActions');
+
     btn.addEventListener('click', function(e) {
         e.preventDefault();
         modal.classList.add('active');
@@ -407,7 +443,21 @@
     });
 
     proceed.addEventListener('click', function() {
-        window.location.href = 'index.html';
+        logoutActions.style.display = 'none';
+        logoutTitle.textContent = 'Signing Out...';
+        logoutSub.textContent = 'Please wait while we securely end your session.';
+        logoutSpinner.classList.add('spinning');
+        localStorage.removeItem('nigeriaEVoteStatus');
+        setTimeout(function() {
+            logoutSpinner.classList.remove('spinning');
+            logoutSpinner.classList.add('done');
+            logoutCheck.classList.add('show');
+            logoutTitle.textContent = 'Signed Out';
+            logoutSub.textContent = 'You have been securely logged out.';
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 1500);
+        }, 1200);
     });
 
     modal.addEventListener('click', function(e) {
@@ -415,7 +465,138 @@
             modal.classList.remove('active');
         }
     });
+
+    var dashEnd = new Date('2024-10-12T08:00:00').getTime();
+    var dashTimer = document.getElementById('dashCountdown');
+    function tickDash() {
+        var now = new Date().getTime();
+        var diff = dashEnd - now;
+        if (diff <= 0) { dashTimer.textContent = '00:00:00'; return; }
+        var h = Math.floor(diff / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        dashTimer.textContent = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    tickDash();
+    setInterval(tickDash, 1000);
+
+    var candidateRadios = document.querySelectorAll('input[name="candidate"]');
+    var candidateCards = document.querySelectorAll('.candidate-card');
+    var confirmBtn = document.getElementById('confirmSelectionBtn');
+    var submitVoteBtn = document.getElementById('submitVoteBtn');
+    var voteModal = document.getElementById('voteModal');
+    var modalName = document.getElementById('modalCandidateName');
+    var modalParty = document.getElementById('modalCandidateParty');
+    var finalSubmit = document.getElementById('finalSubmitBtn');
+    var backBtn = document.getElementById('backToSelectionBtn');
+    var voterStatus = document.getElementById('voterStatus');
+
+    function lockVoteUI() {
+        candidateCards.forEach(function(c) { c.style.pointerEvents = 'none'; c.style.opacity = '0.5'; });
+        candidateRadios.forEach(function(r) { r.disabled = true; });
+        if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = 'Selection Locked'; }
+        if (submitVoteBtn) { submitVoteBtn.disabled = true; submitVoteBtn.textContent = 'Vote Recorded'; }
+    }
+
+    function generateReceipt(selected) {
+        var card = document.querySelector('.candidate-card.selected');
+        var name = card ? card.querySelector('.candidate-name').textContent : 'Unknown';
+        var party = card ? card.querySelector('.candidate-party').textContent : 'Unknown';
+        var bytes = new Uint8Array(32);
+        if (window.crypto && window.crypto.getRandomValues) {
+            window.crypto.getRandomValues(bytes);
+        } else {
+            for (var i = 0; i < 32; i++) bytes[i] = Math.floor(Math.random() * 256);
+        }
+        var hash = '0x';
+        for (var i = 0; i < 32; i++) hash += bytes[i].toString(16).padStart(2, '0');
+        return {
+            name: name,
+            party: party,
+            timestamp: new Date().toLocaleString('en-NG', { dateStyle: 'medium', timeStyle: 'medium' }),
+            transactionHash: hash,
+            verificationId: 'NG-E-VOTE-2024-' + selected + '-' + Math.floor(1000 + Math.random() * 9000)
+        };
+    }
+
+    if (localStorage.getItem('nigeriaEVoteStatus') === 'cast') {
+        voterStatus.textContent = 'CAST';
+        voterStatus.className = 'status-value text-green font-medium';
+        lockVoteUI();
+    }
+
+    candidateCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            candidateCards.forEach(function(c) { c.classList.remove('selected'); });
+            this.classList.add('selected');
+            this.querySelector('input[type=radio]').checked = true;
+        });
+    });
+
+    confirmBtn.addEventListener('click', function() {
+        var selected = document.querySelector('input[name="candidate"]:checked');
+        if (!selected) { confirmBtn.textContent = 'Select a candidate'; setTimeout(function() { confirmBtn.textContent = 'Confirm Selection'; }, 1500); return; }
+        var card = document.querySelector('.candidate-card.selected');
+        var name = card ? card.querySelector('.candidate-name').textContent : '';
+        var party = card ? card.querySelector('.candidate-party').textContent : '';
+        modalName.textContent = name;
+        modalParty.textContent = party;
+        voteModal.classList.add('is-open');
+        voteModal.setAttribute('aria-hidden', 'false');
+    });
+
+    submitVoteBtn.addEventListener('click', function() {
+        var selected = document.querySelector('input[name="candidate"]:checked');
+        if (!selected) { submitVoteBtn.textContent = 'Select a candidate'; setTimeout(function() { submitVoteBtn.textContent = 'Submit Vote'; }, 1500); return; }
+        var card = document.querySelector('.candidate-card.selected');
+        var name = card ? card.querySelector('.candidate-name').textContent : '';
+        var party = card ? card.querySelector('.candidate-party').textContent : '';
+        modalName.textContent = name;
+        modalParty.textContent = party;
+        voteModal.classList.add('is-open');
+        voteModal.setAttribute('aria-hidden', 'false');
+    });
+
+    backBtn.addEventListener('click', function() { voteModal.classList.remove('is-open'); voteModal.setAttribute('aria-hidden', 'true'); });
+    voteModal.addEventListener('click', function(e) {
+        if (e.target === voteModal) { voteModal.classList.remove('is-open'); voteModal.setAttribute('aria-hidden', 'true'); }
+    });
+
+    finalSubmit.addEventListener('click', function() {
+        var selected = document.querySelector('input[name="candidate"]:checked');
+        if (!selected) return;
+        var receipt = generateReceipt(selected.value);
+        localStorage.setItem('nigeriaEVoteReceipt', JSON.stringify(receipt));
+        localStorage.setItem('nigeriaEVoteStatus', 'cast');
+        voteModal.classList.remove('is-open');
+        voterStatus.textContent = 'CAST';
+        voterStatus.className = 'status-value text-green font-medium';
+        lockVoteUI();
+        var successModal = document.getElementById('successModal') || (function() {
+            var m = document.createElement('div');
+            m.id = 'successModal';
+            m.className = 'auth-modal';
+            m.setAttribute('aria-hidden', 'true');
+            m.innerHTML = '<div class="auth-modal__backdrop"></div><div class="auth-modal__panel"><div class="auth-modal__animated"><div class="auth-modal__spinner" id="dashVoteSpinner"></div><div class="auth-modal__check" id="dashVoteCheck"><svg viewBox="0 0 52 52"><circle class="check-fill" cx="26" cy="26" r="26"/><path class="check-mark" d="M14 27l7 7 16-16"/></svg></div></div><h2 class="auth-modal__title">Vote Cast Successfully!</h2><p class="auth-modal__sub">Your vote has been securely recorded on the blockchain ledger.</p></div>';
+            document.body.appendChild(m);
+            return m;
+        })();
+        successModal.classList.add('active');
+        var spinner = document.getElementById('dashVoteSpinner');
+        var check = document.getElementById('dashVoteCheck');
+        spinner.classList.add('spinning');
+        setTimeout(function() {
+            spinner.classList.remove('spinning');
+            spinner.classList.add('done');
+            check.classList.add('show');
+            setTimeout(function() {
+                successModal.classList.remove('active');
+                window.location.href = 'receipt.html';
+            }, 1200);
+        }, 800);
+    });
 })();
 </script>
+</div>
 </body>
 </html>

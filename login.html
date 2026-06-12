@@ -56,10 +56,10 @@
                 <label>Security PIN</label>
                 <i class="fi-rs-lock" style="font-size:1.5rem;color:var(--text-muted);margin-bottom:0.75rem;display:inline-block;"></i>
                 <div class="pin-inputs" style="justify-content:center;">
-                    <input type="password" maxlength="1" class="pin-box" data-index="0">
-                    <input type="password" maxlength="1" class="pin-box" data-index="1">
-                    <input type="password" maxlength="1" class="pin-box" data-index="2">
-                    <input type="password" maxlength="1" class="pin-box" data-index="3">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="0">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="1">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="2">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="3">
                 </div>
                 <div id="loginPinError" class="form-error"></div>
             </div>
@@ -86,7 +86,15 @@
 <div id="welcomeModal" class="auth-modal" aria-hidden="true">
     <div class="auth-modal__backdrop"></div>
     <div class="auth-modal__panel" role="dialog" aria-modal="true">
-        <i class="fi-rs-badge-check auth-modal__icon"></i>
+        <div class="auth-modal__animated">
+            <div class="auth-modal__spinner" id="welcomeSpinner"></div>
+            <div class="auth-modal__check" id="welcomeCheck">
+                <svg viewBox="0 0 52 52">
+                    <circle class="check-fill" cx="26" cy="26" r="26"/>
+                    <path class="check-mark" d="M14 27l7 7 16-16"/>
+                </svg>
+            </div>
+        </div>
         <h2 class="auth-modal__title">Welcome Back!</h2>
         <p class="auth-modal__sub">You are being securely signed in to your dashboard.</p>
     </div>
@@ -103,23 +111,46 @@
             pinError.textContent = '';
             pinBoxes.forEach(function(b) { b.classList.remove('shake'); });
             var idx = parseInt(this.getAttribute('data-index'));
-            if (this.value.length === 1 && idx < 3) {
-                pinBoxes[idx + 1].focus();
+            var digit = this.value.slice(-1);
+            if (digit && /^\d$/.test(digit)) {
+                this.dataset.val = digit;
+                this.value = '·';
+                this.classList.add('filled');
+                if (idx < 3) pinBoxes[idx + 1].focus();
+            } else {
+                this.value = '';
+                delete this.dataset.val;
+                this.classList.remove('filled');
             }
         });
         box.addEventListener('keydown', function(e) {
             var idx = parseInt(this.getAttribute('data-index'));
-            if (e.key === 'Backspace' && this.value.length === 0 && idx > 0) {
-                pinBoxes[idx - 1].focus();
+            if (e.key === 'Backspace') {
+                if (this.dataset.val) {
+                    this.value = '';
+                    delete this.dataset.val;
+                    this.classList.remove('filled');
+                    e.preventDefault();
+                } else if (idx > 0) {
+                    pinBoxes[idx - 1].focus();
+                }
             }
         });
     });
+
+    var portalNin = document.getElementById('portalNin');
 
     btn.addEventListener('click', function(e) {
         e.preventDefault();
         pinError.textContent = '';
         pinBoxes.forEach(function(b) { b.classList.remove('shake'); });
-        var pin = Array.from(pinBoxes).map(function(b) { return b.value; }).join('');
+        var ninValue = portalNin.value.trim();
+        if (!ninValue) {
+            portalNin.style.borderColor = 'red';
+            setTimeout(function() { portalNin.style.borderColor = ''; }, 2000);
+            return;
+        }
+        var pin = Array.from(pinBoxes).map(function(b) { return b.dataset.val || ''; }).join('');
         if (pin.length < 4) {
             pinError.textContent = 'Please enter your 4-digit Security PIN';
             pinBoxes.forEach(function(b) { b.classList.add('shake'); });
@@ -130,9 +161,17 @@
         setTimeout(function() {
             document.getElementById('welcomeModal').classList.add('active');
             btn.style.display = 'none';
+            var spinner = document.getElementById('welcomeSpinner');
+            var check = document.getElementById('welcomeCheck');
+            spinner.classList.add('spinning');
             setTimeout(function() {
-                window.location.href = 'dashboard.html';
-            }, 2500);
+                spinner.classList.remove('spinning');
+                spinner.classList.add('done');
+                check.classList.add('show');
+                setTimeout(function() {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 1200);
         }, 800);
     });
 })();

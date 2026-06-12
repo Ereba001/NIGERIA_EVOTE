@@ -72,6 +72,7 @@
                                 <input id="phoneInput" type="text" placeholder="+234 XXX XXX XXXX">
                             </div>
                         </div>
+                        <div id="identityResult" class="identity-result" style="display:none;"></div>
                         <button id="sendOtpBtn" class="btn btn-outline btn-full btn-send-otp"><span id="sendOtpText">Send OTP Verification</span> <i id="sendOtpIcon" class="fi-rs-paper-plane"></i></button>
                     </div>
                 </div>
@@ -103,20 +104,21 @@
                             <div class="input-with-icon" style="text-align:center;">
                                 <i class="fi-rs-lock" style="font-size:1.5rem;color:var(--text-muted);margin-bottom:0.75rem;display:inline-block;"></i>
                                 <div class="pin-inputs">
-                                    <input type="password" maxlength="1" class="pin-box" data-index="0">
-                                    <input type="password" maxlength="1" class="pin-box" data-index="1">
-                                    <input type="password" maxlength="1" class="pin-box" data-index="2">
-                                    <input type="password" maxlength="1" class="pin-box" data-index="3">
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="0">
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="1">
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="2">
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="3">
                                 </div>
                             </div>
                             <div id="pinError" class="form-error"></div>
                         </div>
                         <button id="loginBtn" class="btn btn-primary btn-full mt-2">Login to Dashboard</button>
-                        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem;">
-                            <span style="color: var(--text-muted);">Already have an account?</span> <a href="login.html" style="color: var(--primary-green); font-weight: 600;">Click to login</a>
-                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div style="text-align: center; padding: 0.6rem 2rem; border-top: 1px solid var(--border-color); font-size: 0.875rem;">
+                <span style="color: var(--text-muted);">Already registered?</span> <a href="login.html" style="color: var(--primary-green); font-weight: 600;">Sign In</a>
             </div>
 
             <div class="auth-ssl-banner">
@@ -161,7 +163,15 @@
 <div id="successModal" class="auth-modal" aria-hidden="true">
     <div class="auth-modal__backdrop"></div>
     <div class="auth-modal__panel" role="dialog" aria-modal="true">
-        <i class="fi-rs-badge-check auth-modal__icon"></i>
+        <div class="auth-modal__animated">
+            <div class="auth-modal__spinner" id="successSpinner"></div>
+            <div class="auth-modal__check" id="successCheck">
+                <svg viewBox="0 0 52 52">
+                    <circle class="check-fill" cx="26" cy="26" r="26"/>
+                    <path class="check-mark" d="M14 27l7 7 16-16"/>
+                </svg>
+            </div>
+        </div>
         <h2 class="auth-modal__title">User Verified</h2>
         <p class="auth-modal__sub">Welcome back! You are being securely signed in.</p>
     </div>
@@ -212,20 +222,51 @@
     var sendOtpBtn = document.getElementById('sendOtpBtn');
     var sendOtpText = document.getElementById('sendOtpText');
     var sendOtpIcon = document.getElementById('sendOtpIcon');
+    var vinInput = document.getElementById('vinInput');
+    var phoneInput = document.getElementById('phoneInput');
+    var identityResult = document.getElementById('identityResult');
 
     sendOtpBtn.addEventListener('click', function() {
+        var idValue = vinInput.value.trim();
+        var phoneValue = phoneInput.value.trim();
+        if (!idValue) {
+            vinInput.style.borderColor = 'red';
+            setTimeout(function() { vinInput.style.borderColor = ''; }, 2000);
+            return;
+        }
+        if (!phoneValue) {
+            phoneInput.style.borderColor = 'red';
+            setTimeout(function() { phoneInput.style.borderColor = ''; }, 2000);
+            return;
+        }
+        sendOtpBtn.disabled = true;
         sendOtpBtn.classList.add('btn-loading');
-        sendOtpText.textContent = 'Sending...';
+        sendOtpText.textContent = 'Fetching identity...';
         sendOtpIcon.className = 'fi-rs-spinner spinning';
+        identityResult.style.display = 'none';
+        identityResult.className = 'identity-result';
         setTimeout(function() {
-            goToStep(1);
-            sendOtpBtn.classList.remove('btn-loading');
-            sendOtpText.textContent = 'Send OTP Verification';
-            sendOtpIcon.className = 'fi-rs-paper-plane';
-            setTimeout(function() {
-                var firstOtp = document.querySelector('.otp-box');
-                if (firstOtp) firstOtp.focus();
-            }, 100);
+            if (idValue === '1234567') {
+                identityResult.className = 'identity-result identity-success';
+                identityResult.style.display = 'block';
+                identityResult.innerHTML = '<div class="identity-avatar"><div class="avatar-placeholder"><i class="fi-rs-user"></i></div></div><div class="identity-fields"><div class="id-field"><span class="id-label">Full Name</span><span class="id-value">Banger Boys</span></div><div class="id-row"><div class="id-field"><span class="id-label">Sex</span><span class="id-value">M</span></div><div class="id-field"><span class="id-label">DOB</span><span class="id-value">12 January 2022</span></div></div></div><button id="confirmIdentityBtn" class="btn btn-primary btn-full mt-2">Confirm Identity & Continue</button>';
+                sendOtpBtn.style.display = 'none';
+                document.getElementById('confirmIdentityBtn').addEventListener('click', function() {
+                    goToStep(1);
+                    setTimeout(function() {
+                        var firstOtp = document.querySelector('.otp-box');
+                        if (firstOtp) firstOtp.focus();
+                    }, 100);
+                });
+            } else {
+                identityResult.className = 'identity-result identity-error';
+                identityResult.style.display = 'block';
+                identityResult.innerHTML = '<i class="fi-rs-times-circle"></i> Identity not found. Check your ID and try again.';
+                sendOtpBtn.classList.remove('btn-loading');
+                sendOtpText.textContent = 'Send OTP Verification';
+                sendOtpIcon.className = 'fi-rs-paper-plane';
+                sendOtpBtn.disabled = false;
+            }
         }, 1500);
     });
 
@@ -292,14 +333,29 @@
             pinError.textContent = '';
             pinBoxes.forEach(function(b) { b.classList.remove('shake'); });
             var idx = parseInt(this.getAttribute('data-index'));
-            if (this.value.length === 1 && idx < 3) {
-                pinBoxes[idx + 1].focus();
+            var digit = this.value.slice(-1);
+            if (digit && /^\d$/.test(digit)) {
+                this.dataset.val = digit;
+                this.value = '·';
+                this.classList.add('filled');
+                if (idx < 3) pinBoxes[idx + 1].focus();
+            } else {
+                this.value = '';
+                delete this.dataset.val;
+                this.classList.remove('filled');
             }
         });
         box.addEventListener('keydown', function(e) {
             var idx = parseInt(this.getAttribute('data-index'));
-            if (e.key === 'Backspace' && this.value.length === 0 && idx > 0) {
-                pinBoxes[idx - 1].focus();
+            if (e.key === 'Backspace') {
+                if (this.dataset.val) {
+                    this.value = '';
+                    delete this.dataset.val;
+                    this.classList.remove('filled');
+                    e.preventDefault();
+                } else if (idx > 0) {
+                    pinBoxes[idx - 1].focus();
+                }
             }
         });
     });
@@ -309,7 +365,7 @@
     loginBtn.addEventListener('click', function(e) {
         e.preventDefault();
         pinError.textContent = '';
-        var pin = Array.from(pinBoxes).map(function(b) { return b.value; }).join('');
+        var pin = Array.from(pinBoxes).map(function(b) { return b.dataset.val || ''; }).join('');
         if (pin.length < 4) {
             pinError.textContent = 'Please enter your 4-digit Security PIN';
             pinBoxes.forEach(function(b) { b.classList.add('shake'); });
@@ -321,9 +377,17 @@
             successModal.classList.add('active');
             loginBtn.classList.remove('btn-loading');
             loginBtn.textContent = 'Login to Dashboard';
+            var spinner = document.getElementById('successSpinner');
+            var check = document.getElementById('successCheck');
+            spinner.classList.add('spinning');
             setTimeout(function() {
-                window.location.href = 'dashboard.html';
-            }, 2500);
+                spinner.classList.remove('spinning');
+                spinner.classList.add('done');
+                check.classList.add('show');
+                setTimeout(function() {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 1200);
         }, 800);
     });
 })();
