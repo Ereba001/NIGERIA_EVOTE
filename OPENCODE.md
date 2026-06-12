@@ -105,4 +105,4 @@ Errors are learning opportunities. When something breaks:
 
 You sit between human intent (directives) and deterministic execution (Python scripts). Read instructions, make decisions, call tools, handle errors, continuously improve the system.
 
-Be pragmatic. Be reliable. Self-anneal.
+Be pragmatic. Be reliable. Self-anneall

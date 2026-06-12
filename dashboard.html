@@ -28,7 +28,9 @@ body { background: none !important; }
     position: relative;
     z-index: 1;
     min-height: 100vh;
+    overflow-x: hidden;
 }
+.state-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 </style>
 </head>
 <body class="bg-light">
@@ -227,18 +229,20 @@ body { background: none !important; }
             </div>
             <div class="state-results" data-aos="fade-left">
                 <div class="state-header">Top Regions / States Breakdown</div>
-                <table class="state-table">
-                    <thead>
-                        <tr><th>State</th><th>Leading</th><th>Margin</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Lagos</td><td><span class="text-green font-medium">Candidate A</span></td><td>+14%</td></tr>
-                        <tr><td>Kano</td><td><span class="text-main font-medium">Candidate B</span></td><td>+5%</td></tr>
-                        <tr><td>Rivers</td><td><span class="text-main font-medium">Candidate C</span></td><td>+22%</td></tr>
-                        <tr><td>FCT Abuja</td><td><span class="text-green font-medium">Candidate A</span></td><td>+2%</td></tr>
-                        <tr><td>Kaduna</td><td><span class="text-main font-medium">Candidate B</span></td><td>+8%</td></tr>
-                    </tbody>
-                </table>
+                <div class="state-table-wrapper">
+                    <table class="state-table">
+                        <thead>
+                            <tr><th>State</th><th>Leading</th><th>Margin</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Lagos</td><td><span class="text-green font-medium">Candidate A</span></td><td>+14%</td></tr>
+                            <tr><td>Kano</td><td><span class="text-main font-medium">Candidate B</span></td><td>+5%</td></tr>
+                            <tr><td>Rivers</td><td><span class="text-main font-medium">Candidate C</span></td><td>+22%</td></tr>
+                            <tr><td>FCT Abuja</td><td><span class="text-green font-medium">Candidate A</span></td><td>+2%</td></tr>
+                            <tr><td>Kaduna</td><td><span class="text-main font-medium">Candidate B</span></td><td>+8%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

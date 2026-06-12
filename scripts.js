@@ -148,6 +148,23 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', shrinkCheck, { passive: true });
     }
 
+    // Hide navbar on mobile when footer enters viewport
+    (function() {
+        var footer = document.querySelector('.site-footer') || document.querySelector('.dash-footer') || document.querySelector('.auth-footer');
+        var navEl = document.querySelector('.navbar');
+        if (!footer || !navEl) return;
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (window.innerWidth <= 768) {
+                    navEl.classList.toggle('navbar-hide', entry.isIntersecting);
+                } else {
+                    navEl.classList.remove('navbar-hide');
+                }
+            });
+        }, { threshold: 0 });
+        observer.observe(footer);
+    })();
+
     document.querySelectorAll('.method-option').forEach(option => {
         option.addEventListener('click', () => {
             document.querySelectorAll('.method-option').forEach(item => item.classList.remove('active'));
