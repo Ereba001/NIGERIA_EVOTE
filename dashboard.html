@@ -101,7 +101,7 @@ body { background: none !important; }
                 <div class="dash-left">
                     <div class="dash-card" data-aos="fade-right">
                         <div class="card-header border-bottom">
-                            <h3 class="text-green mb-0">Cast Your Vote: Presidential Election 2024</h3>
+                            <h3 class="text-green mb-0">Cast Your Vote: Presidential Election 2026</h3>
                             <span class="badge badge-gray text-xs">SECURE SESSION ENCRYPTED</span>
                         </div>
                         <div class="card-body">
@@ -221,7 +221,7 @@ body { background: none !important; }
         <!-- Results View -->
         <div id="resultsView" class="results-container" style="display:none;">
             <div class="chart-box" data-aos="fade-right">
-                <h3 style="margin-bottom: 0.5rem;">Presidential Election 2024</h3>
+                <h3 style="margin-bottom: 0.5rem;">Presidential Election 2026</h3>
                 <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Votes Counted: 12,842,910 (15% of registered voters)</p>
                 <div class="chart-container-lg" style="height:400px;width:100%;">
                     <canvas id="detailedResultsChart"></canvas>
@@ -330,7 +330,7 @@ body { background: none !important; }
     </div>
 
     <footer class="dash-footer text-center mt-8">
-        <p class="text-sm text-gray mb-2">&copy; 2024 Digital Election Division</p>
+        <p class="text-sm text-gray mb-2">&copy; 2026 Digital Election Division</p>
         <div class="footer-links-inline text-xs">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Use</a>
@@ -470,7 +470,7 @@ body { background: none !important; }
         }
     });
 
-    var dashEnd = new Date('2024-10-12T08:00:00').getTime();
+    var dashEnd = new Date('2026-10-12T08:00:00').getTime();
     var dashTimer = document.getElementById('dashCountdown');
     function tickDash() {
         var now = new Date().getTime();
@@ -519,7 +519,7 @@ body { background: none !important; }
             party: party,
             timestamp: new Date().toLocaleString('en-NG', { dateStyle: 'medium', timeStyle: 'medium' }),
             transactionHash: hash,
-            verificationId: 'NG-E-VOTE-2024-' + selected + '-' + Math.floor(1000 + Math.random() * 9000)
+            verificationId: 'NG-E-VOTE-2026-' + selected + '-' + Math.floor(1000 + Math.random() * 9000)
         };
     }
 
