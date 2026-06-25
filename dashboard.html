@@ -43,7 +43,7 @@ body { background: none !important; }
         </a>
         <nav class="nav-links nav-dash">
             <a href="#" id="navDashboard" class="active">Dashboard</a>
-            <a href="#" id="navResults">View Results</a>
+            <a href="#" id="navResults">View Outcomes</a>
             <a href="#" id="navProfile">Profile</a>
         </nav>
         <div class="nav-user">
@@ -92,7 +92,7 @@ body { background: none !important; }
             </div>
             <div class="status-item bg-gray">
                 <span class="status-label">Your Status</span>
-                <span class="status-value text-gray text-italic" id="voterStatus">NOT YET SUBMITTED</span>
+                <span class="status-value text-gray text-italic" id="voterStatus">NOT YET RECORDED</span>
             </div>
         </div>
 
@@ -101,7 +101,7 @@ body { background: none !important; }
                 <div class="dash-left">
                     <div class="dash-card" data-aos="fade-right">
                         <div class="card-header border-bottom">
-                            <h3 class="text-green mb-0">Participate: Governance Event 2026</h3>
+                            <h3 class="text-green mb-0">Participate: Board Resolution 2026</h3>
                             <span class="badge badge-gray text-xs">SECURE SESSION ENCRYPTED</span>
                         </div>
                         <div class="card-body">
@@ -110,8 +110,8 @@ body { background: none !important; }
                                     <input type="radio" name="candidate" value="A">
                                     <div class="candidate-content">
                                         <div class="candidate-photo placeholder-box"></div>
-                                        <div class="candidate-name">Option A</div>
-                                        <div class="candidate-party">Option A</div>
+                                        <div class="candidate-name">Approve Strategic Plan</div>
+                                        <div class="candidate-party">Executive Committee</div>
                                         <div class="radio-custom"></div>
                                     </div>
                                 </label>
@@ -120,8 +120,8 @@ body { background: none !important; }
                                     <input type="radio" name="candidate" value="B" checked>
                                     <div class="candidate-content">
                                         <div class="candidate-photo placeholder-box"></div>
-                                        <div class="candidate-name">Option B</div>
-                                        <div class="candidate-party">Option B</div>
+                                        <div class="candidate-name">Adopt New Constitution</div>
+                                        <div class="candidate-party">Policy Review Board</div>
                                         <div class="radio-custom"></div>
                                     </div>
                                 </label>
@@ -130,14 +130,14 @@ body { background: none !important; }
                                     <input type="radio" name="candidate" value="C">
                                     <div class="candidate-content">
                                         <div class="candidate-photo placeholder-box"></div>
-                                        <div class="candidate-name">Option C</div>
-                                        <div class="candidate-party">Option C</div>
+                                        <div class="candidate-name">Budget Proposal 2027</div>
+                                        <div class="candidate-party">Governance Council</div>
                                         <div class="radio-custom"></div>
                                     </div>
                                 </label>
                             </div>
                             <div class="vote-actions">
-                                <button class="btn btn-secondary" type="button" id="confirmSelectionBtn">Confirm Choice</button>
+                                <button class="btn btn-secondary" type="button" id="confirmSelectionBtn">Confirm Selection</button>
                                 <button class="btn btn-primary" type="button" id="submitVoteBtn">Submit Decision</button>
                             </div>
                         </div>
@@ -158,7 +158,7 @@ body { background: none !important; }
                 <div class="dash-right">
                     <div class="dash-card" data-aos="fade-left">
                         <div class="card-header">
-                            <h3 class="text-green mb-0">Live Results</h3>
+                            <h3 class="text-green mb-0">Live Outcomes</h3>
                         </div>
                         <div class="card-body">
                             <div class="live-pie-container">
@@ -166,15 +166,15 @@ body { background: none !important; }
                             </div>
                             <div class="results-legend">
                                 <div class="result-row">
-                                    <span><span class="legend-dot" style="background:#008751"></span> Option A</span>
+                                    <span><span class="legend-dot" style="background:#008751"></span> Approve Plan</span>
                                     <strong>42%</strong>
                                 </div>
                                 <div class="result-row">
-                                    <span><span class="legend-dot" style="background:#2563eb"></span> Option B</span>
+                                    <span><span class="legend-dot" style="background:#2563eb"></span> Adopt Constitution</span>
                                     <strong>38%</strong>
                                 </div>
                                 <div class="result-row">
-                                    <span><span class="legend-dot" style="background:#9ca3af"></span> Other</span>
+                                    <span><span class="legend-dot" style="background:#9ca3af"></span> Budget Proposal</span>
                                     <strong>20%</strong>
                                 </div>
                             </div>
@@ -219,9 +219,9 @@ body { background: none !important; }
         </div>
 
         <!-- Results View -->
-        <div id="resultsView" class="results-container" style="display:none;">
+            <div id="resultsView" class="results-container" style="display:none;">
             <div class="chart-box" data-aos="fade-right">
-                <h3 style="margin-bottom: 0.5rem;">Governance Event 2026</h3>
+                <h3 style="margin-bottom: 0.5rem;">Board Resolution 2026</h3>
                 <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Decisions Recorded: 12,842 (15% of registered participants)</p>
                 <div class="chart-container-lg" style="height:400px;width:100%;">
                     <canvas id="detailedResultsChart"></canvas>
@@ -235,11 +235,11 @@ body { background: none !important; }
                             <tr><th>Region</th><th>Leading</th><th>Margin</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>Northern Region</td><td><span class="text-green font-medium">Option A</span></td><td>+14%</td></tr>
-                            <tr><td>Southern Region</td><td><span class="text-main font-medium">Option B</span></td><td>+5%</td></tr>
-                            <tr><td>Eastern Region</td><td><span class="text-main font-medium">Option C</span></td><td>+22%</td></tr>
-                            <tr><td>Western Region</td><td><span class="text-green font-medium">Option A</span></td><td>+2%</td></tr>
-                            <tr><td>Central Region</td><td><span class="text-main font-medium">Option B</span></td><td>+8%</td></tr>
+                            <tr><td>Northern Region</td><td><span class="text-green font-medium">Approve Plan</span></td><td>+14%</td></tr>
+                            <tr><td>Southern Region</td><td><span class="text-main font-medium">Adopt Constitution</span></td><td>+5%</td></tr>
+                            <tr><td>Eastern Region</td><td><span class="text-main font-medium">Budget Proposal</span></td><td>+22%</td></tr>
+                            <tr><td>Western Region</td><td><span class="text-green font-medium">Approve Plan</span></td><td>+2%</td></tr>
+                            <tr><td>Central Region</td><td><span class="text-main font-medium">Adopt Constitution</span></td><td>+8%</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -313,8 +313,8 @@ body { background: none !important; }
                     <div class="candidate-photo placeholder-box"></div>
                     <i class="fi-rs-check vote-check" aria-hidden="true"></i>
                 </div>
-                <h3 id="modalCandidateName">Option B</h3>
-                <p id="modalCandidateParty">Option B</p>
+                <h3 id="modalCandidateName">Adopt New Constitution</h3>
+                <p id="modalCandidateParty">Policy Review Board</p>
                 <span class="vote-modal__election">Governance Event</span>
 
                 <div class="vote-warning">
@@ -379,7 +379,7 @@ body { background: none !important; }
             resultsChart = new Chart(canvas, {
                 type: 'bar',
                 data: {
-                    labels: ['Option A', 'Option B', 'Option C', 'Other'],
+                    labels: ['Approve Plan', 'Adopt Constitution', 'Budget Proposal', 'Abstain'],
                     datasets: [{
                         label: 'Decisions',
                         data: [5393, 4880, 2054, 515],

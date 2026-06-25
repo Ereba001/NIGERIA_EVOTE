@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication | Orivis</title>
+    <title>Sign Up | Orivis</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,7 @@
     <main class="auth-main">
         <div class="auth-header" data-aos="fade-up">
             <i class="fi-rs-badge-check auth-success-icon"></i>
-            <h2>Secure Participant Authentication</h2>
+            <h2>Secure Participant Registration</h2>
                     <p>Please verify your identity using your official credentials to access the governance platform.</p>
         </div>
 
@@ -249,7 +249,7 @@
             if (idValue === '1234567') {
                 identityResult.className = 'identity-result identity-success';
                 identityResult.style.display = 'block';
-                identityResult.innerHTML = '<div class="identity-avatar"><div class="avatar-placeholder"><i class="fi-rs-user"></i></div></div><div class="identity-fields"><div class="id-field"><span class="id-label">Full Name</span><span class="id-value">Banger Boys</span></div><div class="id-row"><div class="id-field"><span class="id-label">Sex</span><span class="id-value">M</span></div><div class="id-field"><span class="id-label">DOB</span><span class="id-value">12 January 2022</span></div></div></div><button id="confirmIdentityBtn" class="btn btn-primary btn-full mt-2">Confirm Identity & Continue</button>';
+                identityResult.innerHTML = '<div class="identity-avatar"><div class="avatar-placeholder"><i class="fi-rs-user"></i></div></div><div class="identity-fields"><div class="id-field"><span class="id-label">Full Name</span><span class="id-value">Sarah Mitchell</span></div><div class="id-row"><div class="id-field"><span class="id-label">Organization</span><span class="id-value">Global Governance Corp</span></div><div class="id-field"><span class="id-label">Member Since</span><span class="id-value">March 2024</span></div></div></div><button id="confirmIdentityBtn" class="btn btn-primary btn-full mt-2">Confirm Identity & Continue</button>';
                 sendOtpBtn.style.display = 'none';
                 document.getElementById('confirmIdentityBtn').addEventListener('click', function() {
                     goToStep(1);

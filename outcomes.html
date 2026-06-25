@@ -71,7 +71,7 @@
         <div class="results-container">
             <!-- Left Side: Chart -->
             <div class="chart-box" data-aos="fade-right">
-                <h3 style="margin-bottom: 0.5rem;">Governance Decision 2026</h3>
+                <h3 style="margin-bottom: 0.5rem;">Board Resolution 2026</h3>
                 <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Decisions Recorded: 12,842 (15% of registered participants)</p>
                 <div style="height: 400px; width: 100%;">
                     <canvas id="detailedResultsChart"></canvas>
@@ -95,27 +95,27 @@
                         <tbody>
                             <tr>
                                 <td>Northern Region</td>
-                                <td><span class="text-green font-medium">Option A</span></td>
+                                <td><span class="text-green font-medium">Approve Plan</span></td>
                                 <td>+14%</td>
                             </tr>
                             <tr>
                                 <td>Southern Region</td>
-                                <td><span class="text-main font-medium">Option B</span></td>
+                                <td><span class="text-main font-medium">Adopt Constitution</span></td>
                                 <td>+5%</td>
                             </tr>
                             <tr>
                                 <td>Eastern Region</td>
-                                <td><span class="text-main font-medium">Option C</span></td>
+                                <td><span class="text-main font-medium">Budget Proposal</span></td>
                                 <td>+22%</td>
                             </tr>
                             <tr>
                                 <td>Western Region</td>
-                                <td><span class="text-green font-medium">Option A</span></td>
+                                <td><span class="text-green font-medium">Approve Plan</span></td>
                                 <td>+2%</td>
                             </tr>
                             <tr>
                                 <td>Central Region</td>
-                                <td><span class="text-main font-medium">Option B</span></td>
+                                <td><span class="text-main font-medium">Adopt Constitution</span></td>
                                 <td>+8%</td>
                             </tr>
                         </tbody>
@@ -138,7 +138,7 @@
                 return {
                     type: 'bar',
                     data: {
-                        labels: ['Option A', 'Option B', 'Option C', 'Other'],
+                        labels: ['Approve Plan', 'Adopt Constitution', 'Budget Proposal', 'Abstain'],
                         datasets: [{
                             label: 'Decisions',
                             data: [5393, 4880, 2054, 515],

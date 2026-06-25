@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createChartOnScroll('liveResultsChart', function() {
         return {
             type: 'pie',
-            data: { labels:['Option A','Option B','Other'], datasets:[{ data:[42,38,20], backgroundColor:['#008751','#2563eb','#9ca3af'], borderWidth:0 }] },
+            data: { labels:['Approve Plan','Adopt Constitution','Budget Proposal'], datasets:[{ data:[42,38,20], backgroundColor:['#008751','#2563eb','#9ca3af'], borderWidth:0 }] },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return c.label+': '+c.raw+'%'; } } } } }
         };
     });
