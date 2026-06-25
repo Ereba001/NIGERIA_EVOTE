@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console | Orivis</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+    <style>
+        :root {
+            --primary-green: #008751;
+            --border-color: #e5e7eb;
+            --text-muted: #6b7280;
+            --bg-light: #f9fafb;
+        }
+        .page-header {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
+
+        .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
+
+        .org-switcher { display: inline-block; margin-right: 1.5rem; }
+        .org-select {
+            padding: 0.4rem 1.5rem 0.4rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            font-family: inherit;
+            max-width: 200px;
+        }
+        .org-select:hover { border-color: var(--primary-green); }
+        .org-select:focus { outline: none; border-color: var(--primary-green); box-shadow: 0 0 0 2px rgba(0,135,81,0.15); }
+
+        .health-grid {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .health-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .health-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px -3px rgba(0,0,0,0.08); }
+        .health-value { font-size: 2rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.25rem; line-height: 1.2; }
+        .health-label { color: var(--text-muted); font-size: 0.875rem; }
+        .health-icon { font-size: 1.5rem; color: var(--primary-green); margin-bottom: 0.75rem; display: block; }
+
+        .console-main { max-width: 1200px; margin: 0 auto 5rem; padding: 0 1.5rem; }
+
+        .console-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        .console-section {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .console-section h2 { font-size: 1.35rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
+
+        .activity-feed { position: relative; padding-left: 1.5rem; }
+        .activity-feed::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+        .activity-item {
+            position: relative;
+            padding-bottom: 1.25rem;
+        }
+        .activity-item:last-child { padding-bottom: 0; }
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            left: -1.125rem;
+            top: 0.4rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--primary-green);
+        }
+        .activity-text { font-size: 0.9375rem; line-height: 1.5; }
+        .activity-time { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; display: block; }
+
+        .deadlines-list { list-style: none; padding: 0; margin: 0; }
+        .deadline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .deadline-item:last-child { border-bottom: none; }
+        .deadline-title { font-weight: 500; font-size: 0.9375rem; }
+        .deadline-date { font-size: 0.85rem; color: var(--text-muted); text-align: right; white-space: nowrap; }
+        .deadline-urgent { color: #dc2626; font-weight: 600; }
+        .deadline-warning { color: #d97706; font-weight: 600; }
+
+        .admin-header .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+        .admin-header .nav-links a { padding: 0.5rem 1rem; white-space: nowrap; }
+
+        .nav-user { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; }
+        .nav-user .user-name { font-size: 0.875rem; font-weight: 500; }
+        .nav-user .user-role { background: #def7ec; color: var(--primary-green); font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.02em; }
+        .nav-user .nav-link-icon { color: var(--text-muted); font-size: 1.1rem; text-decoration: none; transition: color 0.2s; }
+        .nav-user .nav-link-icon:hover { color: var(--primary-green); }
+
+        @media (max-width: 1024px) {
+            .health-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .health-grid { grid-template-columns: 1fr; }
+            .console-grid { grid-template-columns: 1fr; }
+            .admin-header .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .org-switcher { display: block; margin: 0.5rem 0; }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="navbar admin-header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Orivis</span>
+        </a>
+        <div class="org-switcher">
+            <select class="org-select">
+                <option>Federal Governance Council</option>
+                <option>University Senate</option>
+                <option>Board of Directors</option>
+            </select>
+        </div>
+        <nav class="nav-links">
+            <a href="console.html" class="active-link">Console</a>
+            <a href="admin-events.html">Events</a>
+            <a href="admin-participants.html">Participants</a>
+            <a href="admin-audit.html">Audit</a>
+        </nav>
+        <div class="nav-user">
+            <span class="user-name">Admin User</span>
+            <span class="user-role">Org Admin</span>
+            <a href="settings.html" class="nav-link-icon" title="Settings"><i class="fi-rs-settings"></i></a>
+            <a href="index.html" class="btn btn-secondary" style="padding:0.4rem 1rem;font-size:0.875rem;">Sign Out</a>
+        </div>
+    </header>
+
+    <div class="page-header" data-aos="fade-up">
+        <h1>Workspace Console</h1>
+        <p>Overview of your organization's governance activity.</p>
+    </div>
+
+    <main>
+        <div class="health-grid">
+            <div class="health-card" data-aos="fade-up">
+                <i class="fi-rs-calendar health-icon"></i>
+                <div class="health-value">3</div>
+                <div class="health-label">Active Events</div>
+            </div>
+            <div class="health-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fi-rs-chart-line-up health-icon"></i>
+                <div class="health-value">72%</div>
+                <div class="health-label">Participation Rate</div>
+            </div>
+            <div class="health-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fi-rs-badge-check health-icon"></i>
+                <div class="health-value">1,250</div>
+                <div class="health-label">Verified Participants</div>
+            </div>
+            <div class="health-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fi-rs-clock health-icon"></i>
+                <div class="health-value">142</div>
+                <div class="health-label">Pending Decisions</div>
+            </div>
+        </div>
+
+        <div class="console-grid">
+            <section class="console-section" data-aos="fade-right">
+                <h2><i class="fi-rs-list-check" style="color:var(--primary-green);margin-right:0.5rem;"></i> Recent Activity</h2>
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <div class="activity-text">Decision submitted by Sarah Mitchell</div>
+                        <span class="activity-time">2 hours ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-text">Outcome published for Board Resolution 2026</div>
+                        <span class="activity-time">5 hours ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-text">Participant verified: James Okafor</div>
+                        <span class="activity-time">1 day ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-text">Governance Event created: Membership Dues Referendum</div>
+                        <span class="activity-time">2 days ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-text">Participant verified: Amina Bello</div>
+                        <span class="activity-time">3 days ago</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="console-section" data-aos="fade-left">
+                <h2><i class="fi-rs-alarm-clock" style="color:var(--primary-green);margin-right:0.5rem;"></i> Upcoming Deadlines</h2>
+                <ul class="deadlines-list">
+                    <li class="deadline-item">
+                        <span class="deadline-title">Board Resolution 2026</span>
+                        <span class="deadline-date"><span class="deadline-warning">2 days left</span> &middot; Oct 12, 2026</span>
+                    </li>
+                    <li class="deadline-item">
+                        <span class="deadline-title">Community Sentiment Survey</span>
+                        <span class="deadline-date"><span class="deadline-urgent">Closes today</span> &middot; Oct 01, 2026</span>
+                    </li>
+                    <li class="deadline-item">
+                        <span class="deadline-title">Strategic Policy Consultation</span>
+                        <span class="deadline-date">Nov 05, 2026</span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer" data-aos="fade-up">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo logo-white">
+                    <div class="logo-icon border-white"></div>
+                    <span class="logo-text">Orivis</span>
+                </div>
+                <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html">Platform</a></li>
+                    <li><a href="governance-center.html">Governance Center</a></li>
+                    <li><a href="security.html">Trust</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Social</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">GH</a>
+                    <a href="#" class="social-icon">YT</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

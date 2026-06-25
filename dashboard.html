@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
 <style>
 body { background: none !important; }
+.org-switcher { margin: 0 1rem; }
+.org-select { padding: 0.35rem 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.8rem; background: white; color: var(--text-main); cursor: pointer; outline: none; }
 .dashboard-bg {
     position: fixed;
     inset: 0;
@@ -41,33 +43,25 @@ body { background: none !important; }
             <div class="logo-icon"></div>
             <span class="logo-text">Orivis</span>
         </a>
+        <div class="org-switcher">
+            <select class="org-select">
+                <option>Federal Governance Council</option>
+                <option>University Senate</option>
+                <option>Board of Directors</option>
+            </select>
+        </div>
         <nav class="nav-links nav-dash">
             <a href="#" id="navDashboard" class="active">Dashboard</a>
-            <a href="#" id="navResults">View Outcomes</a>
+            <a href="governance-center.html">Governance Center</a>
+            <a href="#" id="navResults">Outcomes</a>
             <a href="#" id="navProfile">Profile</a>
         </nav>
         <div class="nav-user">
-            <div class="user-info">
+            <div class="user-info" style="cursor:pointer;" onclick="window.location.href='console.html'">
                 <span class="user-name">CHUKWUMA ADEBAYO</span>
-                <span class="user-id">ID: 8928-AX</span>
+                <span class="user-id">Participant · <a href="console.html" style="color:var(--primary-green);text-decoration:none;">Switch to Admin</a></span>
             </div>
-            <!--<label class="switch">
-                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
-                <span class="switch__icon">
-                    <span class="switch__icon-part switch__icon-part--1"></span>
-                    <span class="switch__icon-part switch__icon-part--2"></span>
-                    <span class="switch__icon-part switch__icon-part--3"></span>
-                    <span class="switch__icon-part switch__icon-part--4"></span>
-                    <span class="switch__icon-part switch__icon-part--5"></span>
-                    <span class="switch__icon-part switch__icon-part--6"></span>
-                    <span class="switch__icon-part switch__icon-part--7"></span>
-                    <span class="switch__icon-part switch__icon-part--8"></span>
-                    <span class="switch__icon-part switch__icon-part--9"></span>
-                    <span class="switch__icon-part switch__icon-part--10"></span>
-                    <span class="switch__icon-part switch__icon-part--11"></span>
-                </span>
-                <span class="switch__sr">Dark Mode</span>
-            </label>-->
+            <a href="settings.html" class="nav-link" style="font-size:0.85rem;color:var(--text-muted);">Settings</a>
             <a href="#" id="logoutBtn" class="btn btn-secondary">Logout</a>
         </div>
     </header>

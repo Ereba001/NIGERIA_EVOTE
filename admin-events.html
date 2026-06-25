@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governance Events | Orivis Admin</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+    <style>
+        .page-header { text-align: center; padding: 3rem 1.5rem 2rem; background: white; border-bottom: 1px solid var(--border-color); }
+        .page-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1rem; }
+
+        .action-bar { max-width: 900px; margin: 2rem auto 1.5rem; padding: 0 1.5rem; display: flex; justify-content: flex-end; }
+
+        .events-list { max-width: 900px; margin: 0 auto 4rem; padding: 0 1.5rem; display: flex; flex-direction: column; }
+
+        .event-card { background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; }
+        .event-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.08); }
+
+        .event-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+        .event-header h2 { font-size: 1.25rem; font-weight: 700; margin: 0; }
+
+        .event-meta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-muted); }
+
+        .lifecycle-bar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .lifecycle-stage { font-size: 0.7rem; color: var(--text-muted); text-align: center; min-width: 3rem; }
+        .lifecycle-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--border-color); background: transparent; }
+        .lifecycle-active { background: #22c55e; border-color: #22c55e; box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+        .lifecycle-done { background: #9ca3af; border-color: #9ca3af; }
+        .lifecycle-pending { background: transparent; border-color: #d1d5db; }
+        .lifecycle-connector { width: 0; }
+        .lifecycle-sep { color: #d1d5db; font-size: 0.625rem; }
+
+        .event-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; padding-top: 0.75rem; border-top: 1px solid var(--border-color); }
+
+        .org-switcher { display: flex; align-items: center; gap: 0.5rem; margin-right: 1rem; }
+        .org-select { padding: 0.35rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); font-family: 'Inter', sans-serif; font-size: 0.75rem; background: white; outline: none; color: var(--text-main); cursor: pointer; }
+        .org-select:focus { border-color: var(--primary-green); }
+
+        .nav-links a.active-link { color: var(--primary-green) !important; font-weight: 600 !important; }
+        .nav-links a.active-link::after { width: 100% !important; }
+
+        .nav-user { display: flex; align-items: center; gap: 1.25rem; }
+        .user-info { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
+        .user-name { font-size: 0.75rem; font-weight: 700; color: var(--text-main); }
+        .user-role { font-size: 0.65rem; color: var(--primary-green); font-weight: 600; letter-spacing: 0.03em; }
+
+        .badge-status { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em; }
+        .badge-active { background: #def7ec; color: #008751; }
+        .badge-published { background: #e1effe; color: #1e40af; }
+        .badge-review { background: #fef3c7; color: #92400e; }
+        .badge-draft { background: #f3f4f6; color: #6b7280; }
+        .badge-archived { background: #f3f4f6; color: #9ca3af; }
+        .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .badge-dot-green { background: #008751; }
+        .badge-dot-blue { background: #1e40af; }
+        .badge-dot-yellow { background: #d97706; }
+        .badge-dot-gray { background: #6b7280; }
+
+        .text-muted { color: var(--text-muted); }
+
+        .nav-link-icon { font-size: 0.875rem; margin-right: 0.25rem; }
+
+        @media (max-width: 768px) {
+            .page-header { padding: 2rem 1rem 1.5rem; }
+            .page-header h1 { font-size: 1.5rem; }
+            .event-header { flex-direction: column; align-items: flex-start; }
+            .event-meta { gap: 0.75rem; font-size: 0.8rem; }
+            .lifecycle-bar { gap: 0.25rem; }
+            .lifecycle-stage { min-width: 2.25rem; font-size: 0.6rem; }
+            .action-bar { justify-content: stretch; }
+            .action-bar .btn { width: 100%; }
+            .events-list { padding: 0 1rem; }
+            .event-actions { flex-direction: column; }
+            .event-actions .btn { width: 100%; }
+            .org-switcher { margin-right: 0; }
+            .org-select { font-size: 0.7rem; padding: 0.25rem 0.5rem; }
+            .nav-user .user-info { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="navbar navbar-dash">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Orivis</span>
+        </a>
+        <div class="org-switcher">
+            <i class="fi-rs-building" style="color: var(--text-muted); font-size: 0.875rem;"></i>
+            <select class="org-select">
+                <option>Federal Governance Council</option>
+                <option>University Senate</option>
+                <option>Board of Directors</option>
+            </select>
+        </div>
+        <nav class="nav-links nav-dash">
+            <a href="console.html"><i class="fi-rs-apps nav-link-icon"></i>Console</a>
+            <a href="admin-events.html" class="active-link"><i class="fi-rs-calendar nav-link-icon"></i>Events</a>
+            <a href="admin-participants.html"><i class="fi-rs-users nav-link-icon"></i>Participants</a>
+            <a href="admin-audit.html"><i class="fi-rs-shield nav-link-icon"></i>Audit</a>
+        </nav>
+        <div class="nav-user">
+            <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Org Admin</span>
+            </div>
+            <a href="settings.html" class="nav-link"><i class="fi-rs-settings"></i></a>
+            <a href="index.html" class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.75rem;"><i class="fi-rs-sign-out" style="margin-right: 0.3rem;"></i>Sign Out</a>
+        </div>
+    </header>
+
+    <div class="page-header" data-aos="fade-up">
+        <h1>Governance Events</h1>
+        <p>Create, manage, and publish governance events for your organization.</p>
+    </div>
+
+    <div class="action-bar" data-aos="fade-up">
+        <button class="btn btn-primary"><i class="fi-rs-plus" style="margin-right: 0.4rem;"></i>Create Event</button>
+    </div>
+
+    <div class="events-list">
+
+        <div class="event-card" data-aos="fade-up">
+            <div class="event-header">
+                <h2>Board Resolution 2026</h2>
+                <span class="badge-status badge-active"><span class="badge-dot badge-dot-green"></span>Active</span>
+            </div>
+            <div class="event-meta">
+                <span><i class="fi-rs-file" style="margin-right: 0.3rem;"></i>Type: Approval</span>
+                <span><i class="fi-rs-users" style="margin-right: 0.3rem;"></i>Participants: 12.5K</span>
+            </div>
+            <div class="lifecycle-bar">
+                <span class="lifecycle-stage">Draft</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Review</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Published</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Active</span>
+                <span class="lifecycle-dot lifecycle-active"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Closed</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Archived</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+            </div>
+            <div class="event-actions">
+                <a href="proposals.html" class="btn btn-outline"><i class="fi-rs-eye" style="margin-right: 0.3rem;"></i>View</a>
+                <button class="btn btn-secondary"><i class="fi-rs-archive" style="margin-right: 0.3rem;"></i>Archive</button>
+            </div>
+        </div>
+
+        <div class="event-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="event-header">
+                <h2>Annual Leadership Election</h2>
+                <span class="badge-status badge-published"><span class="badge-dot badge-dot-blue"></span>Published</span>
+            </div>
+            <div class="event-meta">
+                <span><i class="fi-rs-file" style="margin-right: 0.3rem;"></i>Type: Election</span>
+                <span><i class="fi-rs-users" style="margin-right: 0.3rem;"></i>Participants: 12.5K</span>
+                <span><i class="fi-rs-calendar" style="margin-right: 0.3rem;"></i>Opens: Dec 10, 2026</span>
+            </div>
+            <div class="lifecycle-bar">
+                <span class="lifecycle-stage">Draft</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Review</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Published</span>
+                <span class="lifecycle-dot lifecycle-active"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Active</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Closed</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Archived</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+            </div>
+            <div class="event-actions">
+                <a href="proposals.html" class="btn btn-outline"><i class="fi-rs-eye" style="margin-right: 0.3rem;"></i>View</a>
+            </div>
+        </div>
+
+        <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="event-header">
+                <h2>Strategic Policy Consultation</h2>
+                <span class="badge-status badge-review"><span class="badge-dot badge-dot-yellow"></span>Review</span>
+            </div>
+            <div class="event-meta">
+                <span><i class="fi-rs-file" style="margin-right: 0.3rem;"></i>Type: Consultation</span>
+                <span><i class="fi-rs-users" style="margin-right: 0.3rem;"></i>Participants: 7.2K</span>
+            </div>
+            <div class="lifecycle-bar">
+                <span class="lifecycle-stage">Draft</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Review</span>
+                <span class="lifecycle-dot lifecycle-active"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Published</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Active</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Closed</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Archived</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-outline"><i class="fi-rs-pen" style="margin-right: 0.3rem;"></i>Edit</button>
+                <button class="btn btn-primary"><i class="fi-rs-upload" style="margin-right: 0.3rem;"></i>Publish</button>
+            </div>
+        </div>
+
+        <div class="event-card" data-aos="fade-up" data-aos-delay="150">
+            <div class="event-header">
+                <h2>Membership Dues Referendum</h2>
+                <span class="badge-status badge-draft"><span class="badge-dot badge-dot-gray"></span>Draft</span>
+            </div>
+            <div class="event-meta">
+                <span><i class="fi-rs-file" style="margin-right: 0.3rem;"></i>Type: Referendum</span>
+                <span><i class="fi-rs-users" style="margin-right: 0.3rem;"></i>Participants: —</span>
+            </div>
+            <div class="lifecycle-bar">
+                <span class="lifecycle-stage">Draft</span>
+                <span class="lifecycle-dot lifecycle-active"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Review</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Published</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Active</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Closed</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Archived</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-outline"><i class="fi-rs-pen" style="margin-right: 0.3rem;"></i>Edit</button>
+                <button class="btn btn-secondary"><i class="fi-rs-send" style="margin-right: 0.3rem;"></i>Submit for Review</button>
+            </div>
+        </div>
+
+        <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="event-header">
+                <h2>Community Sentiment Survey</h2>
+                <span class="badge-status badge-active"><span class="badge-dot badge-dot-green"></span>Active</span>
+            </div>
+            <div class="event-meta">
+                <span><i class="fi-rs-file" style="margin-right: 0.3rem;"></i>Type: Survey</span>
+                <span><i class="fi-rs-users" style="margin-right: 0.3rem;"></i>Participants: 3.1K</span>
+            </div>
+            <div class="lifecycle-bar">
+                <span class="lifecycle-stage">Draft</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Review</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Published</span>
+                <span class="lifecycle-dot lifecycle-done"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Active</span>
+                <span class="lifecycle-dot lifecycle-active"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Closed</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+                <span class="lifecycle-sep">→</span>
+                <span class="lifecycle-stage">Archived</span>
+                <span class="lifecycle-dot lifecycle-pending"></span>
+            </div>
+            <div class="event-actions">
+                <a href="outcomes.html" class="btn btn-outline"><i class="fi-rs-chart-bar" style="margin-right: 0.3rem;"></i>View Results</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="site-footer" data-aos="fade-up">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo logo-white">
+                    <div class="logo-icon border-white"></div>
+                    <span class="logo-text">Orivis</span>
+                </div>
+                <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html">Platform</a></li>
+                    <li><a href="governance-center.html">Governance Center</a></li>
+                    <li><a href="security.html">Trust</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Social</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">GH</a>
+                    <a href="#" class="social-icon">YT</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

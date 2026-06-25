@@ -65,6 +65,14 @@
         }
         .ec-icon { color: var(--primary-green); font-size: 1.25rem; }
         
+        .ec-footer { flex-direction: column; gap: 0.75rem; }
+        .ec-lifecycle { display: flex; align-items: center; gap: 2px; width: 100%; }
+        .lc-dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid #d1d5db; background: white; flex-shrink: 0; }
+        .lc-dot.lc-done { background: #9ca3af; border-color: #9ca3af; }
+        .lc-dot.lc-active { background: var(--primary-green); border-color: var(--primary-green); box-shadow: 0 0 0 2px rgba(0,135,81,0.2); }
+        .lc-line { flex-grow: 1; height: 2px; background: #d1d5db; }
+        .lc-dot.lc-done + .lc-line { background: #9ca3af; }
+        .ec-actions { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 0.75rem; }
         .ec-footer {
             padding: 1.5rem;
             background: var(--bg-light);
@@ -177,8 +185,11 @@
                     <p class="text-sm text-gray mt-4">Annual board resolution on strategic direction and governance reform.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Details</a>
-                    <a href="login.html" class="btn btn-primary">Participate Now</a>
+                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
+                    <div class="ec-actions">
+                        <a href="proposals.html" class="btn btn-outline">View Details</a>
+                        <a href="login.html" class="btn btn-primary">Participate Now</a>
+                    </div>
                 </div>
             </div>
 
@@ -207,8 +218,11 @@
                     <p class="text-sm text-gray mt-4">Elect organizational leadership for the upcoming term.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Candidates</a>
-                    <button class="btn btn-secondary" disabled>Opens Dec 10</button>
+                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
+                    <div class="ec-actions">
+                        <a href="proposals.html" class="btn btn-outline">View Candidates</a>
+                        <button class="btn btn-secondary" disabled>Opens Dec 10</button>
+                    </div>
                 </div>
             </div>
 
@@ -237,8 +251,11 @@
                     <p class="text-sm text-gray mt-4">Open consultation on proposed governance policy amendments.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Proposals</a>
-                    <button class="btn btn-secondary" disabled>Opens Nov 05</button>
+                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
+                    <div class="ec-actions">
+                        <a href="proposals.html" class="btn btn-outline">View Proposals</a>
+                        <button class="btn btn-secondary" disabled>Opens Nov 05</button>
+                    </div>
                 </div>
             </div>
 
@@ -267,8 +284,11 @@
                     <p class="text-sm text-gray mt-4">Binary vote on proposed changes to annual membership contributions.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Details</a>
-                    <button class="btn btn-secondary" disabled>Opens Jan 15</button>
+                    <div class="ec-lifecycle"><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
+                    <div class="ec-actions">
+                        <a href="proposals.html" class="btn btn-outline">View Details</a>
+                        <button class="btn btn-secondary" disabled>Opens Jan 15</button>
+                    </div>
                 </div>
             </div>
 
@@ -297,8 +317,11 @@
                     <p class="text-sm text-gray mt-4">Share your input on organizational priorities for the coming year.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Questions</a>
-                    <a href="login.html" class="btn btn-primary">Take Survey</a>
+                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
+                    <div class="ec-actions">
+                        <a href="proposals.html" class="btn btn-outline">View Questions</a>
+                        <a href="login.html" class="btn btn-primary">Take Survey</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Participants | Admin · Orivis</title>
+        <meta name="description" content="Manage verified participants and their access to governance events." />
+        <link rel="stylesheet" href="index.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" />
+        <style>
+            .page-header {
+                text-align: center;
+                padding: 3rem 1.5rem 2rem;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+            }
+            .page-header p {
+                color: var(--text-muted);
+                font-size: 0.9375rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .action-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto 1.5rem;
+                padding: 0 1.5rem;
+            }
+
+            .participant-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                max-width: 1200px;
+                margin: 0 auto 2rem;
+                padding: 0 1.5rem;
+            }
+            .stat-card {
+                background: white;
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 1.5rem;
+                text-align: center;
+            }
+            .stat-number {
+                font-size: 2rem;
+                font-weight: 800;
+                color: var(--text-main);
+                line-height: 1.2;
+            }
+            .stat-label {
+                font-size: 0.8125rem;
+                color: var(--text-muted);
+                margin-top: 0.25rem;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                max-width: 1200px;
+                margin: 0 auto 3rem;
+                padding: 0 1.5rem;
+            }
+            .participant-table {
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+                border: 1px solid var(--border-color);
+            }
+            .participant-table th {
+                background: #f9fafb;
+                padding: 0.875rem 1.25rem;
+                text-align: left;
+                color: var(--text-muted);
+                font-weight: 600;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .participant-table td {
+                padding: 0.875rem 1.25rem;
+                border-bottom: 1px solid var(--border-color);
+                font-size: 0.875rem;
+                vertical-align: middle;
+            }
+            .participant-table tr:last-child td {
+                border-bottom: none;
+            }
+            .participant-table tr:hover td {
+                background: #f9fafb;
+            }
+
+            .status-badge {
+                display: inline-block;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                padding: 0.25rem 0.625rem;
+                border-radius: 9999px;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
+            }
+            .status-verified {
+                background: #def7ec;
+                color: var(--primary-green);
+            }
+            .status-pending {
+                background: #fef9c3;
+                color: #a16207;
+            }
+            .status-suspended {
+                background: #fef2f2;
+                color: #dc2626;
+            }
+
+            .action-link {
+                font-size: 0.8125rem;
+                font-weight: 600;
+                color: #dc2626;
+                cursor: pointer;
+                transition: color 0.2s;
+                background: none;
+                border: none;
+                font-family: inherit;
+                padding: 0;
+            }
+            .action-link:hover {
+                color: #b91c1c;
+            }
+            .action-link.resend {
+                color: var(--primary-green);
+            }
+            .action-link.resend:hover {
+                color: var(--primary-green-hover);
+            }
+            .action-link.reactivate {
+                color: #2563eb;
+            }
+            .action-link.reactivate:hover {
+                color: #1e40af;
+            }
+
+            .org-switcher {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.8125rem;
+                color: var(--text-muted);
+            }
+            .org-select {
+                padding: 0.375rem 0.75rem;
+                border: 1px solid var(--border-color);
+                border-radius: 6px;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.8125rem;
+                background: white;
+                color: var(--text-main);
+                cursor: pointer;
+                outline: none;
+                min-width: 180px;
+            }
+            .org-select:focus {
+                border-color: var(--primary-green);
+            }
+
+            .nav-links a.active-link {
+                color: var(--primary-green);
+                font-weight: 600;
+            }
+            .nav-links a.active-link::after {
+                width: 100%;
+                background: var(--primary-green);
+            }
+
+            @media (max-width: 768px) {
+                .participant-stats {
+                    grid-template-columns: 1fr;
+                    gap: 0.75rem;
+                    padding: 0 1rem;
+                }
+                .stat-number {
+                    font-size: 1.5rem;
+                }
+                .action-bar {
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    align-items: stretch;
+                    padding: 0 1rem;
+                }
+                .action-bar .btn {
+                    width: 100%;
+                    justify-content: center;
+                }
+                .table-wrapper {
+                    padding: 0 1rem;
+                }
+                .participant-table th,
+                .participant-table td {
+                    padding: 0.625rem 0.75rem;
+                    font-size: 0.8125rem;
+                }
+                .participant-table th:nth-child(3),
+                .participant-table td:nth-child(3) {
+                    display: none;
+                }
+                .org-switcher {
+                    flex: 1 1 100%;
+                    margin-top: 0.25rem;
+                }
+                .org-select {
+                    flex: 1;
+                    min-width: 0;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .participant-table th:nth-child(2),
+                .participant-table td:nth-child(2) {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text">Orivis</span>
+            </a>
+            <div class="org-switcher">
+                <i class="fi-rs-building"></i>
+                <select class="org-select">
+                    <option>Federal Governance Council</option>
+                    <option>University Senate</option>
+                    <option>Board of Directors</option>
+                </select>
+            </div>
+            <nav class="nav-links">
+                <a href="console.html">Console</a>
+                <a href="admin-events.html">Events</a>
+                <a href="admin-participants.html" class="active-link">Participants</a>
+                <a href="admin-audit.html">Audit</a>
+            </nav>
+            <div class="nav-actions">
+                <div class="user-info" style="text-align:right">
+                    <span class="user-name">Admin User</span>
+                    <span class="user-id">Org Admin</span>
+                </div>
+                <a href="settings.html" class="nav-link"><i class="fi-rs-settings"></i> Settings</a>
+                <a href="index.html" class="btn btn-secondary">Sign Out</a>
+            </div>
+        </header>
+
+        <section class="page-header">
+            <h1>Participants</h1>
+            <p>Manage verified participants and their access to governance events.</p>
+        </section>
+
+        <div class="action-bar">
+            <span></span>
+            <button class="btn btn-primary"><i class="fi-rs-user-add"></i> Invite Participant</button>
+        </div>
+
+        <div class="participant-stats">
+            <div class="stat-card">
+                <div class="stat-number">1,250</div>
+                <div class="stat-label">Total Participants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1,180</div>
+                <div class="stat-label">Verified</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">70</div>
+                <div class="stat-label">Pending</div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="participant-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Organization Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sarah Mitchell</td>
+                        <td>ORV-001</td>
+                        <td>Participant</td>
+                        <td><span class="status-badge status-verified">Verified</span></td>
+                        <td><button class="action-link">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Chukwuma Adebayo</td>
+                        <td>ORV-002</td>
+                        <td>Administrator</td>
+                        <td><span class="status-badge status-verified">Verified</span></td>
+                        <td><button class="action-link">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>James Okafor</td>
+                        <td>ORV-003</td>
+                        <td>Participant</td>
+                        <td><span class="status-badge status-verified">Verified</span></td>
+                        <td><button class="action-link">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Amina Bello</td>
+                        <td>ORV-004</td>
+                        <td>Moderator</td>
+                        <td><span class="status-badge status-verified">Verified</span></td>
+                        <td><button class="action-link">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>David Williams</td>
+                        <td>ORV-005</td>
+                        <td>Participant</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><button class="action-link resend">Resend Invite</button></td>
+                    </tr>
+                    <tr>
+                        <td>Grace Okonkwo</td>
+                        <td>ORV-006</td>
+                        <td>Participant</td>
+                        <td><span class="status-badge status-suspended">Suspended</span></td>
+                        <td><button class="action-link reactivate">Reactivate</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo logo-white">
+                        <div class="logo-icon border-white"></div>
+                        <span class="logo-text">Orivis</span>
+                    </div>
+                    <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html">Platform</a></li>
+                        <li><a href="governance-center.html">Governance Center</a></li>
+                        <li><a href="security.html">Trust</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Data Processing</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Social</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">𝕏</a>
+                        <a href="#" class="social-icon">GH</a>
+                        <a href="#" class="social-icon">YT</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 All Rights Reserved.</p>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="scripts.js"></script>
+    </body>
+</html>

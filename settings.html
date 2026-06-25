@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organization Settings | Orivis</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" />
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 1.5rem 2rem;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .settings-container {
+            max-width: 800px;
+            margin: 2rem auto 4rem;
+            padding: 0 1.5rem;
+        }
+        .settings-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .settings-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .settings-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+        .settings-label {
+            width: 200px;
+            flex-shrink: 0;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .settings-value {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .settings-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            background: #f9fafb;
+            color: var(--text-main);
+            cursor: default;
+        }
+        .settings-input[readonly] {
+            opacity: 0.75;
+        }
+        .settings-text {
+            font-size: 0.9375rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+        .coming-soon-badge {
+            display: inline-block;
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            background: #f3f4f6;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .toggle-disabled {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #d1d5db;
+            border-radius: 9999px;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .toggle-disabled::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        .toggle-disabled.toggle-on {
+            background: var(--primary-green);
+        }
+        .toggle-disabled.toggle-on::after {
+            left: 22px;
+        }
+        .settings-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-green);
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .settings-select {
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            background: #f9fafb;
+            color: var(--text-main);
+            opacity: 0.75;
+            cursor: default;
+            max-width: 200px;
+        }
+        .logo-upload-placeholder {
+            width: 80px;
+            height: 80px;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            background: #f9fafb;
+            flex-shrink: 0;
+        }
+        .logo-upload-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .org-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+        .org-switcher i {
+            color: var(--text-muted);
+        }
+        .org-select {
+            padding: 0.35rem 0.625rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            color: var(--text-main);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .org-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        .nav-links a.active-link {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+        .nav-links a.active-link::after {
+            width: 100%;
+        }
+        .nav-link-active {
+            border-color: var(--primary-green) !important;
+            color: var(--primary-green) !important;
+            background: rgba(22, 163, 74, 0.05) !important;
+            font-weight: 600 !important;
+        }
+
+        @media (max-width: 768px) {
+            .settings-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+            .settings-label {
+                width: auto;
+            }
+            .settings-input {
+                max-width: 100%;
+            }
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+            .settings-card {
+                padding: 1.25rem;
+            }
+            .org-switcher {
+                width: 100%;
+                order: 1;
+                padding-top: 0.5rem;
+                border-top: 1px solid var(--border-color);
+            }
+            .org-select {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar navbar-dash">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Orivis</span>
+        </a>
+        <div class="org-switcher">
+            <i class="fi-rs-building"></i>
+            <select class="org-select">
+                <option>Federal Governance Council</option>
+                <option>University Senate</option>
+                <option>Board of Directors</option>
+            </select>
+        </div>
+        <nav class="nav-links nav-dash">
+            <a href="console.html">Console</a>
+            <a href="admin-events.html">Events</a>
+            <a href="admin-participants.html">Participants</a>
+            <a href="admin-audit.html">Audit</a>
+        </nav>
+        <div class="nav-user">
+            <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-id">Org Admin</span>
+            </div>
+            <a href="#" class="nav-link nav-link-active">Settings</a>
+            <a href="index.html" class="btn btn-secondary">Sign Out</a>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <h1>Organization Settings</h1>
+        <p>Manage your organization profile, branding, and security preferences.</p>
+    </section>
+
+    <div class="settings-container">
+        <div class="settings-card">
+            <h3>Organization Profile</h3>
+            <div class="settings-row">
+                <span class="settings-label">Organization Name</span>
+                <div class="settings-value">
+                    <input class="settings-input" type="text" value="Federal Governance Council" readonly />
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Industry</span>
+                <div class="settings-value">
+                    <input class="settings-input" type="text" value="Government" readonly />
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Member Since</span>
+                <div class="settings-value">
+                    <span class="settings-text">January 2024</span>
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Contact Email</span>
+                <div class="settings-value">
+                    <input class="settings-input" type="text" value="admin@federalcouncil.gov" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-card">
+            <h3>
+                Branding
+                <span class="coming-soon-badge">Coming soon</span>
+            </h3>
+            <div class="settings-row">
+                <span class="settings-label">Organization Logo</span>
+                <div class="settings-value">
+                    <div class="logo-upload-area">
+                        <div class="logo-upload-placeholder">
+                            <i class="fi-rs-picture"></i>
+                        </div>
+                        <button class="btn btn-outline" disabled>Upload</button>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Primary Color</span>
+                <div class="settings-value">
+                    <span class="color-swatch" style="background: #008751;"></span>
+                    <span class="settings-text">#008751</span>
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Platform URL</span>
+                <div class="settings-value">
+                    <input class="settings-input" type="text" value="gov.federalcouncil.orivis.app" readonly />
+                    <span class="coming-soon-badge">Coming soon</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-card">
+            <h3>
+                Security
+                <span class="coming-soon-badge">Coming soon</span>
+            </h3>
+            <div class="settings-row">
+                <span class="settings-label">Two-Factor Authentication</span>
+                <div class="settings-value">
+                    <span class="toggle-disabled toggle-on"></span>
+                    <span class="settings-text">Enabled</span>
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Session Timeout</span>
+                <div class="settings-value">
+                    <select class="settings-select" disabled>
+                        <option selected>30 minutes</option>
+                        <option>15 minutes</option>
+                        <option>60 minutes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">Audit Log Retention</span>
+                <div class="settings-value">
+                    <span class="settings-text">Forever</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-card">
+            <h3>
+                Notifications
+                <span class="coming-soon-badge">Coming soon</span>
+            </h3>
+            <div class="settings-row">
+                <span class="settings-label">Email notifications</span>
+                <div class="settings-value">
+                    <input class="settings-checkbox" type="checkbox" checked disabled />
+                </div>
+            </div>
+            <div class="settings-row">
+                <span class="settings-label">SMS notifications</span>
+                <div class="settings-value">
+                    <input class="settings-checkbox" type="checkbox" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo logo-white">
+                    <div class="logo-icon border-white"></div>
+                    <span class="logo-text">Orivis</span>
+                </div>
+                <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html">Platform</a></li>
+                    <li><a href="governance-center.html">Governance Center</a></li>
+                    <li><a href="security.html">Trust</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Social</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">X</a>
+                    <a href="#" class="social-icon">GH</a>
+                    <a href="#" class="social-icon">YT</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
