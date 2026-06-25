@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results | Orivis</title>
+    <title>Outcomes | Orivis</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
@@ -33,10 +33,10 @@
             <span class="logo-text">Orivis</span>
         </a>
         <nav class="nav-links">
-            <a href="election-center.html">Election Center</a>
-            <a href="verify-pvc.html">Verify Identity</a>
-            <a href="candidates.html">Candidates</a>
-            <a href="results.html" class="active-link">Results</a>
+            <a href="governance-center.html">Governance Center</a>
+            <a href="verify-identity.html">Verify Identity</a>
+            <a href="proposals.html">Proposals</a>
+            <a href="outcomes.html" class="active-link">Outcomes</a>
             <a href="security.html">Security</a>
         </nav>
         <div class="nav-actions">
@@ -57,13 +57,13 @@
                 </span>
                 <span class="switch__sr">Dark Mode</span>
             </label>-->
-            <a href="auth.html" class="nav-login">Sign Up</a>
+            <a href="signup.html" class="nav-login">Sign Up</a>
             <a href="login.html" class="btn btn-primary">Login</a>
         </div>
     </header>
 
     <div class="page-header" data-aos="fade-up">
-        <h1>Live Election Results</h1>
+        <h1>Live Governance Outcomes</h1>
         <p>Real-time, cryptographically verified governance results pulled directly from the blockchain ledger.</p>
     </div>
 
@@ -71,8 +71,8 @@
         <div class="results-container">
             <!-- Left Side: Chart -->
             <div class="chart-box" data-aos="fade-right">
-                <h3 style="margin-bottom: 0.5rem;">Leadership Election 2026</h3>
-                <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Votes Counted: 12,842,910 (15% of registered participants)</p>
+                <h3 style="margin-bottom: 0.5rem;">Governance Decision 2026</h3>
+                <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Decisions Recorded: 12,842 (15% of registered participants)</p>
                 <div style="height: 400px; width: 100%;">
                     <canvas id="detailedResultsChart"></canvas>
                 </div>
@@ -81,41 +81,41 @@
             <!-- Right Side: State Breakdown Table -->
             <div class="state-results" data-aos="fade-left">
                 <div class="state-header">
-                    Top Regions / States Breakdown
+                    Top Regions Breakdown
                 </div>
                 <div class="state-table-wrapper">
                     <table class="state-table">
                         <thead>
                             <tr>
-                                <th>State</th>
+                                <th>Region</th>
                                 <th>Leading</th>
                                 <th>Margin</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Lagos</td>
-                                <td><span class="text-green font-medium">Candidate A</span></td>
+                                <td>Northern Region</td>
+                                <td><span class="text-green font-medium">Option A</span></td>
                                 <td>+14%</td>
                             </tr>
                             <tr>
-                                <td>Kano</td>
-                                <td><span class="text-main font-medium">Candidate B</span></td>
+                                <td>Southern Region</td>
+                                <td><span class="text-main font-medium">Option B</span></td>
                                 <td>+5%</td>
                             </tr>
                             <tr>
-                                <td>Rivers</td>
-                                <td><span class="text-main font-medium">Candidate C</span></td>
+                                <td>Eastern Region</td>
+                                <td><span class="text-main font-medium">Option C</span></td>
                                 <td>+22%</td>
                             </tr>
                             <tr>
-                                <td>FCT Abuja</td>
-                                <td><span class="text-green font-medium">Candidate A</span></td>
+                                <td>Western Region</td>
+                                <td><span class="text-green font-medium">Option A</span></td>
                                 <td>+2%</td>
                             </tr>
                             <tr>
-                                <td>Kaduna</td>
-                                <td><span class="text-main font-medium">Candidate B</span></td>
+                                <td>Central Region</td>
+                                <td><span class="text-main font-medium">Option B</span></td>
                                 <td>+8%</td>
                             </tr>
                         </tbody>
@@ -138,10 +138,10 @@
                 return {
                     type: 'bar',
                     data: {
-                        labels: ['Candidate A (PP)', 'Candidate B (UA)', 'Candidate C (NF)', 'Others'],
+                        labels: ['Option A', 'Option B', 'Option C', 'Other'],
                         datasets: [{
-                            label: 'Votes Cast',
-                            data: [5393000, 4880000, 2054000, 515910],
+                            label: 'Decisions',
+                            data: [5393, 4880, 2054, 515],
                             backgroundColor: ['#008751','#1f2937','#9ca3af','#e5e7eb'],
                             borderRadius: 6
                         }]

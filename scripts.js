@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'line',
             data: {
                 labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-                datasets: [{ label:'Participant Registration (Millions)', data:[1.2,1.8,2.5,4.2,3.8,5.5], borderColor:'#008751', backgroundColor:'rgba(0,135,81,0.1)', borderWidth:2, tension:0.4, fill:true, pointBackgroundColor:'#008751', pointRadius:3 }]
+                datasets: [{ label:'Participant Growth (Millions)', data:[1.2,1.8,2.5,4.2,3.8,5.5], borderColor:'#008751', backgroundColor:'rgba(0,135,81,0.1)', borderWidth:2, tension:0.4, fill:true, pointBackgroundColor:'#008751', pointRadius:3 }]
             },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max:6.0, ticks:{ stepSize:1, color:'#9ca3af' }, grid:{ color:'#f3f4f6' }, border:{ display:false } }, x:{ ticks:{ color:'#9ca3af' }, grid:{ display:false }, border:{ display:false } } } }
         };
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createChartOnScroll('distributionChart', function() {
         return {
             type: 'pie',
-            data: { labels:['North','South','East','West'], datasets:[{ data:[45,20,15,20], backgroundColor:['#008751','#1f2937','#9ca3af','#e5e7eb'], borderWidth:0 }] },
+            data: { labels:['Government','Education','Corporate','Non-Profit'], datasets:[{ data:[45,20,15,20], backgroundColor:['#008751','#1f2937','#9ca3af','#e5e7eb'], borderWidth:0 }] },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return c.label+': '+c.raw+'%'; } } } } }
         };
     });
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createChartOnScroll('liveResultsChart', function() {
         return {
             type: 'pie',
-            data: { labels:['Candidate A','Candidate B','Others'], datasets:[{ data:[42,38,20], backgroundColor:['#008751','#2563eb','#9ca3af'], borderWidth:0 }] },
+            data: { labels:['Option A','Option B','Other'], datasets:[{ data:[42,38,20], backgroundColor:['#008751','#2563eb','#9ca3af'], borderWidth:0 }] },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return c.label+': '+c.raw+'%'; } } } } }
         };
     });
