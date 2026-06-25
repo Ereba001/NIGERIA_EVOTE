@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote Receipt | Nigeria E-Vote</title>
+    <title>Receipt | Orivis</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
 
                 <label for="verificationId">Blockchain Verification ID</label>
                 <div class="copy-field">
-                    <input id="verificationId" type="text" readonly value="NG-E-VOTE-2026-X99-8821-B4">
+                    <input id="verificationId" type="text" readonly value="ORIVIS-2026-X99-8821-B4">
                     <button type="button" class="copy-btn" data-copy-target="verificationId" aria-label="Copy verification ID">Copy</button>
                 </div>
             </div>
@@ -58,9 +58,9 @@
             <div class="receipt-brand">
                 <div class="logo">
                     <div class="logo-icon"></div>
-                    <span class="logo-text">E-VOTE SYSTEM</span>
+                    <span class="logo-text">Orivis</span>
                 </div>
-                <p>Federal Republic of Nigeria • Secure Voting Protocol v4.2.0</p>
+                <p>Orivis • Secure Governance Protocol v4.2.0</p>
             </div>
         </section>
     </main>
@@ -68,7 +68,7 @@
     <script src="scripts.js"></script>
     <script>
     (function() {
-        var raw = localStorage.getItem('nigeriaEVoteReceipt');
+        var raw = localStorage.getItem('orivisVoteReceipt');
         if (raw) {
             try {
                 var receipt = JSON.parse(raw);

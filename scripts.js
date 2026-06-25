@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'line',
             data: {
                 labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-                datasets: [{ label:'Voter Registration (Millions)', data:[1.2,1.8,2.5,4.2,3.8,5.5], borderColor:'#008751', backgroundColor:'rgba(0,135,81,0.1)', borderWidth:2, tension:0.4, fill:true, pointBackgroundColor:'#008751', pointRadius:3 }]
+                datasets: [{ label:'Participant Registration (Millions)', data:[1.2,1.8,2.5,4.2,3.8,5.5], borderColor:'#008751', backgroundColor:'rgba(0,135,81,0.1)', borderWidth:2, tension:0.4, fill:true, pointBackgroundColor:'#008751', pointRadius:3 }]
             },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max:6.0, ticks:{ stepSize:1, color:'#9ca3af' }, grid:{ color:'#f3f4f6' }, border:{ display:false } }, x:{ ticks:{ color:'#9ca3af' }, grid:{ display:false }, border:{ display:false } } } }
         };

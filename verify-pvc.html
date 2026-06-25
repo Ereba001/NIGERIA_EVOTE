@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify PVC | Nigeria E-Vote</title>
+    <title>Identity Verification | Orivis</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
@@ -22,11 +22,11 @@
     <header class="navbar">
         <a href="index.html" class="logo">
             <div class="logo-icon"></div>
-            <span class="logo-text">E-VOTE <strong>NIGERIA</strong></span>
+            <span class="logo-text">Orivis</span>
         </a>
         <nav class="nav-links">
             <a href="election-center.html">Election Center</a>
-            <a href="verify-pvc.html" class="active-link">Verify PVC</a>
+            <a href="verify-pvc.html" class="active-link">Verify Identity</a>
             <a href="candidates.html">Candidates</a>
             <a href="results.html">Results</a>
             <a href="security.html">Security</a>
@@ -55,17 +55,17 @@
     </header>
 
     <div class="page-header">
-        <h1>Verify PVC Status</h1>
-        <p>Check the validity of your Permanent Voter's Card and find your designated polling unit.</p>
+        <h1>Verify Identity</h1>
+        <p>Check your identity verification status and confirm your registration details.</p>
     </div>
 
     <main>
         <div class="verify-container" data-aos="fade-up">
             <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label>Voter Identification Number (VIN) or NIN</label>
+                <label>Participant ID</label>
                 <div class="input-with-icon">
                     <i class="fi-rs-id-card-clip-alt input-icon"></i>
-                    <input id="pvcVinInput" type="text" placeholder="Enter your 11 or 19 digit ID">
+                    <input id="pvcVinInput" type="text" placeholder="Enter your Participant ID">
                 </div>
             </div>
 
@@ -80,18 +80,18 @@
             <div class="footer-brand">
                 <div class="logo logo-white">
                     <div class="logo-icon border-white"></div>
-                    <span class="logo-text">E-VOTE NG</span>
+                    <span class="logo-text">Orivis</span>
                 </div>
-                <p class="footer-desc">The official digital voting infrastructure for the Federal Republic of Nigeria.</p>
+                <p class="footer-desc">Orivis is a governance technology platform that enables transparent and trusted decision-making.</p>
             </div>
             <div class="footer-links">
                 <h4>Resources</h4>
-                <ul>
-                    <li><a href="#">Voter Education</a></li>
-                    <li><a href="#">Electoral Acts</a></li>
-                    <li><a href="verify-pvc.html">Verification Guide</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
+                    <ul>
+                        <li><a href="#">Education</a></li>
+                        <li><a href="#">Governance Guides</a></li>
+                        <li><a href="verify-pvc.html">Verification Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
             </div>
             <div class="footer-links">
                 <h4>Support</h4>
@@ -137,7 +137,7 @@
             if (idValue === '1234567') {
                 pvcIdentityResult.className = 'identity-result identity-success';
                 pvcIdentityResult.style.display = 'block';
-                pvcIdentityResult.innerHTML = '<div class="identity-avatar"><div class="avatar-placeholder"><i class="fi-rs-user"></i></div></div><div class="identity-fields"><div class="id-field"><span class="id-label">Full Name</span><span class="id-value">Banger Boys</span></div><div class="id-row"><div class="id-field"><span class="id-label">Sex</span><span class="id-value">M</span></div><div class="id-field"><span class="id-label">DOB</span><span class="id-value">12 January 2022</span></div></div></div><div class="id-note text-sm">PVC verified successfully.</div>';
+                pvcIdentityResult.innerHTML = '<div class="identity-avatar"><div class="avatar-placeholder"><i class="fi-rs-user"></i></div></div><div class="identity-fields"><div class="id-field"><span class="id-label">Full Name</span><span class="id-value">Banger Boys</span></div><div class="id-row"><div class="id-field"><span class="id-label">Sex</span><span class="id-value">M</span></div><div class="id-field"><span class="id-label">DOB</span><span class="id-value">12 January 2022</span></div></div></div><div class="id-note text-sm">Identity verified successfully.</div>';
                 pvcCheckBtn.classList.remove('btn-loading');
                 pvcBtnText.textContent = 'Proceed to Sign Up';
                 pvcCheckBtn.disabled = false;
@@ -145,7 +145,7 @@
             } else {
                 pvcIdentityResult.className = 'identity-result identity-error';
                 pvcIdentityResult.style.display = 'block';
-                pvcIdentityResult.innerHTML = '<i class="fi-rs-times-circle"></i> VIN / NIN not found. Check your ID and try again.';
+                pvcIdentityResult.innerHTML = '<i class="fi-rs-times-circle"></i> ID not found. Check your Participant ID and try again.';
                 pvcCheckBtn.classList.remove('btn-loading');
                 pvcBtnText.textContent = 'Check Status';
                 pvcCheckBtn.disabled = false;

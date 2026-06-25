@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Nigeria E-Vote</title>
+    <title>Dashboard | Orivis</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,7 @@ body { background: none !important; }
     <header class="navbar navbar-dash">
         <a href="dashboard.html" class="logo">
             <div class="logo-icon"></div>
-            <span class="logo-text">NIGERIA <strong>E-VOTE</strong></span>
+            <span class="logo-text">Orivis</span>
         </a>
         <nav class="nav-links nav-dash">
             <a href="#" id="navDashboard" class="active">Dashboard</a>
@@ -49,7 +49,7 @@ body { background: none !important; }
         <div class="nav-user">
             <div class="user-info">
                 <span class="user-name">CHUKWUMA ADEBAYO</span>
-                <span class="user-id">Voter ID: 8928-AX</span>
+                <span class="user-id">ID: 8928-AX</span>
             </div>
             <!--<label class="switch">
                 <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
@@ -83,7 +83,7 @@ body { background: none !important; }
                 <span class="status-value"><span id="dashCountdown">--:--:--</span></span>
             </div>
             <div class="status-item">
-                <span class="status-label">Registered Voters</span>
+                <span class="status-label">Registered Participants</span>
                 <span class="status-value">93.4M</span>
             </div>
             <div class="status-item">
@@ -101,7 +101,7 @@ body { background: none !important; }
                 <div class="dash-left">
                     <div class="dash-card" data-aos="fade-right">
                         <div class="card-header border-bottom">
-                            <h3 class="text-green mb-0">Cast Your Vote: Presidential Election 2026</h3>
+                            <h3 class="text-green mb-0">Cast Your Vote: Leadership Election 2026</h3>
                             <span class="badge badge-gray text-xs">SECURE SESSION ENCRYPTED</span>
                         </div>
                         <div class="card-body">
@@ -149,7 +149,7 @@ body { background: none !important; }
                         </div>
                         <div class="card-body">
                             <p class="verification-text">
-                                Every vote cast on the <strong>Nigeria E-Vote</strong> platform is cryptographically signed and recorded on a private distributed ledger. Your Vote ID will be generated upon submission, allowing you to verify that your vote was counted without revealing your choice. This system ensures 100% auditability and prevents double-voting or tampering.
+                                Every vote cast on the <strong>Orivis</strong> platform is cryptographically signed and recorded on a private distributed ledger. Your Vote ID will be generated upon submission, allowing you to verify that your vote was counted without revealing your choice. This system ensures 100% auditability and prevents double-voting or tampering.
                             </p>
                         </div>
                     </div>
@@ -158,7 +158,7 @@ body { background: none !important; }
                 <div class="dash-right">
                     <div class="dash-card" data-aos="fade-left">
                         <div class="card-header">
-                            <h3 class="text-green mb-0">Live Results (National)</h3>
+                            <h3 class="text-green mb-0">Live Results</h3>
                         </div>
                         <div class="card-body">
                             <div class="live-pie-container">
@@ -183,15 +183,15 @@ body { background: none !important; }
 
                     <div class="dash-card" data-aos="fade-left" data-aos-delay="100">
                         <div class="card-header">
-                            <h3 class="text-green mb-0">Voter Verification</h3>
+                            <h3 class="text-green mb-0">Identity Verification</h3>
                         </div>
                         <div class="card-body">
                             <ul class="verification-list">
                                 <li>
                                     <i class="fi-rs-id-card-clip-alt v-icon text-gray"></i>
                                     <div class="v-details">
-                                        <strong>NIN Linked</strong>
-                                        <span>Verified: ****-1234</span>
+                        <strong>ID Linked</strong>
+                        <span>Verified: ****-1234</span>
                                     </div>
                                     <i class="fi-rs-check v-status text-green"></i>
                                 </li>
@@ -206,8 +206,8 @@ body { background: none !important; }
                                 <li>
                                     <i class="fi-rs-user v-icon text-gray"></i>
                                     <div class="v-details">
-                                        <strong>Biometric Match</strong>
-                                        <span>Verified via Mobile App</span>
+                        <strong>Identity Match</strong>
+                        <span>Verified via Mobile App</span>
                                     </div>
                                     <i class="fi-rs-check v-status text-green"></i>
                                 </li>
@@ -221,8 +221,8 @@ body { background: none !important; }
         <!-- Results View -->
         <div id="resultsView" class="results-container" style="display:none;">
             <div class="chart-box" data-aos="fade-right">
-                <h3 style="margin-bottom: 0.5rem;">Presidential Election 2026</h3>
-                <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Votes Counted: 12,842,910 (15% of registered voters)</p>
+                <h3 style="margin-bottom: 0.5rem;">Leadership Election 2026</h3>
+                <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Votes Counted: 12,842,910 (15% of registered participants)</p>
                 <div class="chart-container-lg" style="height:400px;width:100%;">
                     <canvas id="detailedResultsChart"></canvas>
                 </div>
@@ -253,16 +253,16 @@ body { background: none !important; }
                     <div class="profile-avatar"></div>
                     <div>
                         <h2 class="profile-name">Chukwuma Adebayo</h2>
-                        <span class="profile-badge badge badge-green">VERIFIED VOTER</span>
+                        <span class="profile-badge badge badge-green">VERIFIED PARTICIPANT</span>
                     </div>
                 </div>
                 <div class="profile-details">
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="150">
-                        <span class="profile-label">Voter's ID</span>
+                        <span class="profile-label">Participant ID</span>
                         <span class="profile-value">8928-***-AX</span>
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="200">
-                        <span class="profile-label">National Identification Number (NIN)</span>
+                        <span class="profile-label">Participant ID</span>
                         <span class="profile-value">1234********789</span>
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="250">
@@ -279,19 +279,19 @@ body { background: none !important; }
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="400">
                         <span class="profile-label">Email</span>
-                        <span class="profile-value">c********@e-vote.gov.ng</span>
+                        <span class="profile-value">c********@orivis.io</span>
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="450">
-                        <span class="profile-label">State of Origin</span>
+                        <span class="profile-label">Region</span>
                         <span class="profile-value">Lagos</span>
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="500">
-                        <span class="profile-label">LGA</span>
+                        <span class="profile-label">District</span>
                         <span class="profile-value">Ikeja</span>
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="550">
-                        <span class="profile-label">Polling Unit</span>
-                        <span class="profile-value">PU 023, Ikeja Grammar School</span>
+                        <span class="profile-label">Voting Center</span>
+                        <span class="profile-value">Center 023, Ikeja</span>
                     </div>
                     <div class="profile-row" data-aos="fade-up" data-aos-delay="600">
                         <span class="profile-label">Registration Status</span>
@@ -315,7 +315,7 @@ body { background: none !important; }
                 </div>
                 <h3 id="modalCandidateName">Candidate B</h3>
                 <p id="modalCandidateParty">United Alliance (UA)</p>
-                <span class="vote-modal__election">Presidential Election</span>
+                <span class="vote-modal__election">Leadership Election</span>
 
                 <div class="vote-warning">
                     <strong>Irreversible Action</strong>
@@ -330,7 +330,7 @@ body { background: none !important; }
     </div>
 
     <footer class="dash-footer text-center mt-8">
-        <p class="text-sm text-gray mb-2">&copy; 2026 Digital Election Division</p>
+        <p class="text-sm text-gray mb-2">&copy; 2026 Orivis</p>
         <div class="footer-links-inline text-xs">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Use</a>
@@ -451,7 +451,7 @@ body { background: none !important; }
         logoutTitle.textContent = 'Signing Out...';
         logoutSub.textContent = 'Please wait while we securely end your session.';
         logoutSpinner.classList.add('spinning');
-        localStorage.removeItem('nigeriaEVoteStatus');
+        localStorage.removeItem('orivisVoteStatus');
         setTimeout(function() {
             logoutSpinner.classList.remove('spinning');
             logoutSpinner.classList.add('done');
@@ -517,13 +517,13 @@ body { background: none !important; }
         return {
             name: name,
             party: party,
-            timestamp: new Date().toLocaleString('en-NG', { dateStyle: 'medium', timeStyle: 'medium' }),
+            timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' }),
             transactionHash: hash,
-            verificationId: 'NG-E-VOTE-2026-' + selected + '-' + Math.floor(1000 + Math.random() * 9000)
+            verificationId: 'ORIVIS-2026-' + selected + '-' + Math.floor(1000 + Math.random() * 9000)
         };
     }
 
-    if (localStorage.getItem('nigeriaEVoteStatus') === 'cast') {
+    if (localStorage.getItem('orivisVoteStatus') === 'cast') {
         voterStatus.textContent = 'CAST';
         voterStatus.className = 'status-value text-green font-medium';
         lockVoteUI();
@@ -570,8 +570,8 @@ body { background: none !important; }
         var selected = document.querySelector('input[name="candidate"]:checked');
         if (!selected) return;
         var receipt = generateReceipt(selected.value);
-        localStorage.setItem('nigeriaEVoteReceipt', JSON.stringify(receipt));
-        localStorage.setItem('nigeriaEVoteStatus', 'cast');
+        localStorage.setItem('orivisVoteReceipt', JSON.stringify(receipt));
+        localStorage.setItem('orivisVoteStatus', 'cast');
         voteModal.classList.remove('is-open');
         voterStatus.textContent = 'CAST';
         voterStatus.className = 'status-value text-green font-medium';
