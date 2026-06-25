@@ -17,6 +17,24 @@
         />
         <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
         <link rel="preload" as="image" href="resources/homepage.png" fetchpriority="high">
+        <style>
+            .use-cases-section, .org-governance-section { padding: 5rem 1.5rem; background: white; border-top: 1px solid var(--border-color); }
+            .section-container { max-width: 1200px; margin: 0 auto; text-align: center; }
+            .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+            .section-subtitle { margin-bottom: 3rem; font-size: 1.125rem; }
+            .use-cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+            .use-case-card { padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; transition: transform 0.2s, box-shadow 0.2s; }
+            .use-case-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+            .use-case-icon { font-size: 1.75rem; color: var(--primary-green); margin-bottom: 1rem; display: block; }
+            .use-case-card h3 { margin-bottom: 0.5rem; }
+            .trust-level { display: block; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); }
+            .org-governance-section { background: var(--bg-light); }
+            .org-governance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
+            .org-card { padding: 2rem; border: 1px solid var(--border-color); border-radius: 12px; text-align: center; background: white; transition: transform 0.2s; }
+            .org-card:hover { transform: translateY(-4px); }
+            .org-icon-wrap { width: 48px; height: 48px; background: #def7ec; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.25rem; color: var(--primary-green); }
+            .org-card h3 { margin-bottom: 0.5rem; font-size: 1rem; }
+        </style>
     </head>
     <body>
         <header class="navbar">
@@ -25,32 +43,14 @@
                 <span class="logo-text">Orivis</span>
             </a>
             <nav class="nav-links">
+                <a href="index.html" class="active-link">Platform</a>
                 <a href="governance-center.html">Governance Center</a>
-                <a href="verify-identity.html">Verify Identity</a>
-                <a href="proposals.html">Proposals</a>
-                <a href="outcomes.html">Outcomes</a>
-                <a href="security.html">Security</a>
+                <a href="security.html">Trust</a>
+                <a href="resources.html">Resources</a>
             </nav>
             <div class="nav-actions">
-                <!--<label class="switch">
-                    <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
-                    <span class="switch__icon">
-                        <span class="switch__icon-part switch__icon-part--1"></span>
-                        <span class="switch__icon-part switch__icon-part--2"></span>
-                        <span class="switch__icon-part switch__icon-part--3"></span>
-                        <span class="switch__icon-part switch__icon-part--4"></span>
-                        <span class="switch__icon-part switch__icon-part--5"></span>
-                        <span class="switch__icon-part switch__icon-part--6"></span>
-                        <span class="switch__icon-part switch__icon-part--7"></span>
-                        <span class="switch__icon-part switch__icon-part--8"></span>
-                        <span class="switch__icon-part switch__icon-part--9"></span>
-                        <span class="switch__icon-part switch__icon-part--10"></span>
-                        <span class="switch__icon-part switch__icon-part--11"></span>
-                    </span>
-                    <span class="switch__sr">Dark Mode</span>
-                </label>-->
-                <a href="signup.html" class="nav-login">Sign Up</a>
-                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="login.html" class="nav-login">Sign In</a>
+                <a href="signup.html" class="btn btn-primary">Get Started</a>
             </div>
         </header>
 
@@ -196,6 +196,79 @@
             </section>
         </main>
 
+        <section class="use-cases-section">
+            <div class="section-container" data-aos="fade-up">
+                <h2 class="section-title">Who Uses Orivis</h2>
+                <p class="section-subtitle text-gray">Organizations of every size and type trust Orivis for their governance needs.</p>
+                <div class="use-cases-grid">
+                    <div class="use-case-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fi-rs-landmark use-case-icon"></i>
+                        <h3>Government</h3>
+                        <p class="text-sm text-gray">Public consultations, policy approvals, and citizen engagement at scale.</p>
+                        <span class="trust-level"><i class="fi-rs-shield text-green"></i> Highest trust</span>
+                    </div>
+                    <div class="use-case-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fi-rs-graduation-cap use-case-icon"></i>
+                        <h3>Universities</h3>
+                        <p class="text-sm text-gray">Student elections, faculty votes, and academic governance made simple.</p>
+                        <span class="trust-level"><i class="fi-rs-shield text-green"></i> Enterprise grade</span>
+                    </div>
+                    <div class="use-case-card" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fi-rs-building use-case-icon"></i>
+                        <h3>Corporations</h3>
+                        <p class="text-sm text-gray">Board resolutions, shareholder votes, and internal policy approvals.</p>
+                        <span class="trust-level"><i class="fi-rs-shield text-green"></i> SOC 2 ready</span>
+                    </div>
+                    <div class="use-case-card" data-aos="fade-up" data-aos-delay="400">
+                        <i class="fi-rs-users use-case-icon"></i>
+                        <h3>Associations</h3>
+                        <p class="text-sm text-gray">Leadership elections, membership votes, and committee decisions.</p>
+                        <span class="trust-level"><i class="fi-rs-shield text-green"></i> Trusted</span>
+                    </div>
+                    <div class="use-case-card" data-aos="fade-up" data-aos-delay="500">
+                        <i class="fi-rs-tree use-case-icon"></i>
+                        <h3>Non-Profits</h3>
+                        <p class="text-sm text-gray">Policy voting, grant approvals, and stakeholder consultations.</p>
+                        <span class="trust-level"><i class="fi-rs-shield text-green"></i> Verified</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="org-governance-section">
+            <div class="section-container" data-aos="fade-up">
+                <h2 class="section-title">Governance for Every Organization</h2>
+                <p class="section-subtitle text-gray">Different needs. One platform. Secure, transparent, and built for scale.</p>
+                <div class="org-governance-grid">
+                    <div class="org-card" data-aos="fade-up">
+                        <div class="org-icon-wrap"><i class="fi-rs-landmark"></i></div>
+                        <h3>Government</h3>
+                        <p class="text-sm text-gray">Public consultations and policy approvals</p>
+                    </div>
+                    <div class="org-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="org-icon-wrap"><i class="fi-rs-graduation-cap"></i></div>
+                        <h3>University</h3>
+                        <p class="text-sm text-gray">Student elections and faculty decisions</p>
+                    </div>
+                    <div class="org-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="org-icon-wrap"><i class="fi-rs-building"></i></div>
+                        <h3>Corporation</h3>
+                        <p class="text-sm text-gray">Board approvals and shareholder votes</p>
+                    </div>
+                    <div class="org-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="org-icon-wrap"><i class="fi-rs-users"></i></div>
+                        <h3>Association</h3>
+                        <p class="text-sm text-gray">Leadership selection and member votes</p>
+                    </div>
+                    <div class="org-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="org-icon-wrap"><i class="fi-rs-tree"></i></div>
+                        <h3>NGO</h3>
+                        <p class="text-sm text-gray">Policy voting and stakeholder input</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer class="site-footer" data-aos="fade-up">
             <div class="footer-grid">
                 <div class="footer-brand">
@@ -203,45 +276,47 @@
                         <div class="logo-icon border-white"></div>
                         <span class="logo-text">Orivis</span>
                     </div>
-                    <p class="footer-desc">
-                        Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.
-                    </p>
+                    <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Resources</h4>
+                    <h4>Product</h4>
                     <ul>
-                        <li><a href="#">Education</a></li>
-                        <li><a href="#">Governance Guides</a></li>
-                        <li><a href="#">Verification Guide</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="index.html">Platform</a></li>
+                        <li><a href="governance-center.html">Governance Center</a></li>
+                        <li><a href="security.html">Trust</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Support</h4>
+                    <h4>Company</h4>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Report Issue</a></li>
-                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
                         <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Data Processing</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
-                    <h4>Official Channels</h4>
+                    <h4>Social</h4>
                     <div class="social-icons">
-                        <a href="#" class="social-icon">𝕏</a>
-                        <a href="#" class="social-icon">f</a>
                         <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">𝕏</a>
+                        <a href="#" class="social-icon">GH</a>
+                        <a href="#" class="social-icon">YT</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>
-                    &copy; 2026 All Rights Reserved.
-                </p>
-                <div class="footer-legal">
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Data Protection Policy</a>
-                </div>
+                <p>&copy; 2026 All Rights Reserved.</p>
             </div>
         </footer>
 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | Orivis</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+    <style>
+        .page-header { text-align: center; padding: 4rem 1.5rem 3rem; background: white; border-bottom: 1px solid var(--border-color); margin-bottom: 3rem; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
+        .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
+
+        .resources-grid { max-width: 1200px; margin: 0 auto 5rem; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .resource-card { background: white; border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .resource-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .resource-icon { font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem; display: block; }
+        .resource-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+        .resource-card p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.6; }
+        .coming-soon { font-size: 0.75rem; color: var(--text-muted); background: #f3f4f6; padding: 0.25rem 0.75rem; border-radius: 999px; display: inline-block; }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Orivis</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Platform</a>
+            <a href="governance-center.html">Governance Center</a>
+            <a href="security.html">Trust</a>
+            <a href="resources.html" class="active-link">Resources</a>
+        </nav>
+        <div class="nav-actions">
+            <!--<label class="switch">
+                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
+                <span class="switch__icon">
+                    <span class="switch__icon-part switch__icon-part--1"></span>
+                    <span class="switch__icon-part switch__icon-part--2"></span>
+                    <span class="switch__icon-part switch__icon-part--3"></span>
+                    <span class="switch__icon-part switch__icon-part--4"></span>
+                    <span class="switch__icon-part switch__icon-part--5"></span>
+                    <span class="switch__icon-part switch__icon-part--6"></span>
+                    <span class="switch__icon-part switch__icon-part--7"></span>
+                    <span class="switch__icon-part switch__icon-part--8"></span>
+                    <span class="switch__icon-part switch__icon-part--9"></span>
+                    <span class="switch__icon-part switch__icon-part--10"></span>
+                    <span class="switch__icon-part switch__icon-part--11"></span>
+                </span>
+                <span class="switch__sr">Dark Mode</span>
+            </label>-->
+            <a href="login.html" class="nav-login">Sign In</a>
+            <a href="signup.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </header>
+
+    <div class="page-header" data-aos="fade-up">
+        <h1>Resources</h1>
+        <p>Documentation, guides, and everything you need to get the most out of Orivis.</p>
+    </div>
+
+    <main>
+        <div class="resources-grid">
+            <div class="resource-card" data-aos="fade-up">
+                <i class="fi-rs-book resource-icon"></i>
+                <h3>Documentation</h3>
+                <p>Comprehensive guides on platform setup, event configuration, participant management, and reporting.</p>
+                <a href="#" class="text-green font-medium">Browse Docs <i class="fi-rs-arrow-right"></i></a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fi-rs-file-document resource-icon"></i>
+                <h3>Governance Guides</h3>
+                <p>Best practices for running elections, consultations, approvals, and surveys across any organization type.</p>
+                <a href="#" class="text-green font-medium">Read Guides <i class="fi-rs-arrow-right"></i></a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fi-rs-comment-question resource-icon"></i>
+                <h3>FAQ</h3>
+                <p>Answers to common questions about participant verification, security, event setup, and platform features.</p>
+                <a href="#" class="text-green font-medium">View FAQ <i class="fi-rs-arrow-right"></i></a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fi-rs-code resource-icon"></i>
+                <h3>API</h3>
+                <p>Integrate Orivis governance capabilities into your existing systems. <span class="coming-soon">Coming soon</span></p>
+                <a href="#" class="text-green font-medium">Read API Docs <i class="fi-rs-arrow-right"></i></a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fi-rs-file-pdf resource-icon"></i>
+                <h3>Whitepapers</h3>
+                <p>Deep dives into our cryptographic protocols, blockchain architecture, and security model. <span class="coming-soon">Coming soon</span></p>
+                <a href="#" class="text-green font-medium">Download <i class="fi-rs-arrow-right"></i></a>
+            </div>
+
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="500">
+                <i class="fi-rs-play-circle resource-icon"></i>
+                <h3>Tutorials</h3>
+                <p>Step-by-step walkthroughs for setting up your first governance event, verifying participants, and reviewing outcomes.</p>
+                <a href="#" class="text-green font-medium">Watch Tutorials <i class="fi-rs-arrow-right"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo logo-white">
+                    <div class="logo-icon border-white"></div>
+                    <span class="logo-text">Orivis</span>
+                </div>
+                <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html">Platform</a></li>
+                    <li><a href="governance-center.html">Governance Center</a></li>
+                    <li><a href="security.html">Trust</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Social</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">GH</a>
+                    <a href="#" class="social-icon">YT</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 All Rights Reserved.</p>
+        </div>
+    </footer>
+<script src="scripts.js"></script>
+</body>
+</html>

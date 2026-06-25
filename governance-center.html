@@ -79,6 +79,17 @@
             font-weight: 600;
         }
 
+        .category-filter { max-width: 1200px; margin: -1rem auto 2rem; padding: 0 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-pill { padding: 0.5rem 1.25rem; border: 1px solid var(--border-color); border-radius: 999px; background: white; font-family: 'Inter', sans-serif; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
+        .filter-pill:hover { border-color: var(--primary-green); color: var(--primary-green); }
+        .filter-pill.active { background: var(--primary-green); color: white; border-color: var(--primary-green); }
+        .ec-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .ec-badge-approval { background: #dbeafe; color: #1d4ed8; }
+        .ec-badge-election { background: #d1fae5; color: #047857; }
+        .ec-badge-consultation { background: #fef3c7; color: #b45309; }
+        .ec-badge-referendum { background: #e0e7ff; color: #4338ca; }
+        .ec-badge-survey { background: #fce7f3; color: #be185d; }
+
         .guidelines-section {
             background: white;
             padding: 4rem 1.5rem;
@@ -114,47 +125,38 @@
             <span class="logo-text">Orivis</span>
         </a>
         <nav class="nav-links">
+            <a href="index.html">Platform</a>
             <a href="governance-center.html" class="active-link">Governance Center</a>
-            <a href="verify-identity.html">Verify Identity</a>
-            <a href="proposals.html">Proposals</a>
-            <a href="outcomes.html">Outcomes</a>
-            <a href="security.html">Security</a>
+            <a href="security.html">Trust</a>
+            <a href="resources.html">Resources</a>
         </nav>
         <div class="nav-actions">
-            <!--<label class="switch">
-                <input class="switch__input" type="checkbox" role="switch" id="themeToggle" />
-                <span class="switch__icon">
-                    <span class="switch__icon-part switch__icon-part--1"></span>
-                    <span class="switch__icon-part switch__icon-part--2"></span>
-                    <span class="switch__icon-part switch__icon-part--3"></span>
-                    <span class="switch__icon-part switch__icon-part--4"></span>
-                    <span class="switch__icon-part switch__icon-part--5"></span>
-                    <span class="switch__icon-part switch__icon-part--6"></span>
-                    <span class="switch__icon-part switch__icon-part--7"></span>
-                    <span class="switch__icon-part switch__icon-part--8"></span>
-                    <span class="switch__icon-part switch__icon-part--9"></span>
-                    <span class="switch__icon-part switch__icon-part--10"></span>
-                    <span class="switch__icon-part switch__icon-part--11"></span>
-                </span>
-                <span class="switch__sr">Dark Mode</span>
-            </label>-->
-            <a href="signup.html" class="nav-login">Sign Up</a>
-            <a href="dashboard.html" class="btn btn-primary">Login</a>
+            <a href="login.html" class="nav-login">Sign In</a>
+            <a href="signup.html" class="btn btn-primary">Get Started</a>
         </div>
     </header>
 
     <div class="page-header" data-aos="fade-up">
         <h1>Governance Center</h1>
-        <p>Browse active, upcoming, and past events across your organization.</p>
+        <p>Browse elections, consultations, approvals, referendums, and surveys across your organization.</p>
     </div>
 
     <main>
+        <div class="category-filter" data-aos="fade-up">
+            <button class="filter-pill active">All Events</button>
+            <button class="filter-pill">Elections</button>
+            <button class="filter-pill">Approvals</button>
+            <button class="filter-pill">Consultations</button>
+            <button class="filter-pill">Referendums</button>
+            <button class="filter-pill">Surveys</button>
+        </div>
+
         <div class="election-grid">
-            <!-- Active Event Card -->
+            <!-- Board Resolution 2026 — Approval -->
             <div class="election-card" data-aos="fade-up">
                 <div class="ec-header">
                     <div>
-                        <div class="ec-type">Organization</div>
+                        <span class="ec-badge ec-badge-approval">Approval</span>
                         <h2 class="ec-title">Board Resolution 2026</h2>
                     </div>
                     <span class="badge badge-green">LIVE</span>
@@ -170,95 +172,21 @@
                     </div>
                     <div class="ec-detail">
                         <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Eligible Participants:</strong> 12.5K</span>
+                        <span><strong>Participants:</strong> 12.5K</span>
                     </div>
                     <p class="text-sm text-gray mt-4">Annual board resolution on strategic direction and governance reform.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Proposals</a>
+                    <a href="proposals.html" class="btn btn-outline">View Details</a>
                     <a href="login.html" class="btn btn-primary">Participate Now</a>
                 </div>
             </div>
 
-            <div id="voteModal" class="confirm-modal" aria-hidden="true">
-                <div class="confirm-modal__backdrop"></div>
-                <div class="confirm-modal__panel" role="dialog" aria-modal="true">
-                    <i class="fi-rs-vote confirm-modal__icon"></i>
-                    <h2 class="confirm-modal__title">Submit Your Decision</h2>
-                    <p class="confirm-modal__sub">Select your preferred option for the Board Resolution 2026.</p>
-                    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
-                        <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
-                            <input type="radio" name="voteCandidate" value="A" style="accent-color:var(--primary-green);">
-                            <span><strong>Approve Strategic Plan</strong><br><span class="text-sm text-gray">Executive Committee</span></span>
-                        </label>
-                        <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
-                            <input type="radio" name="voteCandidate" value="B" style="accent-color:var(--primary-green);">
-                            <span><strong>Adopt New Constitution</strong><br><span class="text-sm text-gray">Policy Review Board</span></span>
-                        </label>
-                        <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
-                            <input type="radio" name="voteCandidate" value="C" style="accent-color:var(--primary-green);">
-                            <span><strong>Budget Proposal 2027</strong><br><span class="text-sm text-gray">Governance Council</span></span>
-                        </label>
-                    </div>
-                    <div class="confirm-modal__actions">
-                        <button id="voteCancel" class="btn btn-secondary">Cancel</button>
-                        <button id="voteSubmit" class="btn btn-primary">Submit Decision</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="voteSuccessModal" class="auth-modal" aria-hidden="true">
-                <div class="auth-modal__backdrop"></div>
-                <div class="auth-modal__panel" role="dialog" aria-modal="true">
-                    <div class="auth-modal__animated">
-                        <div class="auth-modal__spinner" id="voteSpinner"></div>
-                        <div class="auth-modal__check" id="voteCheck">
-                            <svg viewBox="0 0 52 52">
-                                <circle class="check-fill" cx="26" cy="26" r="26"/>
-                                <path class="check-mark" d="M14 27l7 7 16-16"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <h2 class="auth-modal__title">Decision Recorded!</h2>
-                    <p class="auth-modal__sub">Your participation has been securely recorded on the blockchain ledger. Thank you.</p>
-                </div>
-            </div>
-
-            <!-- Upcoming Event Card -->
+            <!-- Annual Leadership Election — Election -->
             <div class="election-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="ec-header">
                     <div>
-                        <div class="ec-type">Regional</div>
-                        <h2 class="ec-title">Strategic Policy Consultation</h2>
-                    </div>
-                    <span class="badge badge-gray">UPCOMING</span>
-                </div>
-                <div class="ec-body">
-                    <div class="ec-detail">
-                        <i class="fi-rs-calendar ec-icon"></i>
-                        <span><strong>Date:</strong> Nov 05, 2026</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Department:</strong> Policy & Governance</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Eligible Participants:</strong> 7.2K</span>
-                    </div>
-                    <p class="text-sm text-gray mt-4">Open consultation on proposed governance policy amendments.</p>
-                </div>
-                <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Proposals</a>
-                    <button class="btn btn-secondary" disabled>Opens Nov 05</button>
-                </div>
-            </div>
-
-            <!-- Upcoming Event Card -->
-            <div class="election-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="ec-header">
-                    <div>
-                        <div class="ec-type">Organization</div>
+                        <span class="ec-badge ec-badge-election">Election</span>
                         <h2 class="ec-title">Annual Leadership Election</h2>
                     </div>
                     <span class="badge badge-gray">UPCOMING</span>
@@ -274,14 +202,148 @@
                     </div>
                     <div class="ec-detail">
                         <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Eligible Participants:</strong> 12.5K</span>
+                        <span><strong>Participants:</strong> 12.5K</span>
                     </div>
                     <p class="text-sm text-gray mt-4">Elect organizational leadership for the upcoming term.</p>
                 </div>
                 <div class="ec-footer">
-                    <a href="proposals.html" class="btn btn-outline">View Proposals</a>
+                    <a href="proposals.html" class="btn btn-outline">View Candidates</a>
                     <button class="btn btn-secondary" disabled>Opens Dec 10</button>
                 </div>
+            </div>
+
+            <!-- Strategic Policy Consultation — Consultation -->
+            <div class="election-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="ec-header">
+                    <div>
+                        <span class="ec-badge ec-badge-consultation">Consultation</span>
+                        <h2 class="ec-title">Strategic Policy Consultation</h2>
+                    </div>
+                    <span class="badge badge-gray">UPCOMING</span>
+                </div>
+                <div class="ec-body">
+                    <div class="ec-detail">
+                        <i class="fi-rs-calendar ec-icon"></i>
+                        <span><strong>Date:</strong> Nov 05, 2026</span>
+                    </div>
+                    <div class="ec-detail">
+                        <i class="fi-rs-users ec-icon"></i>
+                        <span><strong>Department:</strong> Policy & Governance</span>
+                    </div>
+                    <div class="ec-detail">
+                        <i class="fi-rs-users ec-icon"></i>
+                        <span><strong>Participants:</strong> 7.2K</span>
+                    </div>
+                    <p class="text-sm text-gray mt-4">Open consultation on proposed governance policy amendments.</p>
+                </div>
+                <div class="ec-footer">
+                    <a href="proposals.html" class="btn btn-outline">View Proposals</a>
+                    <button class="btn btn-secondary" disabled>Opens Nov 05</button>
+                </div>
+            </div>
+
+            <!-- Membership Referendum — Referendum -->
+            <div class="election-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="ec-header">
+                    <div>
+                        <span class="ec-badge ec-badge-referendum">Referendum</span>
+                        <h2 class="ec-title">Membership Dues Referendum</h2>
+                    </div>
+                    <span class="badge badge-gray">UPCOMING</span>
+                </div>
+                <div class="ec-body">
+                    <div class="ec-detail">
+                        <i class="fi-rs-calendar ec-icon"></i>
+                        <span><strong>Date:</strong> Jan 15, 2027</span>
+                    </div>
+                    <div class="ec-detail">
+                        <i class="fi-rs-balance-scale ec-icon"></i>
+                        <span><strong>Question:</strong> Approve revised membership fee structure?</span>
+                    </div>
+                    <div class="ec-detail">
+                        <i class="fi-rs-users ec-icon"></i>
+                        <span><strong>Participants:</strong> 4.8K</span>
+                    </div>
+                    <p class="text-sm text-gray mt-4">Binary vote on proposed changes to annual membership contributions.</p>
+                </div>
+                <div class="ec-footer">
+                    <a href="proposals.html" class="btn btn-outline">View Details</a>
+                    <button class="btn btn-secondary" disabled>Opens Jan 15</button>
+                </div>
+            </div>
+
+            <!-- Community Sentiment Survey — Survey -->
+            <div class="election-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="ec-header">
+                    <div>
+                        <span class="ec-badge ec-badge-survey">Survey</span>
+                        <h2 class="ec-title">Community Sentiment Survey</h2>
+                    </div>
+                    <span class="badge badge-green">LIVE</span>
+                </div>
+                <div class="ec-body">
+                    <div class="ec-detail">
+                        <i class="fi-rs-calendar ec-icon"></i>
+                        <span><strong>Date:</strong> Oct 01, 2026</span>
+                    </div>
+                    <div class="ec-detail">
+                        <i class="fi-rs-stopwatch ec-icon"></i>
+                        <span><strong>Time left:</strong> 02:14:00</span>
+                    </div>
+                    <div class="ec-detail">
+                        <i class="fi-rs-users ec-icon"></i>
+                        <span><strong>Participants:</strong> 3.1K</span>
+                    </div>
+                    <p class="text-sm text-gray mt-4">Share your input on organizational priorities for the coming year.</p>
+                </div>
+                <div class="ec-footer">
+                    <a href="proposals.html" class="btn btn-outline">View Questions</a>
+                    <a href="login.html" class="btn btn-primary">Take Survey</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="voteModal" class="confirm-modal" aria-hidden="true">
+            <div class="confirm-modal__backdrop"></div>
+            <div class="confirm-modal__panel" role="dialog" aria-modal="true">
+                <i class="fi-rs-vote confirm-modal__icon"></i>
+                <h2 class="confirm-modal__title">Submit Your Decision</h2>
+                <p class="confirm-modal__sub">Select your preferred option for the Board Resolution 2026.</p>
+                <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
+                    <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
+                        <input type="radio" name="voteCandidate" value="A" style="accent-color:var(--primary-green);">
+                        <span><strong>Approve Strategic Plan</strong><br><span class="text-sm text-gray">Executive Committee</span></span>
+                    </label>
+                    <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
+                        <input type="radio" name="voteCandidate" value="B" style="accent-color:var(--primary-green);">
+                        <span><strong>Adopt New Constitution</strong><br><span class="text-sm text-gray">Policy Review Board</span></span>
+                    </label>
+                    <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
+                        <input type="radio" name="voteCandidate" value="C" style="accent-color:var(--primary-green);">
+                        <span><strong>Budget Proposal 2027</strong><br><span class="text-sm text-gray">Governance Council</span></span>
+                    </label>
+                </div>
+                <div class="confirm-modal__actions">
+                    <button id="voteCancel" class="btn btn-secondary">Cancel</button>
+                    <button id="voteSubmit" class="btn btn-primary">Submit Decision</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="voteSuccessModal" class="auth-modal" aria-hidden="true">
+            <div class="auth-modal__backdrop"></div>
+            <div class="auth-modal__panel" role="dialog" aria-modal="true">
+                <div class="auth-modal__animated">
+                    <div class="auth-modal__spinner" id="voteSpinner"></div>
+                    <div class="auth-modal__check" id="voteCheck">
+                        <svg viewBox="0 0 52 52">
+                            <circle class="check-fill" cx="26" cy="26" r="26"/>
+                            <path class="check-mark" d="M14 27l7 7 16-16"/>
+                        </svg>
+                    </div>
+                </div>
+                <h2 class="auth-modal__title">Decision Recorded!</h2>
+                <p class="auth-modal__sub">Your participation has been securely recorded on the blockchain ledger. Thank you.</p>
             </div>
         </div>
 
@@ -324,38 +386,44 @@
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>
             <div class="footer-links">
-                <h4>Resources</h4>
+                <h4>Product</h4>
                 <ul>
-                    <li><a href="#">Education</a></li>
-                    <li><a href="#">Governance Guides</a></li>
-                    <li><a href="verify-identity.html">Verification Guide</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="index.html">Platform</a></li>
+                    <li><a href="governance-center.html">Governance Center</a></li>
+                    <li><a href="security.html">Trust</a></li>
+                    <li><a href="resources.html">Resources</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Support</h4>
+                <h4>Company</h4>
                 <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Report Issue</a></li>
-                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
                     <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
                 </ul>
             </div>
             <div class="footer-social">
-                <h4>Official Channels</h4>
+                <h4>Social</h4>
                 <div class="social-icons">
-                    <a href="#" class="social-icon">𝕏</a>
-                    <a href="#" class="social-icon">f</a>
                     <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">GH</a>
+                    <a href="#" class="social-icon">YT</a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 All Rights Reserved.</p>
-            <div class="footer-legal">
-                <a href="#">Terms of Service</a>
-                <a href="#">Data Protection Policy</a>
-            </div>
         </div>
     </footer>
 <script src="scripts.js"></script>
