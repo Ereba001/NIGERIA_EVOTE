@@ -137,6 +137,80 @@
     padding: 1rem !important;
   }
 
+  /* === ALL PAGES: consistent side margin so content isn't flush === */
+  main:not(.landing-main):not(.dash-main):not(.security-container):not(.receipt-main):not(.audit-container):not(.portal-login-main):not(.auth-main),
+  .settings-container,
+  .events-list,
+  .table-wrapper,
+  .participant-stats,
+  .action-bar {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Governance center: election grid */
+  .election-grid {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    gap: 1rem;
+  }
+
+  /* Proposals page */
+  .candidates-list {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    gap: 1rem !important;
+  }
+  .filter-bar {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Receipt: long transaction hash text overflow */
+  .copy-field input {
+    font-size: 0.65rem !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* Admin audit */
+  .audit-container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Settings page */
+  .settings-container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+  .settings-card {
+    padding: 1.25rem;
+  }
+
+  /* Admin pages: table scroll safety */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-header .nav-links {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Verify identity */
+  .verify-container {
+    margin-left: 1.25rem !important;
+    margin-right: 1.25rem !important;
+  }
+
+  /* Guidelines section */
+  .guidelines-container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
   /* Auth pages: convert nav-actions into nav-links for the slide-down */
   .navbar-auth .nav-links {
     display: none;
