@@ -93,6 +93,50 @@
     display: none !important;
   }
 
+  /* Landing page: wider margins so content isn't flush with screen edges */
+  .landing-main {
+    padding: 0.75rem 1.25rem 2rem !important;
+  }
+  .hero-with-image {
+    padding: 2.5rem 1.25rem !important;
+  }
+  .stats-grid {
+    padding: 0 0.5rem;
+  }
+  .charts-section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem;
+  }
+  .charts-section .trends-card,
+  .charts-section .side-charts {
+    width: 100%;
+    max-width: 100%;
+  }
+  .charts-section .side-charts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .chart-container {
+    height: 220px !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pie-container {
+    height: 180px !important;
+  }
+  .card-header {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  .toggle-group {
+    align-self: flex-start !important;
+  }
+  .chart-card {
+    padding: 1rem !important;
+  }
+
   /* Auth pages: convert nav-actions into nav-links for the slide-down */
   .navbar-auth .nav-links {
     display: none;
