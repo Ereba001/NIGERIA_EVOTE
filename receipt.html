@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +15,7 @@
 <body class="bg-light">
     <header class="navbar">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <nav class="nav-links">
             <a href="index.html">Platform</a>
@@ -25,6 +26,13 @@
         <div class="nav-actions">
             <a href="login.html" class="nav-login">Sign In</a>
             <a href="signup.html" class="btn btn-primary">Get Started</a>
+        </div>
+        <div class="nav-user" style="display:none;">
+            <div class="user-info">
+                <span class="user-name">CHUKWUMA ADEBAYO</span>
+                <span class="user-id">Participant</span>
+            </div>
+            <a href="#" onclick="window.orivisAuth.logout()" class="btn btn-secondary">Logout</a>
         </div>
     </header>
     <main class="receipt-main">
@@ -72,10 +80,9 @@
             <button type="button" class="btn btn-secondary btn-full btn-large" id="downloadReceiptBtn">Download Receipt (PDF)</button>
 
             <div class="receipt-brand">
-                <div class="logo">
-                    <div class="logo-icon"></div>
-                    <span class="logo-text">Orivis</span>
-                </div>
+            <div class="logo">
+                <img src="resources/logo.svg" alt="Orivis" class="logo-img">
+            </div>
                 <p>Orivis • Governance Protocol v4.2.0</p>
             </div>
         </section>
@@ -85,8 +92,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>
@@ -133,6 +139,13 @@
     </footer>
 
     <script src="scripts.js"></script>
+    <script>
+        if (localStorage.getItem('orivisAuth') === 'true') {
+            var na = document.querySelector('.nav-actions');
+            var nu = document.querySelector('.nav-user');
+            if (na && nu) { na.style.display = 'none'; nu.style.display = 'flex'; }
+        }
+    </script>
     <script>
     (function() {
         var raw = localStorage.getItem('orivisVoteReceipt');

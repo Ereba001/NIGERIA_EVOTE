@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+<style>.auth-select { width:100%; padding:0.75rem 2.5rem; border:1px solid var(--border-color); border-radius:6px; font-family:'Inter',sans-serif; font-size:0.9rem; background:white; color:var(--text-main); outline:none; cursor:pointer; appearance:auto; } .auth-select:focus { border-color:var(--primary); }</style>
 </head>
 <body class="bg-light">
     <header class="navbar navbar-auth">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <div class="nav-actions">
             <a href="index.html" class="nav-link">Back to Home</a>
@@ -41,6 +43,19 @@
             <div class="auth-form-grid">
                 <div id="step1" class="auth-step">
                     <div class="auth-col" style="max-width:400px;margin:0 auto;">
+                        <div class="form-group">
+                            <label>Organization</label>
+                            <div class="input-with-icon">
+                                <i class="fi-rs-building input-icon"></i>
+                                <select id="orgSelect" class="auth-select">
+                                    <option value="">Select your organization</option>
+                                    <option value="Multilancer Ltd.">Multilancer Ltd.</option>
+                                    <option value="Meranos Ltd.">Meranos Ltd.</option>
+                                    <option value="Rivers State University Faculty of Engineering">Rivers State University Faculty of Engineering</option>
+                                    <option value="Global Tech Innovators Inc.">Global Tech Innovators Inc.</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label>Participant ID</label>
                             <div class="input-with-icon">
@@ -101,7 +116,7 @@
             </div>
 
             <div style="text-align: center; padding: 0.6rem 2rem; border-top: 1px solid var(--border-color); font-size: 0.875rem;">
-                <span style="color: var(--text-muted);">Already registered?</span> <a href="login.html" style="color: var(--primary-green); font-weight: 600;">Sign In</a>
+                <span style="color: var(--text-muted);">Already registered?</span> <a href="login.html" style="color: var(--primary); font-weight: 600;">Sign In</a>
             </div>
 
             <div class="auth-ssl-banner">
@@ -138,8 +153,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>
@@ -389,6 +403,13 @@
     loginBtn.addEventListener('click', function(e) {
         e.preventDefault();
         pinError.textContent = '';
+        var orgEl = document.getElementById('orgSelect');
+        if (!orgEl || !orgEl.value) {
+            pinError.textContent = 'Please select your organization';
+            if (orgEl) orgEl.style.borderColor = 'red';
+            setTimeout(function() { if (orgEl) orgEl.style.borderColor = ''; }, 2000);
+            return;
+        }
         var pin = Array.from(pinBoxes).map(function(b) { return b.dataset.val || ''; }).join('');
         if (pin.length < 4) {
             pinError.textContent = 'Please enter your 4-digit Security PIN';
@@ -409,6 +430,7 @@
                 spinner.classList.add('done');
                 check.classList.add('show');
                 setTimeout(function() {
+                    window.orivisAuth.setLoggedIn('CHUKWUMA ADEBAYO', orgEl.value);
                     window.location.href = 'dashboard.html';
                 }, 1500);
             }, 1200);

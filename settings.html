@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Organization Settings | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -130,7 +132,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.15);
         }
         .toggle-disabled.toggle-on {
-            background: var(--primary-green);
+            background: var(--primary);
         }
         .toggle-disabled.toggle-on::after {
             left: 22px;
@@ -138,7 +140,7 @@
         .settings-checkbox {
             width: 18px;
             height: 18px;
-            accent-color: var(--primary-green);
+            accent-color: var(--primary);
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -195,19 +197,19 @@
         }
         .org-select:focus {
             outline: none;
-            border-color: var(--primary-green);
+            border-color: var(--primary);
         }
         .nav-links a.active-link {
-            color: var(--primary-green);
+            color: var(--primary);
             font-weight: 600;
         }
         .nav-links a.active-link::after {
             width: 100%;
         }
         .nav-link-active {
-            border-color: var(--primary-green) !important;
-            color: var(--primary-green) !important;
-            background: rgba(22, 163, 74, 0.05) !important;
+            border-color: var(--primary) !important;
+            color: var(--primary) !important;
+            background: var(--primary-light) !important;
             font-weight: 600 !important;
         }
 
@@ -245,8 +247,7 @@
 <body>
     <header class="navbar navbar-dash">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <div class="org-switcher">
             <i class="fi-rs-building"></i>
@@ -325,8 +326,8 @@
             <div class="settings-row">
                 <span class="settings-label">Primary Color</span>
                 <div class="settings-value">
-                    <span class="color-swatch" style="background: #008751;"></span>
-                    <span class="settings-text">#008751</span>
+                    <span class="color-swatch" style="background: var(--primary);"></span>
+                    <span class="settings-text">#1E3A5F</span>
                 </div>
             </div>
             <div class="settings-row">
@@ -392,8 +393,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>

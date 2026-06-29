@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
@@ -11,14 +13,14 @@
         .page-header { text-align: center; padding: 4rem 1.5rem 3rem; background: white; border-bottom: 1px solid var(--border-color); margin-bottom: 3rem; }
         .page-header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
         .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
-        .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
+        .nav-links a.active-link { color: var(--primary); font-weight: 600; }
 
         .security-container { max-width: 1000px; margin: 0 auto 5rem; padding: 0 1.5rem; }
         
         .sec-feature { display: flex; gap: 2rem; align-items: flex-start; margin-bottom: 4rem; background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .sec-feature:nth-child(even) { flex-direction: row-reverse; }
         
-        .sec-icon-lg { width: 80px; height: 80px; background: #def7ec; color: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; flex-shrink: 0; }
+        .sec-icon-lg { width: 80px; height: 80px; background: var(--badge-primary-bg); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; flex-shrink: 0; }
         
         .sec-content h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
         .sec-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
@@ -31,8 +33,7 @@
 <body class="bg-light">
     <header class="navbar">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <nav class="nav-links">
             <a href="index.html">Platform</a>
@@ -43,6 +44,13 @@
         <div class="nav-actions">
             <a href="login.html" class="nav-login">Sign In</a>
             <a href="signup.html" class="btn btn-primary">Get Started</a>
+        </div>
+        <div class="nav-user" style="display:none;">
+            <div class="user-info">
+                <span class="user-name">CHUKWUMA ADEBAYO</span>
+                <span class="user-id">Participant</span>
+            </div>
+            <a href="#" onclick="window.orivisAuth.logout()" class="btn btn-secondary">Logout</a>
         </div>
     </header>
 
@@ -94,8 +102,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>
@@ -141,5 +148,12 @@
         </div>
     </footer>
 <script src="scripts.js"></script>
+<script>
+    if (localStorage.getItem('orivisAuth') === 'true') {
+        var na = document.querySelector('.nav-actions');
+        var nu = document.querySelector('.nav-user');
+        if (na && nu) { na.style.display = 'none'; nu.style.display = 'flex'; }
+    }
+</script>
 </body>
 </html>

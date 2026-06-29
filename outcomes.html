@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Outcomes | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
@@ -12,7 +14,7 @@
         .page-header { text-align: center; padding: 4rem 1.5rem 3rem; background: white; border-bottom: 1px solid var(--border-color); margin-bottom: 3rem; }
         .page-header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
         .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
-        .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
+        .nav-links a.active-link { color: var(--primary); font-weight: 600; }
 
         .results-container { max-width: 1200px; margin: 0 auto 5rem; padding: 0 1.5rem; display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
         .chart-box { background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -29,8 +31,7 @@
 <body class="bg-light">
     <header class="navbar">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <nav class="nav-links">
             <a href="index.html">Platform</a>
@@ -41,6 +42,13 @@
         <div class="nav-actions">
             <a href="login.html" class="nav-login">Sign In</a>
             <a href="signup.html" class="btn btn-primary">Get Started</a>
+        </div>
+        <div class="nav-user" style="display:none;">
+            <div class="user-info">
+                <span class="user-name">CHUKWUMA ADEBAYO</span>
+                <span class="user-id">Participant</span>
+            </div>
+            <a href="#" onclick="window.orivisAuth.logout()" class="btn btn-secondary">Logout</a>
         </div>
     </header>
 
@@ -111,8 +119,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>
@@ -160,6 +167,13 @@
 
     <script src="scripts.js"></script>
     <script>
+        if (localStorage.getItem('orivisAuth') === 'true') {
+            var na = document.querySelector('.nav-actions');
+            var nu = document.querySelector('.nav-user');
+            if (na && nu) { na.style.display = 'none'; nu.style.display = 'flex'; }
+        }
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             createChartOnScroll('detailedResultsChart', function() {
                 return {
@@ -169,7 +183,7 @@
                         datasets: [{
                             label: 'Decisions',
                             data: [5393, 4880, 2054, 515],
-                            backgroundColor: ['#008751','#1f2937','#9ca3af','#e5e7eb'],
+                            backgroundColor: ['#1E3A5F','#0F172A','#94A3B8','#E2E8F0'],
                             borderRadius: 6
                         }]
                     },

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Governance Center | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
@@ -63,13 +65,13 @@
             margin-bottom: 1rem;
             font-size: 0.875rem;
         }
-        .ec-icon { color: var(--primary-green); font-size: 1.25rem; }
+        .ec-icon { color: var(--primary); font-size: 1.25rem; }
         
         .ec-footer { flex-direction: column; gap: 0.75rem; }
         .ec-lifecycle { display: flex; align-items: center; gap: 2px; width: 100%; }
         .lc-dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid #d1d5db; background: white; flex-shrink: 0; }
         .lc-dot.lc-done { background: #9ca3af; border-color: #9ca3af; }
-        .lc-dot.lc-active { background: var(--primary-green); border-color: var(--primary-green); box-shadow: 0 0 0 2px rgba(0,135,81,0.2); }
+        .lc-dot.lc-active { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 2px rgba(30,58,95,0.2); }
         .lc-line { flex-grow: 1; height: 2px; background: #d1d5db; }
         .lc-dot.lc-done + .lc-line { background: #9ca3af; }
         .ec-actions { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 0.75rem; }
@@ -83,14 +85,14 @@
         }
         
         .nav-links a.active-link {
-            color: var(--primary-green);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .category-filter { max-width: 1200px; margin: -1rem auto 2rem; padding: 0 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .filter-pill { padding: 0.5rem 1.25rem; border: 1px solid var(--border-color); border-radius: 999px; background: white; font-family: 'Inter', sans-serif; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
-        .filter-pill:hover { border-color: var(--primary-green); color: var(--primary-green); }
-        .filter-pill.active { background: var(--primary-green); color: white; border-color: var(--primary-green); }
+        .filter-pill:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
         .ec-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
         .ec-badge-approval { background: #dbeafe; color: #1d4ed8; }
         .ec-badge-election { background: #d1fae5; color: #047857; }
@@ -129,8 +131,7 @@
 <body class="bg-light">
     <header class="navbar">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <nav class="nav-links">
             <a href="index.html">Platform</a>
@@ -142,6 +143,13 @@
             <a href="login.html" class="nav-login">Sign In</a>
             <a href="signup.html" class="btn btn-primary">Get Started</a>
         </div>
+        <div class="nav-user" style="display:none;">
+            <div class="user-info">
+                <span class="user-name">CHUKWUMA ADEBAYO</span>
+                <span class="user-id">Participant</span>
+            </div>
+            <a href="#" onclick="window.orivisAuth.logout()" class="btn btn-secondary">Logout</a>
+        </div>
     </header>
 
     <div class="page-header" data-aos="fade-up">
@@ -150,177 +158,85 @@
     </div>
 
     <main>
-        <div class="category-filter" data-aos="fade-up">
-            <button class="filter-pill active">All Events</button>
-            <button class="filter-pill">Elections</button>
-            <button class="filter-pill">Approvals</button>
-            <button class="filter-pill">Consultations</button>
-            <button class="filter-pill">Referendums</button>
-            <button class="filter-pill">Surveys</button>
-        </div>
-
         <div class="election-grid">
-            <!-- Board Resolution 2026 — Approval -->
             <div class="election-card" data-aos="fade-up">
                 <div class="ec-header">
                     <div>
-                        <span class="ec-badge ec-badge-approval">Approval</span>
-                        <h2 class="ec-title">Board Resolution 2026</h2>
+                        <span class="ec-badge ec-badge-election">Election</span>
+                        <h2 class="ec-title">Multilancer Ltd. General Election</h2>
                     </div>
                     <span class="badge badge-green">LIVE</span>
                 </div>
                 <div class="ec-body">
-                    <div class="ec-detail">
-                        <i class="fi-rs-calendar ec-icon"></i>
-                        <span><strong>Date:</strong> Oct 12, 2026</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-stopwatch ec-icon"></i>
-                        <span><strong>Time left:</strong> <span id="countdownTimer">--:--:--</span></span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Participants:</strong> 12.5K</span>
-                    </div>
-                    <p class="text-sm text-gray mt-4">Annual board resolution on strategic direction and governance reform.</p>
+                    <div class="ec-detail"><i class="fi-rs-calendar ec-icon"></i><span><strong>Date:</strong> Oct 12, 2026</span></div>
+                    <div class="ec-detail"><i class="fi-rs-stopwatch ec-icon"></i><span><strong>Time left:</strong> <span id="countdownTimer">--:--:--</span></span></div>
+                    <div class="ec-detail"><i class="fi-rs-users ec-icon"></i><span><strong>Registered:</strong> 2,450 participants</span></div>
+                    <p class="text-sm text-gray mt-4">Elect the new executive council for Multilancer Ltd. for the 2026–2027 term.</p>
                 </div>
                 <div class="ec-footer">
-                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
                     <div class="ec-actions">
-                        <a href="proposals.html" class="btn btn-outline">View Details</a>
-                        <a href="login.html" class="btn btn-primary">Participate Now</a>
+                        <a href="login.html" class="btn btn-primary btn-full">Participate</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Annual Leadership Election — Election -->
             <div class="election-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="ec-header">
                     <div>
                         <span class="ec-badge ec-badge-election">Election</span>
-                        <h2 class="ec-title">Annual Leadership Election</h2>
+                        <h2 class="ec-title">Meranos Ltd. General Election</h2>
                     </div>
                     <span class="badge badge-gray">UPCOMING</span>
                 </div>
                 <div class="ec-body">
-                    <div class="ec-detail">
-                        <i class="fi-rs-calendar ec-icon"></i>
-                        <span><strong>Date:</strong> Dec 10, 2026</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-building ec-icon"></i>
-                        <span><strong>Type:</strong> Leadership Election</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Participants:</strong> 12.5K</span>
-                    </div>
-                    <p class="text-sm text-gray mt-4">Elect organizational leadership for the upcoming term.</p>
+                    <div class="ec-detail"><i class="fi-rs-calendar ec-icon"></i><span><strong>Date:</strong> Dec 10, 2026</span></div>
+                    <div class="ec-detail"><i class="fi-rs-users ec-icon"></i><span><strong>Registered:</strong> 1,820 participants</span></div>
+                    <p class="text-sm text-gray mt-4">Register to vote in the Meranos Ltd. general election for the upcoming board term.</p>
                 </div>
                 <div class="ec-footer">
-                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
                     <div class="ec-actions">
-                        <a href="proposals.html" class="btn btn-outline">View Candidates</a>
-                        <button class="btn btn-secondary" disabled>Opens Dec 10</button>
+                        <a href="signup.html" class="btn btn-primary btn-full">Register</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Strategic Policy Consultation — Consultation -->
             <div class="election-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="ec-header">
                     <div>
-                        <span class="ec-badge ec-badge-consultation">Consultation</span>
-                        <h2 class="ec-title">Strategic Policy Consultation</h2>
-                    </div>
-                    <span class="badge badge-gray">UPCOMING</span>
-                </div>
-                <div class="ec-body">
-                    <div class="ec-detail">
-                        <i class="fi-rs-calendar ec-icon"></i>
-                        <span><strong>Date:</strong> Nov 05, 2026</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Department:</strong> Policy & Governance</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Participants:</strong> 7.2K</span>
-                    </div>
-                    <p class="text-sm text-gray mt-4">Open consultation on proposed governance policy amendments.</p>
-                </div>
-                <div class="ec-footer">
-                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
-                    <div class="ec-actions">
-                        <a href="proposals.html" class="btn btn-outline">View Proposals</a>
-                        <button class="btn btn-secondary" disabled>Opens Nov 05</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Membership Referendum — Referendum -->
-            <div class="election-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="ec-header">
-                    <div>
-                        <span class="ec-badge ec-badge-referendum">Referendum</span>
-                        <h2 class="ec-title">Membership Dues Referendum</h2>
-                    </div>
-                    <span class="badge badge-gray">UPCOMING</span>
-                </div>
-                <div class="ec-body">
-                    <div class="ec-detail">
-                        <i class="fi-rs-calendar ec-icon"></i>
-                        <span><strong>Date:</strong> Jan 15, 2027</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-balance-scale ec-icon"></i>
-                        <span><strong>Question:</strong> Approve revised membership fee structure?</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Participants:</strong> 4.8K</span>
-                    </div>
-                    <p class="text-sm text-gray mt-4">Binary vote on proposed changes to annual membership contributions.</p>
-                </div>
-                <div class="ec-footer">
-                    <div class="ec-lifecycle"><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
-                    <div class="ec-actions">
-                        <a href="proposals.html" class="btn btn-outline">View Details</a>
-                        <button class="btn btn-secondary" disabled>Opens Jan 15</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Community Sentiment Survey — Survey -->
-            <div class="election-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="ec-header">
-                    <div>
-                        <span class="ec-badge ec-badge-survey">Survey</span>
-                        <h2 class="ec-title">Community Sentiment Survey</h2>
+                        <span class="ec-badge ec-badge-election">Election</span>
+                        <h2 class="ec-title">Rivers State University Faculty of Engineering General Elections</h2>
                     </div>
                     <span class="badge badge-green">LIVE</span>
                 </div>
                 <div class="ec-body">
-                    <div class="ec-detail">
-                        <i class="fi-rs-calendar ec-icon"></i>
-                        <span><strong>Date:</strong> Oct 01, 2026</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-stopwatch ec-icon"></i>
-                        <span><strong>Time left:</strong> 02:14:00</span>
-                    </div>
-                    <div class="ec-detail">
-                        <i class="fi-rs-users ec-icon"></i>
-                        <span><strong>Participants:</strong> 3.1K</span>
-                    </div>
-                    <p class="text-sm text-gray mt-4">Share your input on organizational priorities for the coming year.</p>
+                    <div class="ec-detail"><i class="fi-rs-calendar ec-icon"></i><span><strong>Date:</strong> Oct 15, 2026</span></div>
+                    <div class="ec-detail"><i class="fi-rs-stopwatch ec-icon"></i><span><strong>Time left:</strong> 06:12:00</span></div>
+                    <div class="ec-detail"><i class="fi-rs-users ec-icon"></i><span><strong>Registered:</strong> 4,180 participants</span></div>
+                    <p class="text-sm text-gray mt-4">Faculty of Engineering student union elections for departmental representatives.</p>
                 </div>
                 <div class="ec-footer">
-                    <div class="ec-lifecycle"><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-done"></span><span class="lc-line"></span><span class="lc-dot lc-active"></span><span class="lc-line"></span><span class="lc-dot"></span></div>
                     <div class="ec-actions">
-                        <a href="proposals.html" class="btn btn-outline">View Questions</a>
-                        <a href="login.html" class="btn btn-primary">Take Survey</a>
+                        <a href="login.html" class="btn btn-primary btn-full">Participate</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="election-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="ec-header">
+                    <div>
+                        <span class="ec-badge ec-badge-election">Election</span>
+                        <h2 class="ec-title">Global Tech Innovators Inc. Board Election</h2>
+                    </div>
+                    <span class="badge badge-gray">UPCOMING</span>
+                </div>
+                <div class="ec-body">
+                    <div class="ec-detail"><i class="fi-rs-calendar ec-icon"></i><span><strong>Date:</strong> Jan 20, 2027</span></div>
+                    <div class="ec-detail"><i class="fi-rs-users ec-icon"></i><span><strong>Registered:</strong> 950 participants</span></div>
+                    <p class="text-sm text-gray mt-4">Register now for the Global Tech Innovators board of directors election.</p>
+                </div>
+                <div class="ec-footer">
+                    <div class="ec-actions">
+                        <a href="signup.html" class="btn btn-primary btn-full">Register</a>
                     </div>
                 </div>
             </div>
@@ -334,15 +250,15 @@
                 <p class="confirm-modal__sub">Select your preferred option for the Board Resolution 2026.</p>
                 <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
                     <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
-                        <input type="radio" name="voteCandidate" value="A" style="accent-color:var(--primary-green);">
+                        <input type="radio" name="voteCandidate" value="A" style="accent-color:var(--primary);">
                         <span><strong>Approve Strategic Plan</strong><br><span class="text-sm text-gray">Executive Committee</span></span>
                     </label>
                     <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
-                        <input type="radio" name="voteCandidate" value="B" style="accent-color:var(--primary-green);">
+                        <input type="radio" name="voteCandidate" value="B" style="accent-color:var(--primary);">
                         <span><strong>Adopt New Constitution</strong><br><span class="text-sm text-gray">Policy Review Board</span></span>
                     </label>
                     <label class="candidate-option" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;cursor:pointer;transition:all 0.2s;">
-                        <input type="radio" name="voteCandidate" value="C" style="accent-color:var(--primary-green);">
+                        <input type="radio" name="voteCandidate" value="C" style="accent-color:var(--primary);">
                         <span><strong>Budget Proposal 2027</strong><br><span class="text-sm text-gray">Governance Council</span></span>
                     </label>
                 </div>
@@ -403,8 +319,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>
@@ -452,6 +367,15 @@
 <script src="scripts.js"></script>
 <script>
 (function() {
+    if (localStorage.getItem('orivisAuth') === 'true') {
+        var na = document.querySelector('.nav-actions');
+        var nu = document.querySelector('.nav-user');
+        if (na && nu) {
+            na.style.display = 'none';
+            nu.style.display = 'flex';
+        }
+    }
+
     var endDate = new Date('2026-10-12T08:00:00').getTime();
     var timerEl = document.getElementById('countdownTimer');
     function updateTimer() {
@@ -476,8 +400,8 @@
     candidateOptions.forEach(function(opt) {
         opt.addEventListener('click', function() {
             candidateOptions.forEach(function(o) { o.style.borderColor = 'var(--border-color)'; o.style.background = ''; });
-            this.style.borderColor = 'var(--primary-green)';
-            this.style.background = 'rgba(0,135,81,0.05)';
+            this.style.borderColor = 'var(--primary)';
+            this.style.background = 'rgba(30,58,95,0.05)';
             this.querySelector('input[type=radio]').checked = true;
         });
     });

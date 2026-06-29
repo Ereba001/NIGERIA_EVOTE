@@ -40,11 +40,47 @@ function createChartOnScroll(id, getConfig) {
     window.addEventListener('resize', check);
 }
 
+window.orivisAuth = {
+    setLoggedIn: function(name, org) {
+        localStorage.setItem('orivisAuth', 'true');
+        localStorage.setItem('orivisUserName', name || 'Participant');
+        if (org) localStorage.setItem('orivisOrg', org);
+    },
+    logout: function() {
+        localStorage.removeItem('orivisAuth');
+        localStorage.removeItem('orivisUserName');
+        localStorage.removeItem('orivisOrg');
+        localStorage.removeItem('orivisVoteStatus');
+        window.location.href = 'index.html';
+    },
+    isLoggedIn: function() {
+        return localStorage.getItem('orivisAuth') === 'true';
+    },
+    getUserName: function() {
+        return localStorage.getItem('orivisUserName') || 'CHUKWUMA ADEBAYO';
+    },
+    initNav: function() {
+        var actions = document.querySelector('.nav-actions');
+        var user = document.querySelector('.nav-user');
+        if (!actions || !user) return;
+        if (this.isLoggedIn()) {
+            actions.style.display = 'none';
+            user.style.display = 'flex';
+            var nameEl = user.querySelector('.user-name');
+            if (nameEl) nameEl.textContent = this.getUserName();
+        } else {
+            actions.style.display = 'flex';
+            user.style.display = 'none';
+        }
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+    window.orivisAuth.initNav();
     /*
     // 0. Theme Toggle (Dark Mode / Light Mode)
     const themeToggle = document.getElementById('themeToggle');
-    const STORAGE_KEY = 'evote-theme';
+    const STORAGE_KEY = 'orivis-theme';
 
     function getPreferredTheme() {
         const stored = localStorage.getItem(STORAGE_KEY);
@@ -85,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'line',
             data: {
                 labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-                datasets: [{ label:'Participant Growth (Millions)', data:[1.2,1.8,2.5,4.2,3.8,5.5], borderColor:'#008751', backgroundColor:'rgba(0,135,81,0.1)', borderWidth:2, tension:0.4, fill:true, pointBackgroundColor:'#008751', pointRadius:3 }]
+                datasets: [{ label:'Participant Growth (Millions)', data:[1.2,1.8,2.5,4.2,3.8,5.5], borderColor:'#1E3A5F', backgroundColor:'rgba(30,58,95,0.08)', borderWidth:2, tension:0.4, fill:true, pointBackgroundColor:'#1E3A5F', pointRadius:3 }]
             },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max:6.0, ticks:{ stepSize:1, color:'#9ca3af' }, grid:{ color:'#f3f4f6' }, border:{ display:false } }, x:{ ticks:{ color:'#9ca3af' }, grid:{ display:false }, border:{ display:false } } } }
         };
@@ -94,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createChartOnScroll('distributionChart', function() {
         return {
             type: 'pie',
-            data: { labels:['Government','Education','Corporate','Non-Profit'], datasets:[{ data:[45,20,15,20], backgroundColor:['#008751','#1f2937','#9ca3af','#e5e7eb'], borderWidth:0 }] },
+            data: { labels:['Government','Education','Corporate','Non-Profit'], datasets:[{ data:[45,20,15,20], backgroundColor:['#1E3A5F','#0F172A','#94A3B8','#E2E8F0'], borderWidth:0 }] },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return c.label+': '+c.raw+'%'; } } } } }
         };
     });
@@ -102,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createChartOnScroll('liveResultsChart', function() {
         return {
             type: 'pie',
-            data: { labels:['Approve Plan','Adopt Constitution','Budget Proposal'], datasets:[{ data:[42,38,20], backgroundColor:['#008751','#2563eb','#9ca3af'], borderWidth:0 }] },
+            data: { labels:['Approve Plan','Adopt Constitution','Budget Proposal'], datasets:[{ data:[42,38,20], backgroundColor:['#1E3A5F','#3B82F6','#94A3B8'], borderWidth:0 }] },
             options: { responsive:true, maintainAspectRatio:false, animation:chartAnim, plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:function(c){ return c.label+': '+c.raw+'%'; } } } } }
         };
     });

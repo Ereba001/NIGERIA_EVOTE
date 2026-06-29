@@ -4,6 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Participants | Admin · Orivis</title>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg">
+        <link rel="apple-touch-icon" href="favicon.svg">
         <meta name="description" content="Manage verified participants and their access to governance events." />
         <link rel="stylesheet" href="index.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -113,8 +115,8 @@
                 text-transform: uppercase;
             }
             .status-verified {
-                background: #def7ec;
-                color: var(--primary-green);
+                background: var(--badge-primary-bg);
+                color: var(--primary);
             }
             .status-pending {
                 background: #fef9c3;
@@ -140,10 +142,10 @@
                 color: #b91c1c;
             }
             .action-link.resend {
-                color: var(--primary-green);
+                color: var(--primary);
             }
             .action-link.resend:hover {
-                color: var(--primary-green-hover);
+                color: var(--primary-hover);
             }
             .action-link.reactivate {
                 color: #2563eb;
@@ -172,16 +174,16 @@
                 min-width: 180px;
             }
             .org-select:focus {
-                border-color: var(--primary-green);
+                border-color: var(--primary);
             }
 
             .nav-links a.active-link {
-                color: var(--primary-green);
+                color: var(--primary);
                 font-weight: 600;
             }
             .nav-links a.active-link::after {
                 width: 100%;
-                background: var(--primary-green);
+                background: var(--primary);
             }
 
             @media (max-width: 768px) {
@@ -236,8 +238,7 @@
     <body>
         <header class="navbar">
             <a href="index.html" class="logo">
-                <div class="logo-icon"></div>
-                <span class="logo-text">Orivis</span>
+                <img src="resources/logo.svg" alt="Orivis" class="logo-img">
             </a>
             <div class="org-switcher">
                 <i class="fi-rs-building"></i>
@@ -350,8 +351,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo logo-white">
-                        <div class="logo-icon border-white"></div>
-                        <span class="logo-text">Orivis</span>
+                        <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                     </div>
                     <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
                 </div>

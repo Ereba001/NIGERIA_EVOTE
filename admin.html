@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +13,6 @@
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
     <style>
         :root {
-            --primary-green: #008751;
             --border-color: #e5e7eb;
             --text-muted: #6b7280;
             --bg-light: #f9fafb;
@@ -26,7 +27,7 @@
         .page-header h1 { font-size: 2.5rem; margin-bottom: 0.75rem; }
         .page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.125rem; }
 
-        .nav-links a.active-link { color: var(--primary-green); font-weight: 600; }
+        .nav-links a.active-link { color: var(--primary); font-weight: 600; }
 
         .org-switcher { display: inline-block; margin-right: 1.5rem; }
         .org-select {
@@ -41,8 +42,8 @@
             font-family: inherit;
             max-width: 200px;
         }
-        .org-select:hover { border-color: var(--primary-green); }
-        .org-select:focus { outline: none; border-color: var(--primary-green); box-shadow: 0 0 0 2px rgba(0,135,81,0.15); }
+        .org-select:hover { border-color: var(--primary); }
+        .org-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(30,58,95,0.15); }
 
         .health-grid {
             max-width: 1200px;
@@ -61,9 +62,9 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .health-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px -3px rgba(0,0,0,0.08); }
-        .health-value { font-size: 2rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.25rem; line-height: 1.2; }
+        .health-value { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem; line-height: 1.2; }
         .health-label { color: var(--text-muted); font-size: 0.875rem; }
-        .health-icon { font-size: 1.5rem; color: var(--primary-green); margin-bottom: 0.75rem; display: block; }
+        .health-icon { font-size: 1.5rem; color: var(--primary); margin-bottom: 0.75rem; display: block; }
 
         .console-main { max-width: 1200px; margin: 0 auto 5rem; padding: 0 1.5rem; }
 
@@ -105,9 +106,9 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: var(--primary-green);
+            background: var(--primary);
             border: 2px solid white;
-            box-shadow: 0 0 0 2px var(--primary-green);
+            box-shadow: 0 0 0 2px var(--primary);
         }
         .activity-text { font-size: 0.9375rem; line-height: 1.5; }
         .activity-time { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; display: block; }
@@ -131,9 +132,9 @@
 
         .nav-user { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; }
         .nav-user .user-name { font-size: 0.875rem; font-weight: 500; }
-        .nav-user .user-role { background: #def7ec; color: var(--primary-green); font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.02em; }
+        .nav-user .user-role { background: var(--badge-primary-bg); color: var(--primary); font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.02em; }
         .nav-user .nav-link-icon { color: var(--text-muted); font-size: 1.1rem; text-decoration: none; transition: color 0.2s; }
-        .nav-user .nav-link-icon:hover { color: var(--primary-green); }
+        .nav-user .nav-link-icon:hover { color: var(--primary); }
 
         @media (max-width: 1024px) {
             .health-grid { grid-template-columns: repeat(2, 1fr); }
@@ -149,8 +150,7 @@
 <body class="bg-light">
     <header class="navbar admin-header">
         <a href="index.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
         <div class="org-switcher">
             <select class="org-select">
@@ -204,7 +204,7 @@
 
         <div class="console-grid">
             <section class="console-section" data-aos="fade-right">
-                <h2><i class="fi-rs-list-check" style="color:var(--primary-green);margin-right:0.5rem;"></i> Recent Activity</h2>
+                <h2><i class="fi-rs-list-check" style="color:var(--primary);margin-right:0.5rem;"></i> Recent Activity</h2>
                 <div class="activity-feed">
                     <div class="activity-item">
                         <div class="activity-text">Decision submitted by Sarah Mitchell</div>
@@ -230,7 +230,7 @@
             </section>
 
             <section class="console-section" data-aos="fade-left">
-                <h2><i class="fi-rs-alarm-clock" style="color:var(--primary-green);margin-right:0.5rem;"></i> Upcoming Deadlines</h2>
+                <h2><i class="fi-rs-alarm-clock" style="color:var(--primary);margin-right:0.5rem;"></i> Upcoming Deadlines</h2>
                 <ul class="deadlines-list">
                     <li class="deadline-item">
                         <span class="deadline-title">Board Resolution 2026</span>
@@ -253,8 +253,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="logo logo-white">
-                    <div class="logo-icon border-white"></div>
-                    <span class="logo-text">Orivis</span>
+                    <img src="resources/logo-white.svg" alt="Orivis" class="logo-img">
                 </div>
                 <p class="footer-desc">Orivis helps organizations run transparent, secure decisions — from board resolutions to policy consultations.</p>
             </div>

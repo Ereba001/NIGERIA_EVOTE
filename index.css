@@ -1,60 +1,157 @@
 @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
 
 :root {
-    --primary-green: #008751;
-    --primary-green-hover: #00683e;
-    --dark-bg: #111827;
-    --text-main: #1f2937;
-    --text-muted: #6b7280;
-    --bg-light: #f9fafb;
-    --bg-white: #ffffff;
-    --border-color: #e5e7eb;
-    
-    --chart-green: #008751;
-    --chart-dark: #1f2937;
-    --chart-gray: #9ca3af;
-    --chart-light-gray: #e5e7eb;
+    /* =========================================
+       Brand Colors
+       ========================================= */
+    --primary: #1E3A5F;
+    --primary-hover: #152B47;
+    --primary-light: rgba(30, 58, 95, 0.08);
+    --secondary: #3B82F6;
+    --accent: #60A5FA;
 
-    --surface-raised: #ffffff;
-    --surface-hover: #f3f4f6;
-    --badge-gray-bg: #f3f4f6;
-    --badge-green-bg: #def7ec;
-    --badge-blue-bg: #e1effe;
-    --badge-blue-text: #1e40af;
-    --toggle-bg: #f3f4f6;
-    --input-bg: #ffffff;
-    --placeholder-color: #9ca3af;
-    --candidate-hover: #9ca3af;
-    --logo-border: #d1d5db;
+    /* =========================================
+       Semantic Colors
+       ========================================= */
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+
+    /* =========================================
+       Backgrounds & Surfaces
+       ========================================= */
+    --bg-light: #F8FAFC;
+    --bg-white: #FFFFFF;
+    --dark-bg: #111827;
+    --surface-raised: #FFFFFF;
+    --surface-hover: #F1F5F9;
+
+    /* =========================================
+       Text
+       ========================================= */
+    --text-main: #0F172A;
+    --text-muted: #64748B;
+
+    /* =========================================
+       Borders
+       ========================================= */
+    --border-color: #E2E8F0;
+    --logo-border: #CBD5E1;
+
+    /* =========================================
+       Legacy Aliases (backward compatible)
+       ========================================= */
+    --primary-green: var(--primary);
+    --primary-green-hover: var(--primary-hover);
+
+    /* =========================================
+       Chart Colors
+       ========================================= */
+    --chart-primary: #1E3A5F;
+    --chart-secondary: #3B82F6;
+    --chart-dark: #0F172A;
+    --chart-gray: #94A3B8;
+    --chart-light-gray: #E2E8F0;
+
+    /* =========================================
+       Badge Colors
+       ========================================= */
+    --badge-gray-bg: #F1F5F9;
+    --badge-primary-bg: rgba(30, 58, 95, 0.08);
+    --badge-secondary-bg: rgba(59, 130, 246, 0.1);
+    --badge-secondary-text: #1D4ED8;
+
+    /* =========================================
+       UI Elements
+       ========================================= */
+    --toggle-bg: #F1F5F9;
+    --input-bg: #FFFFFF;
+    --placeholder-color: #94A3B8;
+    --candidate-hover: #94A3B8;
+
+    /* =========================================
+       Design Tokens — Spacing
+       ========================================= */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+
+    /* =========================================
+       Design Tokens — Border Radius
+       ========================================= */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-full: 9999px;
+
+    /* =========================================
+       Design Tokens — Shadows
+       ========================================= */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-lg: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
+
+    /* =========================================
+       Design Tokens — Transitions
+       ========================================= */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+    --transition-slow: 0.3s ease;
 }
 
 /*
 [data-theme="dark"] {
-    --primary-green: #00a65e;
-    --primary-green-hover: #008751;
-    --dark-bg: #0b1121;
-    --text-main: #e2e8f0;
-    --text-muted: #94a3b8;
-    --bg-light: #0f172a;
-    --bg-white: #1e293b;
-    --border-color: #334155;
+    --primary: #3B82F6;
+    --primary-hover: #2563EB;
+    --primary-light: rgba(59, 130, 246, 0.12);
+    --secondary: #60A5FA;
+    --accent: #93C5FD;
 
-    --chart-green: #22c55e;
-    --chart-dark: #cbd5e1;
-    --chart-gray: #64748b;
+    --success: #34D399;
+    --warning: #FBBF24;
+    --danger: #F87171;
+
+    --bg-light: #0F172A;
+    --bg-white: #1E293B;
+    --dark-bg: #0B1121;
+    --surface-raised: #1E293B;
+    --surface-hover: #334155;
+
+    --text-main: #E2E8F0;
+    --text-muted: #94A3B8;
+
+    --border-color: #334155;
+    --logo-border: #475569;
+
+    --primary-green: var(--primary);
+    --primary-green-hover: var(--primary-hover);
+
+    --chart-primary: #3B82F6;
+    --chart-secondary: #60A5FA;
+    --chart-dark: #CBD5E1;
+    --chart-gray: #64748B;
     --chart-light-gray: #334155;
 
-    --surface-raised: #1e293b;
-    --surface-hover: #334155;
     --badge-gray-bg: #334155;
-    --badge-green-bg: rgba(0, 166, 94, 0.15);
-    --badge-blue-bg: rgba(59, 130, 246, 0.15);
-    --badge-blue-text: #60a5fa;
+    --badge-primary-bg: rgba(59, 130, 246, 0.12);
+    --badge-secondary-bg: rgba(96, 165, 250, 0.15);
+    --badge-secondary-text: #93C5FD;
+
     --toggle-bg: #334155;
-    --input-bg: #1e293b;
-    --placeholder-color: #64748b;
-    --candidate-hover: #64748b;
-    --logo-border: #475569;
+    --input-bg: #1E293B;
+    --placeholder-color: #64748B;
+    --candidate-hover: #64748B;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-lg: 0 4px 6px -1px rgba(0,0,0,0.3);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.4);
 }
 */
 
@@ -135,6 +232,49 @@ h3 {
 .text-gray { color: var(--text-muted); }
 .text-sm { font-size: 0.875rem; }
 
+/* Loading & State Utilities */
+.loading-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+.loading-spinner-lg {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 3px;
+}
+.empty-state {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-muted);
+}
+.empty-state-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    opacity: 0.4;
+}
+.empty-state-text {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-sm);
+}
+.coming-soon {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--badge-primary-bg);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+    margin-left: 0.35rem;
+}
+
 /* Buttons & Links */
 a {
     text-decoration: none;
@@ -161,7 +301,7 @@ a {
 .btn-primary:hover {
     background-color: var(--primary-green-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 6px -1px rgba(0, 135, 81, 0.2);
+    box-shadow: 0 4px 6px -1px rgba(30, 58, 95, 0.25);
 }
 .btn-secondary {
     background-color: white;
@@ -212,6 +352,7 @@ a {
     padding: 0.65rem 4rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
+.navbar.navbar-shrink .logo-img { height: 30px; width: auto; }
 .navbar.navbar-shrink .logo-icon { width: 20px; height: 20px; }
 .navbar.navbar-shrink .logo-text { font-size: 1rem; }
 .navbar.navbar-shrink .nav-link { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
@@ -229,6 +370,11 @@ a {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+}
+.logo-img {
+    display: block;
+    height: 36px;
+    width: auto;
 }
 .logo-icon {
     width: 24px;
@@ -295,9 +441,9 @@ a {
     line-height: 1;
 }
 .nav-link:hover {
-    border-color: var(--primary-green);
-    color: var(--primary-green);
-    background: rgba(22, 163, 74, 0.05);
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
 }
 .nav-actions {
     display: flex;
@@ -356,17 +502,14 @@ a {
     display: grid;
     place-items: center;
     overflow: hidden;
-    background-color: #f0f4f0;
-    background-image: url('resources/homepage.png');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, #E8EEF5 0%, #DCE4EE 30%, #CBD5E1 70%, #B8C5D6 100%);
     padding: 4rem 1.5rem;
 }
 .hero-with-image::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(249,250,251,0.95), rgba(249,250,251,0.78), rgba(249,250,251,0.5));
+    background: linear-gradient(90deg, rgba(248,250,252,0.92), rgba(248,250,252,0.72), rgba(248,250,252,0.35));
 }
 .hero-content {
     position: relative;
@@ -421,9 +564,9 @@ a {
     border-radius: 4px;
     letter-spacing: 0.05em;
 }
-.badge-gray { background: #f3f4f6; color: var(--text-muted); }
-.badge-green { background: #def7ec; color: var(--primary-green); }
-.badge-blue { background: #e1effe; color: #1e40af; }
+.badge-gray { background: var(--badge-gray-bg); color: var(--text-muted); }
+.badge-green { background: var(--badge-primary-bg); color: var(--primary); }
+.badge-blue { background: var(--badge-secondary-bg); color: var(--badge-secondary-text); }
 .stat-card h2 { color: var(--text-main); }
 .stat-card p { font-size: 0.875rem; color: var(--text-muted); }
 
@@ -498,7 +641,7 @@ a {
     height: 8px;
     border-radius: 50%;
 }
-.bg-green { background: var(--chart-green); }
+.bg-green { background: var(--chart-primary); }
 .bg-dark { background: var(--chart-dark); }
 .bg-gray { background: var(--chart-gray); }
 .bg-light-gray { background: var(--chart-light-gray); }
@@ -691,8 +834,8 @@ a {
     animation: fadeIn 0.3s ease;
 }
 .identity-success {
-    background: #f0fdf4;
-    border: 1px solid #86efac;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
 }
 .identity-error {
     background: #fef2f2;
@@ -1176,8 +1319,8 @@ a {
 .candidate-card input { display: none; }
 .candidate-card:hover { border-color: #9ca3af; }
 .candidate-card.selected {
-    border-color: var(--primary-green);
-    background-color: rgba(0, 135, 81, 0.05);
+    border-color: var(--primary);
+    background-color: var(--primary-light);
 }
 .candidate-photo {
     width: 100px;
@@ -1479,8 +1622,8 @@ a {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    background: #def7ec;
-    color: var(--primary-green);
+    background: var(--badge-primary-bg);
+    color: var(--primary);
     display: inline-grid;
     place-items: center;
     font-size: 2.25rem;
@@ -1610,8 +1753,8 @@ a {
 [data-theme="dark"] .stat-card h2 { color: var(--text-main); }
 
 [data-theme="dark"] .badge-gray { background: var(--badge-gray-bg); color: var(--text-muted); }
-[data-theme="dark"] .badge-green { background: var(--badge-green-bg); color: var(--primary-green); }
-[data-theme="dark"] .badge-blue { background: var(--badge-blue-bg); color: var(--badge-blue-text); }
+[data-theme="dark"] .badge-green { background: var(--badge-primary-bg); color: var(--primary); }
+[data-theme="dark"] .badge-blue { background: var(--badge-secondary-bg); color: var(--badge-secondary-text); }
 
 [data-theme="dark"] .trusted-badge { background-color: var(--surface-raised); }
 
@@ -1659,7 +1802,7 @@ a {
 
 [data-theme="dark"] .candidate-card { border-color: var(--border-color); }
 [data-theme="dark"] .candidate-card:hover { border-color: var(--candidate-hover); }
-[data-theme="dark"] .candidate-card.selected { background-color: rgba(0, 166, 94, 0.1); }
+[data-theme="dark"] .candidate-card.selected { background-color: var(--primary-light); }
 [data-theme="dark"] .candidate-photo { background: var(--surface-hover); }
 [data-theme="dark"] .candidate-party { color: var(--text-muted); }
 [data-theme="dark"] .radio-custom { border-color: var(--border-color); }
@@ -1802,7 +1945,7 @@ a {
     }
 .hero h1 { line-height: 1; }
 .hero-with-image::after {
-        background: rgba(249,250,251,0.86);
+        background: rgba(248,250,252,0.86);
     }
     .hero h1 { font-size: 2rem; }
     .hero p { font-size: 0.875rem; }

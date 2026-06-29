@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Orivis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,13 +14,15 @@
 <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
 <style>
 body { background: none !important; }
-.org-switcher { margin: 0 1rem; }
-.org-select { padding: 0.35rem 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.8rem; background: white; color: var(--text-main); cursor: pointer; outline: none; }
+.position-selector { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding: 0.75rem 1rem; background: var(--bg-light); border-radius: 8px; border: 1px solid var(--border-color); }
+.pos-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
+.pos-select { flex: 1; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.875rem; background: white; color: var(--text-main); cursor: pointer; outline: none; transition: border-color 0.2s; }
+.pos-select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(30,58,95,0.12); }
 .dashboard-bg {
     position: fixed;
     inset: 0;
     z-index: 0;
-    background: #f0f4f0 url('resources/homepage.png') center/cover no-repeat;
+    background: linear-gradient(135deg, #E8EEF5 0%, #DCE4EE 50%, #CBD5E1 100%);
 }
 .dashboard-bg::after {
     content: '';
@@ -33,6 +37,43 @@ body { background: none !important; }
     overflow-x: hidden;
 }
 .state-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.election-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto 4rem; padding: 0 1.5rem; }
+.election-card { background: white; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.election-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.ec-header { padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: flex-start; }
+.ec-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+.ec-type { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.ec-body { padding: 1.5rem; flex-grow: 1; }
+.ec-detail { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.875rem; }
+.ec-icon { color: var(--primary); font-size: 1.25rem; }
+.ec-footer { padding: 1.5rem; background: var(--bg-light); border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.75rem; }
+.ec-lifecycle { display: flex; align-items: center; gap: 2px; width: 100%; }
+.lc-dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid #d1d5db; background: white; flex-shrink: 0; }
+.lc-dot.lc-done { background: #9ca3af; border-color: #9ca3af; }
+.lc-dot.lc-active { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 2px rgba(30,58,95,0.2); }
+.lc-line { flex-grow: 1; height: 2px; background: #d1d5db; }
+.lc-dot.lc-done + .lc-line { background: #9ca3af; }
+.ec-actions { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 0.75rem; }
+.category-filter { max-width: 1200px; margin: -1rem auto 2rem; padding: 0 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.filter-pill { padding: 0.5rem 1.25rem; border: 1px solid var(--border-color); border-radius: 999px; background: white; font-family: 'Inter', sans-serif; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
+.filter-pill:hover { border-color: var(--primary); color: var(--primary); }
+.filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+.ec-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.ec-badge-approval { background: #dbeafe; color: #1d4ed8; }
+.ec-badge-election { background: #d1fae5; color: #047857; }
+.ec-badge-consultation { background: #fef3c7; color: #b45309; }
+.ec-badge-referendum { background: #e0e7ff; color: #4338ca; }
+.ec-badge-survey { background: #fce7f3; color: #be185d; }
+.guidelines-section { background: white; padding: 4rem 1.5rem; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin-bottom: 4rem; }
+.guidelines-container { max-width: 1200px; margin: 0 auto; text-align: center; }
+.guidelines-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+.guide-card { padding: 2rem; border: 1px solid var(--border-color); border-radius: 8px; text-align: left; }
+.guide-card h3 { margin-bottom: 1rem; }
+.guide-card p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem; }
+.icon-lg { font-size: 1.5rem; }
+.page-header { text-align: center; padding: 2rem 1.5rem 1.5rem; background: transparent; margin-bottom: 1rem; }
+.page-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.page-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1rem; }
 </style>
 </head>
 <body class="bg-light">
@@ -40,28 +81,19 @@ body { background: none !important; }
 <div class="dashboard-wrapper">
     <header class="navbar navbar-dash">
         <a href="dashboard.html" class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Orivis</span>
+            <img src="resources/logo.svg" alt="Orivis" class="logo-img">
         </a>
-        <div class="org-switcher">
-            <select class="org-select">
-                <option>Federal Governance Council</option>
-                <option>University Senate</option>
-                <option>Board of Directors</option>
-            </select>
-        </div>
         <nav class="nav-links nav-dash">
             <a href="#" id="navDashboard" class="active">Dashboard</a>
-            <a href="governance-center.html">Governance Center</a>
+            <a href="#" id="navGovernance">Governance Center</a>
             <a href="#" id="navResults">Outcomes</a>
             <a href="#" id="navProfile">Profile</a>
         </nav>
         <div class="nav-user">
-            <div class="user-info" style="cursor:pointer;" onclick="window.location.href='admin.html'">
+            <div class="user-info">
                 <span class="user-name">CHUKWUMA ADEBAYO</span>
-                <span class="user-id">Participant · <a href="admin.html" style="color:var(--primary-green);text-decoration:none;">Switch to Admin</a></span>
+                <span class="user-id">Participant</span>
             </div>
-            <a href="settings.html" class="nav-link" style="font-size:0.85rem;color:var(--text-muted);">Settings</a>
             <a href="#" id="logoutBtn" class="btn btn-secondary">Logout</a>
         </div>
     </header>
@@ -93,46 +125,61 @@ body { background: none !important; }
         <div id="dashboardView">
             <div class="dash-grid">
                 <div class="dash-left">
-                    <div class="dash-card" data-aos="fade-right">
+                    <div class="dash-card" id="votingSection" data-aos="fade-right">
                         <div class="card-header border-bottom">
-                            <h3 class="text-green mb-0">Participate: Board Resolution 2026</h3>
+                            <h3 class="text-green mb-0">Cast Your Votes</h3>
                             <span class="badge badge-gray text-xs">Encrypted session</span>
                         </div>
                         <div class="card-body">
-                            <div class="candidates-grid">
-                                <label class="candidate-card">
+                            <div class="position-selector">
+                                <label for="positionSelect" class="pos-label">Select Position</label>
+                                <select id="positionSelect" class="pos-select">
+                                    <option>President</option>
+                                    <option>Vice President</option>
+                                    <option>Secretary</option>
+                                    <option>Treasurer</option>
+                                    <option>Public Relations Officer</option>
+                                </select>
+                            </div>
+                            <div class="candidates-grid" id="candidatesGrid">
+                                <label class="candidate-card" data-idx="0">
                                     <input type="radio" name="candidate" value="A">
                                     <div class="candidate-content">
                                         <div class="candidate-photo placeholder-box"></div>
-                                        <div class="candidate-name">Approve Strategic Plan</div>
-                                        <div class="candidate-party">Executive Committee</div>
+                                        <div class="candidate-name">Candidate A</div>
+                                        <div class="candidate-party">Party A</div>
                                         <div class="radio-custom"></div>
                                     </div>
                                 </label>
                                 
-                                <label class="candidate-card selected">
-                                    <input type="radio" name="candidate" value="B" checked>
+                                <label class="candidate-card" data-idx="1">
+                                    <input type="radio" name="candidate" value="B">
                                     <div class="candidate-content">
                                         <div class="candidate-photo placeholder-box"></div>
-                                        <div class="candidate-name">Adopt New Constitution</div>
-                                        <div class="candidate-party">Policy Review Board</div>
+                                        <div class="candidate-name">Candidate B</div>
+                                        <div class="candidate-party">Party B</div>
                                         <div class="radio-custom"></div>
                                     </div>
                                 </label>
                                 
-                                <label class="candidate-card">
+                                <label class="candidate-card" data-idx="2">
                                     <input type="radio" name="candidate" value="C">
                                     <div class="candidate-content">
                                         <div class="candidate-photo placeholder-box"></div>
-                                        <div class="candidate-name">Budget Proposal 2027</div>
-                                        <div class="candidate-party">Governance Council</div>
+                                        <div class="candidate-name">Candidate C</div>
+                                        <div class="candidate-party">Party C</div>
                                         <div class="radio-custom"></div>
                                     </div>
                                 </label>
                             </div>
+
+                            <div id="selectionsSummary" class="selections-summary" style="margin-top:1.5rem;padding:1rem 0;border-top:1px solid var(--border-color);display:none;">
+                                <h4 style="margin-bottom:0.75rem;font-size:0.9rem;color:var(--text-muted);">Your Selections</h4>
+                                <div id="selectionsList"></div>
+                            </div>
+
                             <div class="vote-actions">
-                                <button class="btn btn-secondary" type="button" id="confirmSelectionBtn">Confirm Selection</button>
-                                <button class="btn btn-primary" type="button" id="submitVoteBtn">Submit Decision</button>
+                                <button class="btn btn-primary" type="button" id="confirmAllBtn">Confirm All Selections</button>
                             </div>
                         </div>
                     </div>
@@ -160,7 +207,7 @@ body { background: none !important; }
                             </div>
                             <div class="results-legend">
                                 <div class="result-row">
-                                    <span><span class="legend-dot" style="background:#008751"></span> Approve Plan</span>
+                                    <span><span class="legend-dot" style="background:var(--primary)"></span> Approve Plan</span>
                                     <strong>42%</strong>
                                 </div>
                                 <div class="result-row">
@@ -294,29 +341,35 @@ body { background: none !important; }
                 </div>
             </div>
         </div>
+
+        <!-- Governance Center View -->
+        <div id="governanceView" style="display:none;">
+            <div class="page-header" data-aos="fade-up">
+                <h1>Governance Center</h1>
+                <p>Browse elections, consultations, approvals, referendums, and surveys across your organization.</p>
+            </div>
+
+            <div class="election-grid" id="dashElectionGrid">
+                <!-- Dynamically rendered based on user's org -->
+            </div>
+        </div>
     </main>
 
     <div class="vote-modal" id="voteModal" aria-hidden="true">
         <div class="vote-modal__panel" role="dialog" aria-modal="true" aria-labelledby="voteModalTitle">
             <div class="vote-modal__header">
-                <h2 id="voteModalTitle">Confirm Your Decision</h2>
-                <p>Take a moment to review your selection</p>
+                <h2 id="voteModalTitle">Confirm Your Selections</h2>
+                <p>Review all your selections before submitting</p>
             </div>
             <div class="vote-modal__body">
-                <div class="vote-modal__candidate">
-                    <div class="candidate-photo placeholder-box"></div>
-                    <i class="fi-rs-check vote-check" aria-hidden="true"></i>
-                </div>
-                <h3 id="modalCandidateName">Adopt New Constitution</h3>
-                <p id="modalCandidateParty">Policy Review Board</p>
-                <span class="vote-modal__election">Governance Event</span>
+                <div id="modalSelectionsList" style="margin-bottom:1.5rem;"></div>
 
                 <div class="vote-warning">
                     <strong>This can't be undone</strong>
-                    <p>Once submitted, your decision is digitally signed. It can't be changed, deleted, or submitted again. Make sure this is your final choice.</p>
+                    <p>Once submitted, your decisions are digitally signed. They can't be changed, deleted, or submitted again. Make sure these are your final choices.</p>
                 </div>
 
-                <button class="btn btn-primary btn-full btn-large" type="button" id="finalSubmitBtn">Confirm & Submit <i class="fi-rs-arrow-right"></i></button>
+                <button class="btn btn-primary btn-full btn-large" type="button" id="finalSubmitBtn">Submit All Votes</button>
                 <button class="btn btn-secondary btn-full btn-large" type="button" id="backToSelectionBtn">Back to Options</button>
             </div>
             <div class="vote-modal__footer">Encrypted Session • 256 bit AES</div>
@@ -361,9 +414,11 @@ body { background: none !important; }
     var navDash = document.getElementById('navDashboard');
     var navResults = document.getElementById('navResults');
     var navProfile = document.getElementById('navProfile');
+    var navGovernance = document.getElementById('navGovernance');
     var dashView = document.getElementById('dashboardView');
     var resultsView = document.getElementById('resultsView');
     var profileView = document.getElementById('profileView');
+    var governanceView = document.getElementById('governanceView');
     var resultsChart = null;
 
     function animateChart() {
@@ -377,7 +432,7 @@ body { background: none !important; }
                     datasets: [{
                         label: 'Decisions',
                         data: [5393, 4880, 2054, 515],
-                        backgroundColor: ['#008751', '#1f2937', '#9ca3af', '#e5e7eb'],
+                        backgroundColor: ['#1E3A5F', '#0F172A', '#94A3B8', '#E2E8F0'],
                         borderRadius: 6
                     }]
                 },
@@ -400,13 +455,23 @@ body { background: none !important; }
         });
     }
 
+    window.goVote = function() {
+        showView('dashboard');
+        setTimeout(function() {
+            var el = document.getElementById('votingSection');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    };
+
     function showView(view) {
         dashView.style.display = view === 'dashboard' ? '' : 'none';
         resultsView.style.display = view === 'results' ? '' : 'none';
         profileView.style.display = view === 'profile' ? '' : 'none';
+        if (governanceView) governanceView.style.display = view === 'governance' ? '' : 'none';
         navDash.classList.toggle('active', view === 'dashboard');
         navResults.classList.toggle('active', view === 'results');
         navProfile.classList.toggle('active', view === 'profile');
+        if (navGovernance) navGovernance.classList.toggle('active', view === 'governance');
         if (view === 'profile') {
             setTimeout(function() { if (typeof AOS !== 'undefined') AOS.refresh(); }, 100);
         }
@@ -414,11 +479,26 @@ body { background: none !important; }
             if (typeof AOS !== 'undefined') setTimeout(function() { AOS.refresh(); }, 80);
             setTimeout(animateChart, 50);
         }
+        if (view === 'governance') {
+            setTimeout(function() { if (typeof AOS !== 'undefined') AOS.refresh(); }, 100);
+        }
     }
 
     navDash.addEventListener('click', function(e) { e.preventDefault(); showView('dashboard'); });
     navResults.addEventListener('click', function(e) { e.preventDefault(); showView('results'); });
     navProfile.addEventListener('click', function(e) { e.preventDefault(); showView('profile'); });
+    window.goVote = function() {
+        showView('dashboard');
+        var vs = document.getElementById('votingSection');
+        if (vs) vs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    if (!positionData) {
+        var votingSection = document.getElementById('votingSection');
+        if (votingSection) votingSection.style.display = 'none';
+    }
+
+    if (navGovernance) navGovernance.addEventListener('click', function(e) { e.preventDefault(); showView('governance'); });
 
     var modal = document.getElementById('logoutModal');
     var btn = document.getElementById('logoutBtn');
@@ -446,6 +526,8 @@ body { background: none !important; }
         logoutSub.textContent = 'Please wait while we securely end your session.';
         logoutSpinner.classList.add('spinning');
         localStorage.removeItem('orivisVoteStatus');
+        localStorage.removeItem('orivisAuth');
+        localStorage.removeItem('orivisUserName');
         setTimeout(function() {
             logoutSpinner.classList.remove('spinning');
             logoutSpinner.classList.add('done');
@@ -478,28 +560,220 @@ body { background: none !important; }
     tickDash();
     setInterval(tickDash, 1000);
 
-    var candidateRadios = document.querySelectorAll('input[name="candidate"]');
-    var candidateCards = document.querySelectorAll('.candidate-card');
-    var confirmBtn = document.getElementById('confirmSelectionBtn');
-    var submitVoteBtn = document.getElementById('submitVoteBtn');
     var voteModal = document.getElementById('voteModal');
-    var modalName = document.getElementById('modalCandidateName');
-    var modalParty = document.getElementById('modalCandidateParty');
     var finalSubmit = document.getElementById('finalSubmitBtn');
     var backBtn = document.getElementById('backToSelectionBtn');
     var voterStatus = document.getElementById('voterStatus');
 
-    function lockVoteUI() {
-        candidateCards.forEach(function(c) { c.style.pointerEvents = 'none'; c.style.opacity = '0.5'; });
-        candidateRadios.forEach(function(r) { r.disabled = true; });
-        if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = 'Selection Locked'; }
-        if (submitVoteBtn) { submitVoteBtn.disabled = true; submitVoteBtn.textContent = 'Decision Recorded'; }
+    var orgData = {
+        'Multilancer Ltd.': {
+            title: 'Multilancer Ltd. General Election',
+            date: 'Oct 12, 2026',
+            participants: '2,450',
+            desc: 'Elect the new executive council for Multilancer Ltd. for the 2026–2027 term.',
+            status: 'LIVE',
+            candidates: {
+                'President': [
+                    { name: 'Amara Okafor', party: 'Progressive List' },
+                    { name: 'Kelechi Nwosu', party: 'Unity List' },
+                    { name: 'Chioma Eze', party: 'Reform List' }
+                ],
+                'Vice President': [
+                    { name: 'Emeka Obi', party: 'Progressive List' },
+                    { name: 'Ngozi Okeke', party: 'Unity List' },
+                    { name: 'Ifeanyi Ugwu', party: 'Reform List' }
+                ],
+                'Secretary': [
+                    { name: 'Adaobi Igwe', party: 'Progressive List' },
+                    { name: 'Chidi Ani', party: 'Unity List' },
+                    { name: 'Somtochi Okafor', party: 'Reform List' }
+                ],
+                'Treasurer': [
+                    { name: 'Uchenna Nnaji', party: 'Progressive List' },
+                    { name: 'Obinna Achi', party: 'Unity List' },
+                    { name: 'Adanna Orji', party: 'Reform List' }
+                ],
+                'Public Relations Officer': [
+                    { name: 'Chinelo Okoro', party: 'Progressive List' },
+                    { name: 'Tobe Okafor', party: 'Unity List' },
+                    { name: 'Zion Ebere', party: 'Reform List' }
+                ]
+            }
+        },
+        'Meranos Ltd.': {
+            title: 'Meranos Ltd. General Election',
+            date: 'Dec 10, 2026',
+            participants: '1,820',
+            desc: 'Register to vote in the Meranos Ltd. general election for the upcoming board term.',
+            status: 'UPCOMING'
+        },
+        'Rivers State University Faculty of Engineering': {
+            title: 'RSU Faculty of Engineering Student Union Elections',
+            date: 'Oct 15, 2026',
+            participants: '4,180',
+            desc: 'Faculty of Engineering student union elections for departmental representatives.',
+            status: 'LIVE',
+            candidates: {
+                'President': [
+                    { name: 'David Wilson', party: 'Student Alliance' },
+                    { name: 'Esther Brown', party: 'Campus Voice' },
+                    { name: 'Franklin Adams', party: 'Unity Front' }
+                ],
+                'Vice President': [
+                    { name: 'Grace Peters', party: 'Student Alliance' },
+                    { name: 'Henry Bassey', party: 'Campus Voice' },
+                    { name: 'Irene Okon', party: 'Unity Front' }
+                ],
+                'Secretary': [
+                    { name: 'John Edet', party: 'Student Alliance' },
+                    { name: 'Kemi Johnson', party: 'Campus Voice' },
+                    { name: 'Linda Amadi', party: 'Unity Front' }
+                ],
+                'Treasurer': [
+                    { name: 'Michael Emeka', party: 'Student Alliance' },
+                    { name: 'Nancy Eyo', party: 'Campus Voice' },
+                    { name: 'Oscar Udo', party: 'Unity Front' }
+                ],
+                'Public Relations Officer': [
+                    { name: 'Patience Harry', party: 'Student Alliance' },
+                    { name: 'Queen Obot', party: 'Campus Voice' },
+                    { name: 'Richard Ekpo', party: 'Unity Front' }
+                ]
+            }
+        },
+        'Global Tech Innovators Inc.': {
+            title: 'Global Tech Innovators Inc. Board Election',
+            date: 'Jan 20, 2027',
+            participants: '950',
+            desc: 'Register now for the Global Tech Innovators board of directors election.',
+            status: 'UPCOMING'
+        }
+    };
+
+    var currentOrg = localStorage.getItem('orivisOrg') || 'Multilancer Ltd.';
+    var orgInfo = orgData[currentOrg] || orgData['Multilancer Ltd.'];
+    var positionData = orgInfo.candidates || null;
+
+    function loadElectionCard() {
+        var grid = document.getElementById('dashElectionGrid');
+        if (!grid) return;
+        var isLive = orgInfo.status === 'LIVE';
+        var vs = document.getElementById('votingSection');
+        if (vs) vs.style.display = isLive && positionData ? '' : 'none';
+        grid.innerHTML =
+            '<div class="election-card" data-aos="fade-up">' +
+                '<div class="ec-header">' +
+                    '<div>' +
+                        '<span class="ec-badge ec-badge-election">Election</span>' +
+                        '<h2 class="ec-title">' + orgInfo.title + '</h2>' +
+                    '</div>' +
+                    '<span class="badge ' + (isLive ? 'badge-green' : 'badge-gray') + '">' + orgInfo.status + '</span>' +
+                '</div>' +
+                '<div class="ec-body">' +
+                    '<div class="ec-detail"><i class="fi-rs-calendar ec-icon"></i><span><strong>Date:</strong> ' + orgInfo.date + '</span></div>' +
+                    '<div class="ec-detail"><i class="fi-rs-users ec-icon"></i><span><strong>Registered:</strong> ' + orgInfo.participants + ' participants</span></div>' +
+                    '<p class="text-sm text-gray mt-4">' + orgInfo.desc + '</p>' +
+                '</div>' +
+                '<div class="ec-footer">' +
+                    '<div class="ec-actions">' +
+                        (isLive
+                            ? '<button onclick="goVote()" class="btn btn-primary btn-full">Participate Now</button>'
+                            : '<button class="btn btn-secondary btn-full" disabled>Opens ' + orgInfo.date + '</button>'
+                        ) +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+    }
+    loadElectionCard();
+
+    var selections = {};
+    var positionSelect = document.getElementById('positionSelect');
+    var confirmAllBtn = document.getElementById('confirmAllBtn');
+
+    function updateCandidates(position) {
+        if (!positionData) return;
+        var candidates = positionData[position];
+        if (!candidates) return;
+        var labelEl = document.getElementById('currentPositionLabel');
+        if (labelEl) labelEl.textContent = position;
+        var labels = document.querySelectorAll('#candidatesGrid .candidate-card');
+        labels.forEach(function(label, i) {
+            if (candidates[i]) {
+                label.querySelector('.candidate-name').textContent = candidates[i].name;
+                label.querySelector('.candidate-party').textContent = candidates[i].party;
+            }
+        });
+        document.querySelectorAll('#candidatesGrid input[name="candidate"]').forEach(function(r) { r.checked = false; });
+        document.querySelectorAll('#candidatesGrid .candidate-card').forEach(function(c) { c.classList.remove('selected'); });
+        var saved = selections[position];
+        if (saved) {
+            var cards = document.querySelectorAll('#candidatesGrid .candidate-card');
+            cards.forEach(function(c) {
+                if (c.querySelector('input') && c.querySelector('input').value === saved.value) {
+                    c.classList.add('selected');
+                    c.querySelector('input').checked = true;
+                }
+            });
+        }
     }
 
-    function generateReceipt(selected) {
-        var card = document.querySelector('.candidate-card.selected');
-        var name = card ? card.querySelector('.candidate-name').textContent : 'Unknown';
-        var party = card ? card.querySelector('.candidate-party').textContent : 'Unknown';
+    positionSelect.addEventListener('change', function() {
+        updateCandidates(this.value);
+    });
+
+    updateCandidates(positionSelect.value);
+
+    function renderSelections() {
+        var list = document.getElementById('selectionsList');
+        var summary = document.getElementById('selectionsSummary');
+        if (!list) return;
+        var keys = Object.keys(selections);
+        if (keys.length === 0) { summary.style.display = 'none'; return; }
+        summary.style.display = 'block';
+        list.innerHTML = '';
+        var positionOrder = ['President','Vice President','Secretary','Treasurer','Public Relations Officer'];
+        positionOrder.forEach(function(pos) {
+            var sel = selections[pos];
+            if (!sel) return;
+            var row = document.createElement('div');
+            row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0.75rem;margin-bottom:0.35rem;background:var(--bg-light);border-radius:6px;font-size:0.85rem;';
+            row.innerHTML = '<span><strong>' + pos + ':</strong> ' + sel.name + ' (' + sel.party + ')</span><button class="btn-remove-sel" data-position="' + pos + '" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1.1rem;line-height:1;padding:0 0.25rem;">&times;</button>';
+            list.appendChild(row);
+        });
+        list.querySelectorAll('.btn-remove-sel').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var pos = this.getAttribute('data-position');
+                delete selections[pos];
+                renderSelections();
+                if (positionSelect.value === pos) {
+                    document.querySelectorAll('#candidatesGrid input[name="candidate"]').forEach(function(r) { r.checked = false; });
+                    document.querySelectorAll('#candidatesGrid .candidate-card').forEach(function(c) { c.classList.remove('selected'); });
+                }
+            });
+        });
+    }
+
+    document.querySelectorAll('#candidatesGrid .candidate-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            var pos = positionSelect.value;
+            var name = this.querySelector('.candidate-name').textContent;
+            var party = this.querySelector('.candidate-party').textContent;
+            var value = this.querySelector('input').value;
+            selections[pos] = { name: name, party: party, value: value };
+            document.querySelectorAll('#candidatesGrid .candidate-card').forEach(function(c) { c.classList.remove('selected'); });
+            this.classList.add('selected');
+            this.querySelector('input').checked = true;
+            renderSelections();
+        });
+    });
+
+    function lockVoteUI() {
+        document.querySelectorAll('#candidatesGrid .candidate-card').forEach(function(c) { c.style.pointerEvents = 'none'; c.style.opacity = '0.5'; });
+        document.querySelectorAll('#candidatesGrid input[name="candidate"]').forEach(function(r) { r.disabled = true; });
+        if (confirmAllBtn) { confirmAllBtn.disabled = true; confirmAllBtn.textContent = 'Votes Recorded'; }
+    }
+
+    function generateReceipt() {
         var bytes = new Uint8Array(32);
         if (window.crypto && window.crypto.getRandomValues) {
             window.crypto.getRandomValues(bytes);
@@ -508,12 +782,22 @@ body { background: none !important; }
         }
         var hash = '0x';
         for (var i = 0; i < 32; i++) hash += bytes[i].toString(16).padStart(2, '0');
+        var names = [];
+        var parties = [];
+        var positionOrder = ['President','Vice President','Secretary','Treasurer','Public Relations Officer'];
+        positionOrder.forEach(function(pos) {
+            var sel = selections[pos];
+            if (sel) {
+                names.push(pos + ': ' + sel.name);
+                parties.push(sel.party);
+            }
+        });
         return {
-            name: name,
-            party: party,
+            name: names.join(' | '),
+            party: parties.join(', '),
             timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' }),
             transactionHash: hash,
-            verificationId: 'ORIVIS-2026-' + selected + '-' + Math.floor(1000 + Math.random() * 9000)
+            verificationId: 'ORIVIS-2026-' + Math.floor(1000 + Math.random() * 9000)
         };
     }
 
@@ -523,34 +807,20 @@ body { background: none !important; }
         lockVoteUI();
     }
 
-    candidateCards.forEach(function(card) {
-        card.addEventListener('click', function() {
-            candidateCards.forEach(function(c) { c.classList.remove('selected'); });
-            this.classList.add('selected');
-            this.querySelector('input[type=radio]').checked = true;
+    confirmAllBtn.addEventListener('click', function() {
+        var keys = Object.keys(selections);
+        if (keys.length === 0) { confirmAllBtn.textContent = 'No selections made'; setTimeout(function() { confirmAllBtn.textContent = 'Confirm All Selections'; }, 1500); return; }
+        var list = document.getElementById('modalSelectionsList');
+        list.innerHTML = '';
+        var positionOrder = ['President','Vice President','Secretary','Treasurer','Public Relations Officer'];
+        positionOrder.forEach(function(pos) {
+            var sel = selections[pos];
+            if (!sel) return;
+            var item = document.createElement('div');
+            item.style.cssText = 'display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border:1px solid var(--border-color);border-radius:8px;margin-bottom:0.5rem;';
+            item.innerHTML = '<div style="width:36px;height:36px;background:var(--badge-primary-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--primary);font-weight:700;font-size:0.85rem;flex-shrink:0;">' + pos.charAt(0) + '</div><div><strong style="font-size:0.9rem;">' + sel.name + '</strong><br><span style="font-size:0.8rem;color:var(--text-muted);">' + pos + ' · ' + sel.party + '</span></div>';
+            list.appendChild(item);
         });
-    });
-
-    confirmBtn.addEventListener('click', function() {
-        var selected = document.querySelector('input[name="candidate"]:checked');
-        if (!selected) { confirmBtn.textContent = 'Select an option'; setTimeout(function() { confirmBtn.textContent = 'Confirm Choice'; }, 1500); return; }
-        var card = document.querySelector('.candidate-card.selected');
-        var name = card ? card.querySelector('.candidate-name').textContent : '';
-        var party = card ? card.querySelector('.candidate-party').textContent : '';
-        modalName.textContent = name;
-        modalParty.textContent = party;
-        voteModal.classList.add('is-open');
-        voteModal.setAttribute('aria-hidden', 'false');
-    });
-
-    submitVoteBtn.addEventListener('click', function() {
-        var selected = document.querySelector('input[name="candidate"]:checked');
-        if (!selected) { submitVoteBtn.textContent = 'Select an option'; setTimeout(function() { submitVoteBtn.textContent = 'Submit Decision'; }, 1500); return; }
-        var card = document.querySelector('.candidate-card.selected');
-        var name = card ? card.querySelector('.candidate-name').textContent : '';
-        var party = card ? card.querySelector('.candidate-party').textContent : '';
-        modalName.textContent = name;
-        modalParty.textContent = party;
         voteModal.classList.add('is-open');
         voteModal.setAttribute('aria-hidden', 'false');
     });
@@ -561,9 +831,9 @@ body { background: none !important; }
     });
 
     finalSubmit.addEventListener('click', function() {
-        var selected = document.querySelector('input[name="candidate"]:checked');
-        if (!selected) return;
-        var receipt = generateReceipt(selected.value);
+        var keys = Object.keys(selections);
+        if (keys.length === 0) return;
+        var receipt = generateReceipt();
         localStorage.setItem('orivisVoteReceipt', JSON.stringify(receipt));
         localStorage.setItem('orivisVoteStatus', 'cast');
         voteModal.classList.remove('is-open');
@@ -575,7 +845,7 @@ body { background: none !important; }
             m.id = 'successModal';
             m.className = 'auth-modal';
             m.setAttribute('aria-hidden', 'true');
-            m.innerHTML = '<div class="auth-modal__backdrop"></div><div class="auth-modal__panel"><div class="auth-modal__animated"><div class="auth-modal__spinner" id="dashVoteSpinner"></div><div class="auth-modal__check" id="dashVoteCheck"><svg viewBox="0 0 52 52"><circle class="check-fill" cx="26" cy="26" r="26"/><path class="check-mark" d="M14 27l7 7 16-16"/></svg></div></div><h2 class="auth-modal__title">Decision Recorded!</h2><p class="auth-modal__sub">Your decision has been securely recorded on the blockchain ledger.</p></div>';
+            m.innerHTML = '<div class="auth-modal__backdrop"></div><div class="auth-modal__panel"><div class="auth-modal__animated"><div class="auth-modal__spinner" id="dashVoteSpinner"></div><div class="auth-modal__check" id="dashVoteCheck"><svg viewBox="0 0 52 52"><circle class="check-fill" cx="26" cy="26" r="26"/><path class="check-mark" d="M14 27l7 7 16-16"/></svg></div></div><h2 class="auth-modal__title">All Votes Recorded!</h2><p class="auth-modal__sub">Your decisions have been securely recorded on the blockchain ledger.</p></div>';
             document.body.appendChild(m);
             return m;
         })();
