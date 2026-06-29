@@ -836,6 +836,22 @@ body { background: none !important; }
         var receipt = generateReceipt();
         localStorage.setItem('orivisVoteReceipt', JSON.stringify(receipt));
         localStorage.setItem('orivisVoteStatus', 'cast');
+        var voterCount = parseInt(localStorage.getItem('orivisVoterCount') || '0', 10) + 1;
+        localStorage.setItem('orivisVoterCount', String(voterCount));
+
+        var tallies = JSON.parse(localStorage.getItem('orivisVoteTallies') || '{}');
+        var orgKey = currentOrg;
+        if (!tallies[orgKey]) tallies[orgKey] = {};
+        var positionOrder = ['President','Vice President','Secretary','Treasurer','Public Relations Officer'];
+        positionOrder.forEach(function(pos) {
+            var sel = selections[pos];
+            if (!sel) return;
+            if (!tallies[orgKey][pos]) tallies[orgKey][pos] = {};
+            var name = sel.name;
+            if (!tallies[orgKey][pos][name]) tallies[orgKey][pos][name] = 0;
+            tallies[orgKey][pos][name]++;
+        });
+        localStorage.setItem('orivisVoteTallies', JSON.stringify(tallies));
         voteModal.classList.remove('is-open');
         voterStatus.textContent = 'CAST';
         voterStatus.className = 'status-value text-green font-medium';

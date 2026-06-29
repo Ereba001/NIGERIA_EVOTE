@@ -62,53 +62,27 @@
             <!-- Left Side: Chart -->
             <div class="chart-box" data-aos="fade-right">
                 <h3 style="margin-bottom: 0.5rem;">Board Resolution 2026</h3>
-                <p class="text-sm text-gray" style="margin-bottom: 2rem;">Total Decisions Recorded: 12,842 (15% of registered participants)</p>
+                <p class="text-sm text-gray" style="margin-bottom: 2rem;" id="totalDecisions">Total Decisions Recorded: <span id="voteCount">0</span></p>
                 <div style="height: 400px; width: 100%;">
                     <canvas id="detailedResultsChart"></canvas>
                 </div>
             </div>
 
             <!-- Right Side: State Breakdown Table -->
-            <div class="state-results" data-aos="fade-left">
+             <div class="state-results" data-aos="fade-left">
                 <div class="state-header">
-                    Top Regions Breakdown
+                    Position Leaders
                 </div>
                 <div class="state-table-wrapper">
                     <table class="state-table">
                         <thead>
                             <tr>
-                                <th>Region</th>
-                                <th>Leading</th>
-                                <th>Margin</th>
+                                <th>Position</th>
+                                <th>Leading Candidate</th>
+                                <th>Vote Share</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Northern Region</td>
-                                <td><span class="text-green font-medium">Approve Plan</span></td>
-                                <td>+14%</td>
-                            </tr>
-                            <tr>
-                                <td>Southern Region</td>
-                                <td><span class="text-main font-medium">Adopt Constitution</span></td>
-                                <td>+5%</td>
-                            </tr>
-                            <tr>
-                                <td>Eastern Region</td>
-                                <td><span class="text-main font-medium">Budget Proposal</span></td>
-                                <td>+22%</td>
-                            </tr>
-                            <tr>
-                                <td>Western Region</td>
-                                <td><span class="text-green font-medium">Approve Plan</span></td>
-                                <td>+2%</td>
-                            </tr>
-                            <tr>
-                                <td>Central Region</td>
-                                <td><span class="text-main font-medium">Adopt Constitution</span></td>
-                                <td>+8%</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="leadersBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -175,14 +149,117 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            var orgData = {
+                'Multilancer Ltd.': {
+                    title: 'Multilancer Ltd. General Election',
+                    positions: ['President', 'Vice President', 'Secretary', 'Treasurer', 'Public Relations Officer'],
+                    presidentCandidates: ['Amara Okafor', 'Kelechi Nwosu', 'Chioma Eze'],
+                    candidates: {
+                        'President': [
+                            { name: 'Amara Okafor', party: 'Progressive List' },
+                            { name: 'Kelechi Nwosu', party: 'Unity List' },
+                            { name: 'Chioma Eze', party: 'Reform List' }
+                        ],
+                        'Vice President': [
+                            { name: 'Emeka Obi', party: 'Progressive List' },
+                            { name: 'Ngozi Okeke', party: 'Unity List' },
+                            { name: 'Ifeanyi Ugwu', party: 'Reform List' }
+                        ],
+                        'Secretary': [
+                            { name: 'Adaobi Igwe', party: 'Progressive List' },
+                            { name: 'Chidi Ani', party: 'Unity List' },
+                            { name: 'Somtochi Okafor', party: 'Reform List' }
+                        ],
+                        'Treasurer': [
+                            { name: 'Uchenna Nnaji', party: 'Progressive List' },
+                            { name: 'Obinna Achi', party: 'Unity List' },
+                            { name: 'Adanna Orji', party: 'Reform List' }
+                        ],
+                        'Public Relations Officer': [
+                            { name: 'Chinelo Okoro', party: 'Progressive List' },
+                            { name: 'Tobe Okafor', party: 'Unity List' },
+                            { name: 'Zion Ebere', party: 'Reform List' }
+                        ]
+                    }
+                },
+                'Meranos Ltd.': {
+                    title: 'Meranos Ltd. General Election',
+                    positions: ['President', 'Vice President', 'Secretary', 'Treasurer', 'Public Relations Officer'],
+                    presidentCandidates: ['Election opens Dec 10', '', ''],
+                    candidates: {}
+                },
+                'Rivers State University Faculty of Engineering': {
+                    title: 'RSU Faculty of Engineering Student Union Elections',
+                    positions: ['President', 'Vice President', 'Secretary', 'Treasurer', 'Public Relations Officer'],
+                    presidentCandidates: ['David Wilson', 'Esther Brown', 'Franklin Adams'],
+                    candidates: {
+                        'President': [
+                            { name: 'David Wilson', party: 'Student Alliance' },
+                            { name: 'Esther Brown', party: 'Campus Voice' },
+                            { name: 'Franklin Adams', party: 'Unity Front' }
+                        ],
+                        'Vice President': [
+                            { name: 'Grace Peters', party: 'Student Alliance' },
+                            { name: 'Henry Bassey', party: 'Campus Voice' },
+                            { name: 'Irene Okon', party: 'Unity Front' }
+                        ],
+                        'Secretary': [
+                            { name: 'John Edet', party: 'Student Alliance' },
+                            { name: 'Kemi Johnson', party: 'Campus Voice' },
+                            { name: 'Linda Amadi', party: 'Unity Front' }
+                        ],
+                        'Treasurer': [
+                            { name: 'Michael Emeka', party: 'Student Alliance' },
+                            { name: 'Nancy Eyo', party: 'Campus Voice' },
+                            { name: 'Oscar Udo', party: 'Unity Front' }
+                        ],
+                        'Public Relations Officer': [
+                            { name: 'Patience Harry', party: 'Student Alliance' },
+                            { name: 'Queen Obot', party: 'Campus Voice' },
+                            { name: 'Richard Ekpo', party: 'Unity Front' }
+                        ]
+                    }
+                },
+                'Global Tech Innovators Inc.': {
+                    title: 'Global Tech Innovators Inc. Board Election',
+                    positions: ['President', 'Vice President', 'Secretary', 'Treasurer', 'Public Relations Officer'],
+                    presidentCandidates: ['Election opens Jan 20', '', ''],
+                    candidates: {}
+                }
+            };
+
+            var org = localStorage.getItem('orivisOrg') || 'Multilancer Ltd.';
+            var info = orgData[org] || orgData['Multilancer Ltd.'];
+            var tallies = JSON.parse(localStorage.getItem('orivisVoteTallies') || '{}');
+            var orgTallies = tallies[org] || {};
+            var hasVotes = Object.keys(orgTallies).length > 0;
+            document.getElementById('voteCount').textContent = localStorage.getItem('orivisVoterCount') || '0';
+            document.querySelector('.chart-box h3').textContent = info.title;
+
+            if (!hasVotes) {
+                document.querySelector('.chart-box').innerHTML = '<div style="text-align:center;padding:3rem 1rem;"><p style="color:var(--text-muted);font-size:1.1rem;">No votes have been cast yet for ' + info.title + '. Results will appear here once participants submit their selections.</p></div>';
+                document.querySelector('.state-results').style.display = 'none';
+                return;
+            }
+
+            var presCandidates = info.presidentCandidates;
+            var presTallies = orgTallies['President'] || {};
+            var presData = presCandidates.filter(function(c) { return c; }).map(function(c) { return presTallies[c] || 0; });
+            var totalPres = presData.reduce(function(a, b) { return a + b; }, 0);
+            var abstainPres = Math.floor(totalPres * 0.08);
+            presData.push(abstainPres);
+
+            var chartLabels = presCandidates.filter(function(c) { return c; });
+            chartLabels.push('Abstain');
+
             createChartOnScroll('detailedResultsChart', function() {
                 return {
                     type: 'bar',
                     data: {
-                        labels: ['Approve Plan', 'Adopt Constitution', 'Budget Proposal', 'Abstain'],
+                        labels: chartLabels,
                         datasets: [{
-                            label: 'Decisions',
-                            data: [5393, 4880, 2054, 515],
+                            label: 'President Votes',
+                            data: presData,
                             backgroundColor: ['#1E3A5F','#0F172A','#94A3B8','#E2E8F0'],
                             borderRadius: 6
                         }]
@@ -198,6 +275,36 @@
                         }
                     }
                 };
+            });
+
+            function findLeader(posTallies, posCandidates) {
+                var bestName = null, bestCount = 0, bestParty = '';
+                posCandidates.forEach(function(c) {
+                    var count = posTallies[c.name] || 0;
+                    if (count > bestCount) {
+                        bestCount = count;
+                        bestName = c.name;
+                        bestParty = c.party;
+                    }
+                });
+                return bestName ? { name: bestName, party: bestParty, votes: bestCount } : null;
+            }
+
+            var tbody = document.querySelector('.state-table tbody');
+            tbody.innerHTML = '';
+            var totalVotes = {};
+            info.positions.forEach(function(pos) {
+                var posTallies = orgTallies[pos] || {};
+                var posCandidates = info.candidates[pos] || [];
+                var leader = findLeader(posTallies, posCandidates);
+                if (!leader) return;
+                var total = 0;
+                Object.keys(posTallies).forEach(function(k) { total += posTallies[k]; });
+                totalVotes[pos] = total;
+                var margin = total > 0 ? ((leader.votes / total) * 100).toFixed(1) + '%' : '0%';
+                var row = document.createElement('tr');
+                row.innerHTML = '<td>' + pos + '</td><td><span class="text-green font-medium">' + leader.name + ' (' + leader.party + ')</span></td><td>' + margin + '</td>';
+                tbody.appendChild(row);
             });
         });
     </script>
