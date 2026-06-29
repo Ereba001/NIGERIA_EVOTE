@@ -1,0 +1,113 @@
+/* Mobile-only styles — desktop untouched */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+    z-index: 110;
+    gap: 5px;
+    order: 10;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  /* Slide-down mobile nav panel */
+  .navbar .nav-links,
+  .navbar .nav-dash {
+    display: none;
+    position: fixed;
+    top: 58px;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    z-index: 100;
+    overflow-y: auto;
+    max-height: calc(100vh - 58px);
+    gap: 0;
+  }
+  .navbar .nav-links.open,
+  .navbar .nav-dash.open {
+    display: flex;
+  }
+  .navbar .nav-links a,
+  .navbar .nav-dash a {
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+  }
+  .navbar .nav-links a:last-child,
+  .navbar .nav-dash a:last-child {
+    border-bottom: none;
+  }
+
+  /* Backdrop overlay when mobile menu is open */
+  .nav-links.open::before,
+  .nav-dash.open::before {
+    content: '';
+    position: fixed;
+    top: 58px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: -1;
+  }
+
+  /* Hide original nav-actions on mobile — included in slide-down via manual links */
+  .nav-actions {
+    display: none !important;
+  }
+  .nav-user .user-info {
+    display: none !important;
+  }
+
+  /* Auth pages: convert nav-actions into nav-links for the slide-down */
+  .navbar-auth .nav-links {
+    display: none;
+  }
+  .navbar-auth .nav-links.open {
+    display: flex;
+  }
+  .navbar-auth .nav-links a {
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important;
+  }
+}

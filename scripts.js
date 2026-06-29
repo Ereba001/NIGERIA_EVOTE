@@ -208,6 +208,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Hamburger menu toggle
+    var ham = document.querySelector('.hamburger');
+    if (ham) {
+        ham.addEventListener('click', function() {
+            this.classList.toggle('active');
+            var menu = document.querySelector('.navbar .nav-links, .navbar .nav-dash');
+            if (menu) menu.classList.toggle('open');
+        });
+        // Close menu on link click
+        document.querySelectorAll('.navbar .nav-links a, .navbar .nav-dash a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                ham.classList.remove('active');
+                var menu = document.querySelector('.navbar .nav-links, .navbar .nav-dash');
+                if (menu) menu.classList.remove('open');
+            });
+        });
+    }
+
     document.querySelectorAll('[data-copy-target]').forEach(button => {
         button.addEventListener('click', async () => {
             const target = document.getElementById(button.dataset.copyTarget);
