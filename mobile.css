@@ -210,6 +210,21 @@
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
   }
+  .guide-card {
+    padding: 1.25rem !important;
+    overflow: hidden;
+  }
+  .guide-card p {
+    font-size: 0.8125rem !important;
+    margin-bottom: 1rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .guide-btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   /* Auth pages: convert nav-actions into nav-links for the slide-down */
   .navbar-auth .nav-links {
